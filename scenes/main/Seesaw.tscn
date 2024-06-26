@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4ev7bc2dtktq"]
+
+[ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="1_6t2mf"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xcyfh"]
+friction = 0.3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi5xb"]
+size = Vector2(496, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btof6"]
+size = Vector2(8, 6)
+
+[node name="Seesaw" type="Node2D"]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(294, 220)
+node_a = NodePath("../SeesawPin")
+node_b = NodePath("../SeesawGround")
+
+[node name="SeesawGround" type="RigidBody2D" parent="."]
+position = Vector2(75, 186)
+mass = 50.0
+physics_material_override = SubResource("PhysicsMaterial_xcyfh")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SeesawGround"]
+position = Vector2(219, 34.5)
+shape = SubResource("RectangleShape2D_wi5xb")
+
+[node name="Sprite2D" type="Sprite2D" parent="SeesawGround"]
+modulate = Color(0.17188, 0.488489, 0.500614, 1)
+position = Vector2(218.5, 34.5)
+scale = Vector2(493, 17)
+texture = ExtResource("1_6t2mf")
+
+[node name="SeesawPin" type="StaticBody2D" parent="."]
+position = Vector2(297, 226)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="SeesawPin"]
+modulate = Color(0.870588, 1, 1, 1)
+position = Vector2(-2.99998, 74.5)
+scale = Vector2(12, 167)
+texture = ExtResource("1_6t2mf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SeesawPin"]
+position = Vector2(-3, -6)
+shape = SubResource("RectangleShape2D_btof6")

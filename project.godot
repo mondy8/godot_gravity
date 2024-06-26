@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="MyGame"
-run/main_scene="res://scenes/boot/godot/godot_bootsplash_scene.tscn"
+run/main_scene="res://scenes/ingame_scene.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.svg"
 
@@ -27,6 +27,10 @@ window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
+
+[editor]
+
+movie_writer/movie_file="/Users/imaoka/Documents/_movie/godot_rec.avi"
 
 [gui]
 
@@ -93,4 +97,4 @@ locale/translations=PackedStringArray("res://i18n/translation.de.translation", "
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.211765, 0.239216, 0.321569, 1)
+environment/defaults/default_clear_color=Color(0.121569, 0.121569, 0.121569, 1)
