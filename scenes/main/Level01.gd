@@ -1,7 +1,6 @@
 extends Node2D
 
-class_name ingame
-static var game_set = false
+class_name Ingame
 
 @onready var player = $Player
 @onready var enemy = $Enemy
@@ -9,6 +8,9 @@ static var game_set = false
 @onready var result = $ResultUI
 @onready var resultButton = $ResultUI/ResultButton
 @onready var resultText = $ResultUI/ResultText
+@onready var camera = $MainCamera
+
+var is_game_set = false
 
 # レベル変更シグナル
 signal change_level(newLevel:String)
@@ -21,8 +23,11 @@ func _ready() -> void:
 	# playerからシーソーへ与えるシグナル
 	player.seesaw_collided.connect(_on_seesaw_collided)
 	enemy.seesaw_collided.connect(_on_seesaw_collided)
+	# 脱落シグナル
 	player.game_set.connect(_on_game_set)
 	enemy.game_set.connect(_on_game_set)
+	# カメラシェイクシグナル
+	player.camera_shake.connect(_on_camera_shake)
 	
 # シーソーへの衝突処理
 func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
@@ -30,22 +35,37 @@ func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
 	var seesawPosition = seesawGround.to_local(collided_position)
 	seesawGround.apply_impulse(seesawPosition, impulse)
 
+# ゲーム終了
 func _on_game_set(loser:String):
-	if !game_set:
+	if !is_game_set:
 		result.visible = true
 		if loser == 'player':
+			is_game_set = true
 			resultText.text = 'You Lose'
 			resultButton.visible = true
-			var timer = self.get_tree().create_timer(1)
-			await timer.timeout
 			print('lose')
+			return
 		else:
+			is_game_set = true
 			resultText.text = 'You Win'
-			var timer = self.get_tree().create_timer(1)
+			var timer = self.get_tree().create_timer(2)
 			await timer.timeout
 			print('win')
 			change_level.emit("level01")
+			return
 
+# ボタンが押されたときにレベルを変更
 func _on_result_button_pressed():
-	# ボタンが押されたときにレベルを変更
 	change_level.emit("level01")
+
+# カメラシェイク
+func _on_camera_shake(duration: float, magnitude: float) -> void:
+	var tween = get_tree().create_tween()
+
+	# duration秒かけてカメラを揺らす
+	for i in range(int(duration * 10)):  # 10は更新頻度（1秒間に10回更新）
+		var offset = Vector2(randf_range(-magnitude, magnitude), randf_range(-magnitude, magnitude))
+		tween.tween_property(camera, "offset", Vector2(288, 162) + offset, 0.1)
+
+	# 元の位置に戻す
+	tween.tween_property(camera, "offset", Vector2(288, 162), 0.1)

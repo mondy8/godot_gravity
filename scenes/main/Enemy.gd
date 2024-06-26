@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+class_name Enemy
+
 @export var screen_width: float = 576.0  # 画面の幅
 
 @export var move_speed: float = 1000.0
@@ -18,6 +20,7 @@ extends RigidBody2D
 
 # 着地後にシーソーに与えるシグナル
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
+# 脱落シグナル
 signal game_set(loser:String)
 
 var direction = 1  # 初期の移動方向（右に移動）
@@ -28,7 +31,7 @@ func _ready():
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > 400:
+	if position.y > 400 or position.x < -150 or position.x > 576 + 150:
 		set_freeze_enabled(true)
 		game_set.emit('enemy')
 		return

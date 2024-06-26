@@ -19,12 +19,38 @@ texture = ExtResource("2_f1gqa")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ijchr")
 
-[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+[node name="Raycast" type="Node2D" parent="."]
+
+[node name="LeftTopRayCast2D" type="RayCast2D" parent="Raycast"]
+position = Vector2(-16, -15)
+target_position = Vector2(0, -12)
+
+[node name="LeftBottomRayCast2D" type="RayCast2D" parent="Raycast"]
 position = Vector2(15, 15)
 target_position = Vector2(0, 18)
 
-[node name="RightRayCast2D" type="RayCast2D" parent="."]
+[node name="RightBottomRayCast2D2" type="RayCast2D" parent="Raycast"]
 position = Vector2(-16, 15)
 target_position = Vector2(0, 18)
+
+[node name="RightBottomRayCast2D" type="RayCast2D" parent="Raycast"]
+position = Vector2(16, 13)
+target_position = Vector2(15, 0)
+
+[node name="RightTopRayCast2D" type="RayCast2D" parent="Raycast"]
+position = Vector2(16, -15)
+target_position = Vector2(15, 0)
+
+[node name="LeftTopRayCast2D2" type="RayCast2D" parent="Raycast"]
+position = Vector2(-16, -15)
+target_position = Vector2(-13, 0)
+
+[node name="TopLeftRayCast2D" type="RayCast2D" parent="Raycast"]
+position = Vector2(-16, 15)
+target_position = Vector2(-13, 0)
+
+[node name="RightTopRayCast2D2" type="RayCast2D" parent="Raycast"]
+position = Vector2(16, -15)
+target_position = Vector2(0, -12)
 
 [connection signal="seesaw_collided" from="." to="." method="_on_seesaw_collided"]
