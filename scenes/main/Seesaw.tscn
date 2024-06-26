@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4ev7bc2dtktq"]
+[gd_scene load_steps=6 format=3 uid="uid://b4ev7bc2dtktq"]
 
 [ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="1_6t2mf"]
+[ext_resource type="Script" path="res://scenes/main/SeesawGround.gd" id="1_h0ip7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xcyfh"]
 friction = 0.3
@@ -22,6 +23,7 @@ node_b = NodePath("../SeesawGround")
 position = Vector2(75, 186)
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_xcyfh")
+script = ExtResource("1_h0ip7")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SeesawGround"]

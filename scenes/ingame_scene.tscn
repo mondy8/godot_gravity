@@ -1,19 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene load_steps=11 format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="Script" path="res://scenes/ingame_scene.gd" id="1_objyc"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="1_y6ebv"]
 [ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="2_1h86l"]
 [ext_resource type="PackedScene" uid="uid://dpscixfrpu3he" path="res://scenes/main/Player.tscn" id="3_0cwpl"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="3_8o178"]
-[ext_resource type="PackedScene" uid="uid://b4ev7bc2dtktq" path="res://scenes/main/Seesaw.tscn" id="6_7uftx"]
+[ext_resource type="Script" path="res://scenes/main/SeesawGround.gd" id="6_bnfg0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwd6p"]
 size = Vector2(574.5, 54)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ghm4b"]
+friction = 0.3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyt5y"]
+size = Vector2(492, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lrioi"]
+size = Vector2(8, 6)
 
 [node name="IngameScene" type="Node2D"]
 script = ExtResource("1_objyc")
 
 [node name="Player" parent="." instance=ExtResource("3_0cwpl")]
+position = Vector2(208, 12)
 move_speed = 50.0
 move_speed_max = 250
 jump_speed = 500.0
@@ -43,5 +53,39 @@ texture = ExtResource("2_1h86l")
 position = Vector2(287.75, 27)
 shape = SubResource("RectangleShape2D_mwd6p")
 
-[node name="Seesaw" parent="." instance=ExtResource("6_7uftx")]
-position = Vector2(0, -24)
+[node name="Seesaw" type="Node2D" parent="."]
+position = Vector2(0, -25)
+metadata/_edit_group_ = true
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Seesaw"]
+position = Vector2(294, 220)
+node_a = NodePath("../SeesawPin")
+node_b = NodePath("../SeesawGround")
+
+[node name="SeesawGround" type="RigidBody2D" parent="Seesaw"]
+position = Vector2(294, 220)
+mass = 50.0
+physics_material_override = SubResource("PhysicsMaterial_ghm4b")
+script = ExtResource("6_bnfg0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawGround"]
+shape = SubResource("RectangleShape2D_eyt5y")
+
+[node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawGround"]
+modulate = Color(0.17188, 0.488489, 0.500614, 1)
+scale = Vector2(493, 17)
+texture = ExtResource("2_1h86l")
+
+[node name="SeesawPin" type="StaticBody2D" parent="Seesaw"]
+position = Vector2(297, 226)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawPin"]
+modulate = Color(0.870588, 1, 1, 1)
+position = Vector2(-2.99998, 74.5)
+scale = Vector2(12, 167)
+texture = ExtResource("2_1h86l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawPin"]
+position = Vector2(-3, -6)
+shape = SubResource("RectangleShape2D_lrioi")
