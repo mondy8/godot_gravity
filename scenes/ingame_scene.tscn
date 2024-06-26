@@ -5,13 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="2_1h86l"]
 [ext_resource type="PackedScene" uid="uid://dpscixfrpu3he" path="res://scenes/main/Player.tscn" id="3_0cwpl"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="3_8o178"]
-[ext_resource type="Script" path="res://scenes/main/SeesawGround.gd" id="6_bnfg0"]
+[ext_resource type="PackedScene" uid="uid://bpnqm8peuh0mu" path="res://scenes/main/Enemy.tscn" id="6_ub1ox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mwd6p"]
-size = Vector2(574.5, 54)
+size = Vector2(368, 54)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ghm4b"]
-friction = 0.3
+friction = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eyt5y"]
 size = Vector2(492, 15)
@@ -45,12 +45,12 @@ position = Vector2(0, 307)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Ground"]
-position = Vector2(287.75, 26.75)
-scale = Vector2(576.5, 54.5)
+position = Vector2(295, 26.75)
+scale = Vector2(370, 54.5)
 texture = ExtResource("2_1h86l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(287.75, 27)
+position = Vector2(295, 27)
 shape = SubResource("RectangleShape2D_mwd6p")
 
 [node name="Seesaw" type="Node2D" parent="."]
@@ -66,7 +66,6 @@ node_b = NodePath("../SeesawGround")
 position = Vector2(294, 220)
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_ghm4b")
-script = ExtResource("6_bnfg0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawGround"]
 shape = SubResource("RectangleShape2D_eyt5y")
@@ -89,3 +88,6 @@ texture = ExtResource("2_1h86l")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawPin"]
 position = Vector2(-3, -6)
 shape = SubResource("RectangleShape2D_lrioi")
+
+[node name="Enemy" parent="." instance=ExtResource("6_ub1ox")]
+move_speed_max = 5

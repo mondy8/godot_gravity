@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpnqm8peuh0mu"]
+
+[ext_resource type="Texture2D" uid="uid://dmelj2qgr8w7k" path="res://icon.svg" id="1_88i58"]
+[ext_resource type="Script" path="res://scenes/main/Enemy.gd" id="1_ybigx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1ilc"]
+size = Vector2(52, 51)
+
+[node name="Enemy" type="RigidBody2D"]
+position = Vector2(452, 78)
+mass = 2.0
+lock_rotation = true
+script = ExtResource("1_ybigx")
+move_speed = 10.0
+move_speed_max = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_p1ilc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.894118, 0, 0, 1)
+position = Vector2(-3.8147e-06, 3.8147e-06)
+scale = Vector2(0.429688, 0.4375)
+texture = ExtResource("1_88i58")
+
+[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 86.8571)
+
+[node name="RightRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 80)

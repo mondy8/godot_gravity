@@ -3,6 +3,7 @@ extends Node2D
 @onready var fade_overlay = %FadeOverlay
 @onready var pause_overlay = %PauseOverlay
 @onready var player = $Player
+@onready var enemy = $Enemy
 @onready var seesawGround = $Seesaw/SeesawGround
 
 func _ready() -> void:
@@ -15,6 +16,7 @@ func _ready() -> void:
 	
 	# playerからシーソーへ与えるシグナル
 	player.player_seesaw_collided.connect(_on_player_seesaw_collided)
+	enemy.enemy_seesaw_collided.connect(_on_enemy_seesaw_collided)
 
 
 func _input(event) -> void:
@@ -29,8 +31,11 @@ func _save_game() -> void:
 
 # シーソーへの衝突処理
 func _on_player_seesaw_collided(collided_position:Vector2, impulse:Vector2):
-	print("Observed1 got notify from Subject !!")
+	print("Player got notify from Subject !!")
 	var seesawPosition = seesawGround.to_local(collided_position)
 	seesawGround.apply_impulse(seesawPosition, impulse)
-	print(collided_position)
-	print(seesawPosition)
+
+func _on_enemy_seesaw_collided(collided_position:Vector2, impulse:Vector2):
+	print("Enemy got notify from Subject !!")
+	var seesawPosition = seesawGround.to_local(collided_position)
+	seesawGround.apply_impulse(seesawPosition, impulse)
