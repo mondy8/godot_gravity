@@ -19,12 +19,21 @@ extends RigidBody2D
 @onready var is_dropping := false
 
 # 着地後にシーソーに与えるシグナル
-signal player_seesaw_collided(collided_position:Vector2, impulse:Vector2)
+signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
+signal game_set(winner:String)
 
 func _ready():
 	pass
 
 func _physics_process(delta):
+	print(position)
+	# 脱落
+	if position.y > 400:
+		set_freeze_enabled(true)
+		game_set.emit('player')
+		return
+	
+	# メイン処理
 	var can_jump = check_jump()
 	if can_jump == true and can_jump_buffer == false:
 		var collision_point = get_global_position()
@@ -36,7 +45,7 @@ func _physics_process(delta):
 		if is_dropping:
 			impulse = impulse * 20
 			is_dropping = false
-		player_seesaw_collided.emit(collision_point, impulse)
+		seesaw_collided.emit(collision_point, impulse)
 	var force = await input_process(can_jump)
 	self.apply_impulse(force, Vector2(0, 0))
 	can_jump_buffer = can_jump

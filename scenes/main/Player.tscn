@@ -26,3 +26,5 @@ target_position = Vector2(0, 18)
 [node name="RightRayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-16, 15)
 target_position = Vector2(0, 18)
+
+[connection signal="seesaw_collided" from="." to="." method="_on_seesaw_collided"]
