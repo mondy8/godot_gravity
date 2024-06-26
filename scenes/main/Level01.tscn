@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://cjdhuqymuxw5u"]
+
+[ext_resource type="Script" path="res://scenes/main/Level01.gd" id="1_51tbm"]
+[ext_resource type="PackedScene" uid="uid://dpscixfrpu3he" path="res://scenes/main/Player.tscn" id="2_n4gn4"]
+[ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="3_xcwjs"]
+[ext_resource type="PackedScene" uid="uid://bpnqm8peuh0mu" path="res://scenes/main/Enemy.tscn" id="4_wf2ra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eh2sk"]
+size = Vector2(368, 54)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bdtun"]
+friction = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idmju"]
+size = Vector2(492, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omd2s"]
+size = Vector2(8, 6)
+
+[node name="Level01" type="Node2D"]
+script = ExtResource("1_51tbm")
+
+[node name="Player" parent="." instance=ExtResource("2_n4gn4")]
+position = Vector2(208, 12)
+move_speed = 50.0
+move_speed_max = 250
+jump_speed = 500.0
+
+[node name="Ground" type="StaticBody2D" parent="."]
+modulate = Color(0.870588, 1, 1, 1)
+position = Vector2(0, 307)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+position = Vector2(295, 26.75)
+scale = Vector2(370, 54.5)
+texture = ExtResource("3_xcwjs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(295, 27)
+shape = SubResource("RectangleShape2D_eh2sk")
+
+[node name="Seesaw" type="Node2D" parent="."]
+position = Vector2(0, -25)
+metadata/_edit_group_ = true
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Seesaw"]
+position = Vector2(294, 220)
+node_a = NodePath("../SeesawPin")
+node_b = NodePath("../SeesawGround")
+
+[node name="SeesawGround" type="RigidBody2D" parent="Seesaw"]
+position = Vector2(294, 220)
+mass = 50.0
+physics_material_override = SubResource("PhysicsMaterial_bdtun")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawGround"]
+shape = SubResource("RectangleShape2D_idmju")
+
+[node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawGround"]
+modulate = Color(0.17188, 0.488489, 0.500614, 1)
+scale = Vector2(493, 17)
+texture = ExtResource("3_xcwjs")
+
+[node name="SeesawPin" type="StaticBody2D" parent="Seesaw"]
+position = Vector2(297, 226)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawPin"]
+modulate = Color(0.870588, 1, 1, 1)
+position = Vector2(-2.99998, 74.5)
+scale = Vector2(12, 167)
+texture = ExtResource("3_xcwjs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawPin"]
+position = Vector2(-3, -6)
+shape = SubResource("RectangleShape2D_omd2s")
+
+[node name="Enemy" parent="." instance=ExtResource("4_wf2ra")]
+move_speed_max = 5
+
+[node name="ResultUI" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ResultButton" type="Button" parent="ResultUI"]
+visible = false
+offset_left = 172.0
+offset_top = 204.0
+offset_right = 419.0
+offset_bottom = 239.0
+text = "リベンジする！"
+
+[node name="ResultText" type="Label" parent="ResultUI"]
+offset_top = 109.0
+offset_right = 576.0
+offset_bottom = 164.0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1

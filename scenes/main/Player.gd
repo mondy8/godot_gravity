@@ -26,7 +26,6 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	print(position)
 	# 脱落
 	if position.y > 400:
 		set_freeze_enabled(true)
