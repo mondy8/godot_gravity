@@ -99,7 +99,7 @@ func input_process(can_jump:bool) -> Vector2:
 			return Vector2(move_right_force.x/6, 0)
 		if Input.is_action_pressed("move_left") and self.linear_velocity.x > -move_speed_max:
 			return Vector2(move_left_force.x/6, 0)
-		if Input.is_action_just_pressed("move_down"):
+		if Input.is_action_just_pressed("move_down") and !is_dropping:
 			is_dropping = true
 			set_freeze_enabled(true)
 			var tween = get_tree().create_tween()

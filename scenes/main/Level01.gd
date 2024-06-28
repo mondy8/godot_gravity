@@ -1,19 +1,21 @@
 extends Node2D
 
-class_name Ingame
-
 @onready var player = $Player
-@onready var enemy = $Enemy
+@onready var enemy = $Enemy_heavy
 @onready var seesawGround = $Seesaw/SeesawGround
 @onready var result = $ResultUI
 @onready var resultButton = $ResultUI/ResultButton
 @onready var resultText = $ResultUI/ResultText
+@onready var levelText = $LevelUI/LevelText
+
 @onready var camera = $MainCamera
 
 var is_game_set = false
 
 # レベル変更シグナル
 signal change_level(newLevel:String)
+# タイマー操作シグナル
+signal start_timer(control: bool)
 
 func _ready() -> void:
 	result.visible = false
@@ -29,6 +31,13 @@ func _ready() -> void:
 	# カメラシェイクシグナル
 	player.camera_shake.connect(_on_camera_shake)
 	
+	levelText.text = "Level " + str(Global.current_level)
+	levelText.visible = true
+	var timer = self.get_tree().create_timer(1)
+	await timer.timeout
+	levelText.visible = false
+	start_timer.emit(true)
+	
 # シーソーへの衝突処理
 func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
 	print("object got notify from Subject !!")
@@ -38,7 +47,8 @@ func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
 # ゲーム終了
 func _on_game_set(loser:String):
 	if !is_game_set:
-		result.visible = true
+		result.visible = true	
+		start_timer.emit(false)
 		if loser == 'player':
 			is_game_set = true
 			resultText.text = 'You Lose'
@@ -51,12 +61,14 @@ func _on_game_set(loser:String):
 			var timer = self.get_tree().create_timer(2)
 			await timer.timeout
 			print('win')
-			change_level.emit("level01")
+			change_level.emit(Global.current_level + 1)
 			return
 
 # ボタンが押されたときにレベルを変更
 func _on_result_button_pressed():
-	change_level.emit("level01")
+	# レベルはリセットする
+	Global.time = 0
+	change_level.emit(1)
 
 # カメラシェイク
 func _on_camera_shake(duration: float, magnitude: float) -> void:

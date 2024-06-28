@@ -6,17 +6,22 @@
 
 [sub_resource type="GDScript" id="GDScript_gossy"]
 script/source = "extends Node2D
+class_name ingame
 
 const LEVEL_SCENE_01 = preload(\"res://scenes/main/Level01.tscn\")
+
 @onready var game = $Game
 @onready var level01 = $Game/Level01
+@onready var timer = $Timer
+@onready var timeLabel = $TimeText/TimeLabel
+
 @onready var fade_overlay = %FadeOverlay
 @onready var pause_overlay = %PauseOverlay
 
 var level_signal_connected = false
 
 func _ready():
-	level01.change_level.connect(_on_change_level)
+	connect_signal(level01)
 		
 	fade_overlay.visible = true
 	if SaveGame.has_save():
@@ -35,16 +40,33 @@ func _input(event) -> void:
 func _save_game() -> void:
 	SaveGame.save_game(get_tree())
 
-func _on_change_level(newLevel:String):
+func _on_change_level(newLevel:int):
+	Global.current_level = newLevel
+	timeLabel.text = \"time: \" + str(\"%.1f\" % Global.time)
 	for child in game.get_children():
 		child.queue_free()
 		
 	# 新しいシーンをインスタンス化
-	if newLevel == \"level01\":
-		var scene_instance = LEVEL_SCENE_01.instantiate()
-		# 新しいシーンをツリーに追加
-		game.add_child(scene_instance)
-		scene_instance.change_level.connect(_on_change_level)
+	var scene_instance = LEVEL_SCENE_01.instantiate()
+	# 新しいシーンをツリーに追加
+	game.add_child(scene_instance)
+	connect_signal(scene_instance)
+	
+func _on_start_timer(control: bool):
+	if control:
+		timer.start()
+	else:
+		timer.stop()
+
+func _on_timer_timeout() -> void:
+	var newTime = Global.time + 0.1
+	timeLabel.text = \"Time: \" + str(\"%.1f\" % newTime)
+	Global.time = newTime
+
+func connect_signal(scene_instance):
+	scene_instance.change_level.connect(_on_change_level)
+	scene_instance.start_timer.connect(_on_start_timer)
+	
 "
 
 [node name="IngameScene" type="Node2D"]
@@ -64,3 +86,17 @@ visible = false
 [node name="Game" type="Node2D" parent="."]
 
 [node name="Level01" parent="Game" instance=ExtResource("3_aqr0l")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="TimeText" type="CanvasLayer" parent="."]
+
+[node name="TimeLabel" type="Label" parent="TimeText"]
+offset_left = 5.0
+offset_right = 75.0
+offset_bottom = 23.0
+text = "Time: 0
+"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
