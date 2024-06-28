@@ -16,6 +16,10 @@ extends RigidBody2D
 @onready var ray = $Raycast
 @onready var ray_right_foot = $Raycast/RightBottomRayCast2D2
 @onready var ray_left_foot = $Raycast/LeftBottomRayCast2D
+@onready var audio_jump = $AudioJump
+@onready var audio_drop = $AudioDrop
+@onready var audio_attacked = $AudioAttacked
+
 
 @onready var can_jump_buffer := false
 @onready var is_dropping := false
@@ -70,6 +74,8 @@ func check_enemy_bump():
 		if child.is_colliding():
 			var collider = child.get_collider()
 			if collider is Enemy:
+				if !audio_attacked.playing:
+					audio_attacked.play()
 				var collider_position = collider.get_global_position()
 				var self_position = global_position
 				var direction = (self_position - collider_position).normalized()
@@ -92,6 +98,7 @@ func input_process(can_jump:bool) -> Vector2:
 		if Input.is_action_pressed("move_left") and self.linear_velocity.x > -move_speed_max:
 			return move_left_force
 		if Input.is_action_just_pressed("move_up"):
+			audio_jump.play()
 			return jump_force
 		
 	else:
@@ -109,6 +116,7 @@ func input_process(can_jump:bool) -> Vector2:
 			tween.play()
 			var timer = self.get_tree().create_timer(0.5)
 			await timer.timeout
+			audio_drop.play()
 			set_freeze_enabled(false)
 			return drop_force
 	return Vector2(0, 0)

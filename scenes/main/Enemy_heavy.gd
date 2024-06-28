@@ -10,6 +10,8 @@ extends Enemy
 @onready var jump_force = Vector2(0, -jump_speed)
 @onready var collision_normal = Vector2(0, -1)
 
+@onready var audio_jump = $AudioJump
+
 @onready var can_jump_buffer := false
 
 # 脱落シグナル
@@ -62,6 +64,7 @@ func _physics_process(delta):
 
 func jump():
 	if check_jump():
+		audio_jump.play()
 		apply_central_impulse(jump_force)
 
 func randomize_jump():

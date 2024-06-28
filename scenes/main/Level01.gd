@@ -7,7 +7,8 @@ extends Node2D
 @onready var resultButton = $ResultUI/ResultButton
 @onready var resultText = $ResultUI/ResultText
 @onready var levelText = $LevelUI/LevelText
-
+@onready var audio_clear = $AudioClear1
+@onready var audio_lose = $AudioLose
 @onready var camera = $MainCamera
 
 var is_game_set = false
@@ -50,12 +51,14 @@ func _on_game_set(loser:String):
 		result.visible = true	
 		start_timer.emit(false)
 		if loser == 'player':
+			audio_lose.play()
 			is_game_set = true
 			resultText.text = 'You Lose'
 			resultButton.visible = true
 			print('lose')
 			return
 		else:
+			audio_clear.play()
 			is_game_set = true
 			resultText.text = 'You Win'
 			var timer = self.get_tree().create_timer(2)
