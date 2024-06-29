@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjdhuqymuxw5u"]
+[gd_scene load_steps=12 format=3 uid="uid://cjdhuqymuxw5u"]
 
 [ext_resource type="Script" path="res://scenes/main/Level01.gd" id="1_51tbm"]
 [ext_resource type="PackedScene" uid="uid://dpscixfrpu3he" path="res://scenes/main/Player.tscn" id="2_n4gn4"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b6m1nmqr4qh0e" path="res://scenes/main/Enemy_heavy.tscn" id="5_7ln27"]
 [ext_resource type="AudioStream" uid="uid://cdyw4oy12qlpi" path="res://music/歓声と拍手2.mp3" id="5_bj7mr"]
 [ext_resource type="AudioStream" uid="uid://cfdre65jo3orq" path="res://music/スタジアムの拍手.mp3" id="6_cesxj"]
+[ext_resource type="AudioStream" uid="uid://d33ruoa7ai7ro" path="res://music/スタジアムの歓声2.mp3" id="7_2fnkt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eh2sk"]
 size = Vector2(368, 54)
@@ -79,7 +80,6 @@ position = Vector2(-3, -6)
 shape = SubResource("RectangleShape2D_omd2s")
 
 [node name="ResultUI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ResultButton" type="Button" parent="ResultUI"]
 visible = false
@@ -94,6 +94,13 @@ offset_top = 109.0
 offset_right = 576.0
 offset_bottom = 164.0
 theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeText" type="Label" parent="ResultUI"]
+offset_top = 61.0
+offset_right = 576.0
+offset_bottom = 84.0
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -120,4 +127,8 @@ bus = &"Sound"
 
 [node name="AudioLose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_cesxj")
+bus = &"Sound"
+
+[node name="AudioWinner" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_2fnkt")
 bus = &"Sound"

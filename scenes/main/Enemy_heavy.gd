@@ -2,17 +2,16 @@ extends Enemy
 
 @export var screen_width: float = 576.0  # 画面の幅
 
-@export var move_speed: float = 10.0
-@export var move_speed_max:float = 10.0
+@export var move_speed: float = 30.0
+@export var move_speed_max:float = 30.0
 @export var jump_speed: float = 600.0
 @export var base_jump_impulse_strength: float = 1000.0
-
 @onready var jump_force = Vector2(0, -jump_speed)
 @onready var collision_normal = Vector2(0, -1)
 
+@onready var collision_shape = $CollisionShape2D
+@onready var sprite = $Sprite2D
 @onready var audio_jump = $AudioJump
-
-@onready var can_jump_buffer := false
 
 # 脱落シグナル
 signal game_set(loser:String)
@@ -21,9 +20,48 @@ signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
 
 var direction = 1  # 初期の移動方向（右に移動）
 var jump_timer = 0  # ジャンプタイマー
+var jump_enable = false
+var can_jump_buffer := false
 
 func _ready():
 	randomize_jump()
+	
+	# 色
+	if Global.current_level < 4:
+		self.modulate  = Color(1, 1, 1, 1)
+	elif Global.current_level < 7:
+		self.modulate  = Color(1, 0.5, 0.5, 1)
+	else:
+		self.modulate  = Color(1, 0, 0, 1)
+	
+	# サイズ
+	if Global.current_level in [1, 4, 5]:
+		sprite.scale = Vector2(0.3, 0.3)
+		collision_shape.scale = Vector2(0.3, 0.3)
+	elif Global.current_level in [2, 6, 7]:
+		sprite.scale = Vector2(0.5, 0.5)
+		collision_shape.scale = Vector2(0.5, 0.5)
+	else:
+		sprite.scale = Vector2(0.7, 0.7)
+		collision_shape.scale = Vector2(0.7, 0.7)
+		
+	# ジャンプの有無
+	jump_enable = Global.current_level > 3
+	
+	# 移動スピード 
+	if Global.current_level in [2, 4,]:
+		move_speed = 50.0
+		move_speed_max = 30.0
+	elif Global.current_level in [1, 3]:
+		move_speed = 40.0
+		move_speed_max = 30.0
+	elif Global.current_level in [5, 6, 7]:
+		move_speed = 30.0
+		move_speed_max = 30.0
+	else:
+		move_speed = 10.0
+		move_speed_max = 10.0
+	
 
 func _physics_process(delta):
 	# 脱落
@@ -40,10 +78,11 @@ func _physics_process(delta):
 		direction = 1
 
 	# ランダムなタイミングでジャンプ
-	jump_timer -= delta
-	if jump_timer <= 0:
-		jump()
-		randomize_jump()
+	if jump_enable:
+		jump_timer -= delta
+		if jump_timer <= 0:
+			jump()
+			randomize_jump()
 	
 	# メイン処理
 	var can_jump = check_jump()

@@ -6,9 +6,11 @@ extends Node2D
 @onready var result = $ResultUI
 @onready var resultButton = $ResultUI/ResultButton
 @onready var resultText = $ResultUI/ResultText
+@onready var timetText = $ResultUI/TimeText
 @onready var levelText = $LevelUI/LevelText
 @onready var audio_clear = $AudioClear1
 @onready var audio_lose = $AudioLose
+@onready var audio_winner = $AudioWinner
 @onready var camera = $MainCamera
 
 var is_game_set = false
@@ -58,13 +60,20 @@ func _on_game_set(loser:String):
 			print('lose')
 			return
 		else:
-			audio_clear.play()
-			is_game_set = true
-			resultText.text = 'You Win'
-			var timer = self.get_tree().create_timer(2)
-			await timer.timeout
-			print('win')
-			change_level.emit(Global.current_level + 1)
+			if Global.current_level == 10:
+				audio_winner.play()
+				is_game_set = true
+				resultText.text = 'You Are the Champion!\nThank you for playing'
+				timetText.text = "Clear time: " + str(Global.time)
+				
+			else:
+				audio_clear.play()
+				is_game_set = true
+				resultText.text = 'You Win'
+				var timer = self.get_tree().create_timer(2)
+				await timer.timeout
+				print('win')
+				change_level.emit(Global.current_level + 1)
 			return
 
 # ボタンが押されたときにレベルを変更
