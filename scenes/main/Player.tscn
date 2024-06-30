@@ -28,13 +28,13 @@ shape = SubResource("CircleShape2D_ijchr")
 position = Vector2(-16, -15)
 target_position = Vector2(0, -12)
 
-[node name="LeftBottomRayCast2D" type="RayCast2D" parent="Raycast"]
+[node name="RightFootRayCast2D" type="RayCast2D" parent="Raycast"]
 position = Vector2(15, 15)
-target_position = Vector2(0, 18)
+target_position = Vector2(0, 20)
 
-[node name="RightBottomRayCast2D2" type="RayCast2D" parent="Raycast"]
+[node name="LeftFootRayCast2D" type="RayCast2D" parent="Raycast"]
 position = Vector2(-16, 15)
-target_position = Vector2(0, 18)
+target_position = Vector2(0, 19)
 
 [node name="RightBottomRayCast2D" type="RayCast2D" parent="Raycast"]
 position = Vector2(16, 13)

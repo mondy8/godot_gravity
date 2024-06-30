@@ -15,7 +15,7 @@ size = Vector2(368, 54)
 friction = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_idmju"]
-size = Vector2(492, 15)
+size = Vector2(496, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omd2s"]
 size = Vector2(8, 6)
@@ -57,13 +57,14 @@ position = Vector2(294, 220)
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_bdtun")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawGround"]
-shape = SubResource("RectangleShape2D_idmju")
-
 [node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawGround"]
 modulate = Color(0.17188, 0.488489, 0.500614, 1)
 scale = Vector2(493, 17)
 texture = ExtResource("3_xcwjs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawGround"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_idmju")
 
 [node name="SeesawPin" type="StaticBody2D" parent="Seesaw"]
 position = Vector2(297, 226)

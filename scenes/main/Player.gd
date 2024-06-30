@@ -16,8 +16,10 @@ extends RigidBody2D
 @onready var collision_normal = Vector2(0, -1)
 
 @onready var ray = $Raycast
-@onready var ray_right_foot = $Raycast/RightBottomRayCast2D2
-@onready var ray_left_foot = $Raycast/LeftBottomRayCast2D
+@onready var ray_right_foot = $Raycast/RightFootRayCast2D
+@onready var ray_left_foot = $Raycast/LeftFootRayCast2D
+@onready var ray_right_side = $Raycast/LeftFootRayCast2D
+@onready var ray_left_side = $Raycast/RightBottomRayCast2D
 @onready var audio_jump = $AudioJump
 @onready var audio_drop = $AudioDrop
 @onready var audio_attacked = $AudioAttacked
@@ -52,8 +54,10 @@ func _physics_process(delta):
 	
 	# ジャンプ処理
 	var can_jump = check_jump()
+	print(can_jump)
 	if can_jump == true and can_jump_buffer == false:
 		var collision_point = get_global_position()
+		collision_point.y -= 80
 		var velocity = linear_velocity
 		var speed = velocity.length()
 		var adjusted_impulse_strength = base_jump_impulse_strength * (speed / 1000)
@@ -72,7 +76,7 @@ func _physics_process(delta):
 
 # ジャンプ中か判定
 func check_jump():
-	if ray_right_foot.is_colliding() or ray_left_foot.is_colliding():
+	if ray_right_foot.is_colliding() or ray_left_foot.is_colliding() or ray_right_side.is_colliding() or ray_left_side.is_colliding():
 		return true
 	else: 
 		return false

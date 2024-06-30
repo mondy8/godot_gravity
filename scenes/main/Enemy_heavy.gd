@@ -79,9 +79,12 @@ func _ready():
 	elif Global.current_level in [7, 8]:
 		move_speed = 10.0
 		move_speed_max = 10.0
-	else:
+	elif Global.current_level in [9, 10]:
 		move_speed = 35.0
 		move_speed_max = 40.0
+	else:
+		move_speed = 0.0
+		move_speed_max = 0.0
 	
 
 func _physics_process(delta):
