@@ -4,10 +4,10 @@ extends Enemy
 
 @export var move_speed: float = 30.0
 @export var move_speed_max:float = 30.0
-@export var jump_speed: float = 600.0
 @export var base_jump_impulse_strength: float = 1000.0
-@onready var jump_force = Vector2(0, -jump_speed)
+@onready var jump_force = Vector2(0, -600)
 @onready var collision_normal = Vector2(0, -1)
+@onready var move_on_jump = false
 
 @onready var collision_shape = $CollisionShape2D
 @onready var sprite = $Sprite2D
@@ -27,18 +27,18 @@ func _ready():
 	randomize_jump()
 	
 	# 色
-	if Global.current_level < 4:
+	if Global.current_level < 3 or Global.current_level == 7:
 		self.modulate  = Color(1, 1, 1, 1)
+	elif Global.current_level > 7 or Global.current_level == 6:
+		self.modulate  = Color(1, 0, 0, 1)
 	elif Global.current_level < 7:
 		self.modulate  = Color(1, 0.5, 0.5, 1)
-	else:
-		self.modulate  = Color(1, 0, 0, 1)
 	
 	# サイズ
-	if Global.current_level in [1, 4, 5]:
+	if Global.current_level in [1, 3, 4]:
 		sprite.scale = Vector2(0.3, 0.3)
 		collision_shape.scale = Vector2(0.3, 0.3)
-	elif Global.current_level in [2, 6, 7]:
+	elif Global.current_level in [2, 5, 6]:
 		sprite.scale = Vector2(0.5, 0.5)
 		collision_shape.scale = Vector2(0.5, 0.5)
 	else:
@@ -48,19 +48,40 @@ func _ready():
 	# ジャンプの有無
 	jump_enable = Global.current_level > 3
 	
+	# ジャンプ力
+	if Global.current_level in [4]:
+		jump_force = Vector2(0, -300)
+	else:
+		jump_force = Vector2(0, -600)
+	
+	# ジャンプ中に動くか
+	if Global.current_level in [4]:
+		move_on_jump = false
+	else:
+		move_on_jump = true
+	
+	# 重量 
+	if Global.current_level in [1, 3, 4]:
+		mass = 1
+	else:
+		mass = 2
+	
 	# 移動スピード 
-	if Global.current_level in [2, 4,]:
-		move_speed = 50.0
-		move_speed_max = 30.0
-	elif Global.current_level in [1, 3]:
+	if Global.current_level in [1, 3, 4]:
+		move_speed = 20.0
+		move_speed_max = 20.0
+	elif Global.current_level in [2]:
 		move_speed = 40.0
-		move_speed_max = 30.0
-	elif Global.current_level in [5, 6, 7]:
+		move_speed_max = 40.0
+	elif Global.current_level in [5, 6]:
 		move_speed = 30.0
 		move_speed_max = 30.0
-	else:
+	elif Global.current_level in [7, 8]:
 		move_speed = 10.0
 		move_speed_max = 10.0
+	else:
+		move_speed = 35.0
+		move_speed_max = 40.0
 	
 
 func _physics_process(delta):

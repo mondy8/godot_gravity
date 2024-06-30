@@ -34,12 +34,13 @@ signal game_set(winner:String)
 signal camera_shake(duration: float, magnitude: float)
 
 func _ready():
-	if Global.current_level < 4:
+	if Global.current_level < 3 or Global.current_level == 7:
 		enemy_bump_speed = 10
-	elif Global.current_level < 7:
-		enemy_bump_speed = 50
-	else:
+	elif Global.current_level > 7 or Global.current_level == 6:
 		enemy_bump_speed = 150
+		get_damaged = true
+	elif Global.current_level < 7:
+		enemy_bump_speed = 60
 		get_damaged = true
 
 func _physics_process(delta):
