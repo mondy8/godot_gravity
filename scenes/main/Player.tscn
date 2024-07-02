@@ -24,21 +24,25 @@ shape = SubResource("CircleShape2D_ijchr")
 
 [node name="Raycast" type="Node2D" parent="."]
 
-[node name="LeftTopRayCast2D" type="RayCast2D" parent="Raycast"]
-position = Vector2(-16, -15)
-target_position = Vector2(0, -12)
-
 [node name="RightFootRayCast2D" type="RayCast2D" parent="Raycast"]
 position = Vector2(15, 15)
 target_position = Vector2(0, 20)
 
 [node name="LeftFootRayCast2D" type="RayCast2D" parent="Raycast"]
-position = Vector2(-16, 15)
-target_position = Vector2(0, 19)
+position = Vector2(-16, 14)
+target_position = Vector2(0, 20)
+
+[node name="LeftBottomRayCast2D" type="RayCast2D" parent="Raycast"]
+position = Vector2(-17, 12)
+target_position = Vector2(-20, 0)
 
 [node name="RightBottomRayCast2D" type="RayCast2D" parent="Raycast"]
 position = Vector2(16, 13)
-target_position = Vector2(15, 0)
+target_position = Vector2(19, 0)
+
+[node name="LeftTopRayCast2D" type="RayCast2D" parent="Raycast"]
+position = Vector2(-16, -15)
+target_position = Vector2(0, -12)
 
 [node name="RightTopRayCast2D" type="RayCast2D" parent="Raycast"]
 position = Vector2(16, -15)
@@ -46,11 +50,7 @@ target_position = Vector2(15, 0)
 
 [node name="LeftTopRayCast2D2" type="RayCast2D" parent="Raycast"]
 position = Vector2(-16, -15)
-target_position = Vector2(-13, 0)
-
-[node name="TopLeftRayCast2D" type="RayCast2D" parent="Raycast"]
-position = Vector2(-16, 15)
-target_position = Vector2(-13, 0)
+target_position = Vector2(-18, 0)
 
 [node name="RightTopRayCast2D2" type="RayCast2D" parent="Raycast"]
 position = Vector2(16, -15)

@@ -18,8 +18,8 @@ extends RigidBody2D
 @onready var ray = $Raycast
 @onready var ray_right_foot = $Raycast/RightFootRayCast2D
 @onready var ray_left_foot = $Raycast/LeftFootRayCast2D
-@onready var ray_right_side = $Raycast/LeftFootRayCast2D
-@onready var ray_left_side = $Raycast/RightBottomRayCast2D
+@onready var ray_right_side = $Raycast/RightBottomRayCast2D
+@onready var ray_left_side = $Raycast/LeftBottomRayCast2D
 @onready var audio_jump = $AudioJump
 @onready var audio_drop = $AudioDrop
 @onready var audio_attacked = $AudioAttacked

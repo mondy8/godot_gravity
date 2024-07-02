@@ -55,21 +55,26 @@ func _on_game_set(loser:String):
 		if loser == 'player':
 			audio_lose.play()
 			is_game_set = true
-			resultText.text = 'You Lose'
+			resultText.text = 'You Lose...'
+			resultButton.text = 'Revenge!'
 			resultButton.visible = true
+			resultButton.grab_focus()
 			print('lose')
 			return
 		else:
 			if Global.current_level == 10:
 				audio_winner.play()
 				is_game_set = true
-				resultText.text = 'You Are the Champion!\nThank you for playing'
+				resultText.text = 'You Are the Champion!\nThank you for Playing!'
 				timetText.text = "Clear time: " + str(Global.time)
+				resultButton.text = 'Play Again!'
+				resultButton.visible = true
+				resultButton.grab_focus()
 				
 			else:
 				audio_clear.play()
 				is_game_set = true
-				resultText.text = 'You Win'
+				resultText.text = 'You Win!'
 				var timer = self.get_tree().create_timer(2)
 				await timer.timeout
 				print('win')

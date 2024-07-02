@@ -28,14 +28,16 @@ func _ready():
 	
 	# 色
 	if Global.current_level < 3 or Global.current_level == 7:
-		self.modulate  = Color(1, 1, 1, 1)
+		self.modulate  = Color(0.2, 1, 0.2, 1)
+	elif Global.current_level == 10:
+		self.modulate  = Color(0.5, 0.1, 0.1, 1)
 	elif Global.current_level > 7 or Global.current_level == 6:
 		self.modulate  = Color(1, 0, 0, 1)
 	elif Global.current_level < 7:
 		self.modulate  = Color(1, 0.5, 0.5, 1)
 	
 	# サイズ
-	if Global.current_level in [1, 3, 4]:
+	if Global.current_level in [1, 3, 4, 10]:
 		sprite.scale = Vector2(0.3, 0.3)
 		collision_shape.scale = Vector2(0.3, 0.3)
 	elif Global.current_level in [2, 5, 6]:
@@ -51,14 +53,16 @@ func _ready():
 	# ジャンプ力
 	if Global.current_level in [4]:
 		jump_force = Vector2(0, -300)
+	elif Global.current_level in [10]:
+		jump_force = Vector2(0, -1200)
 	else:
 		jump_force = Vector2(0, -600)
 	
 	# ジャンプ中に動くか
-	if Global.current_level in [4]:
-		move_on_jump = false
-	else:
+	if Global.current_level in [10]:
 		move_on_jump = true
+	else:
+		move_on_jump = false
 	
 	# 重量 
 	if Global.current_level in [1, 3, 4]:
@@ -69,7 +73,7 @@ func _ready():
 	# 移動スピード 
 	if Global.current_level in [1, 3, 4]:
 		move_speed = 20.0
-		move_speed_max = 20.0
+		move_speed_max = 25.0
 	elif Global.current_level in [2]:
 		move_speed = 40.0
 		move_speed_max = 40.0
@@ -79,9 +83,12 @@ func _ready():
 	elif Global.current_level in [7, 8]:
 		move_speed = 10.0
 		move_speed_max = 10.0
-	elif Global.current_level in [9, 10]:
+	elif Global.current_level in [9]:
 		move_speed = 35.0
 		move_speed_max = 40.0
+	elif Global.current_level in [10]:
+		move_speed = 20.0
+		move_speed_max = 1000.0
 	else:
 		move_speed = 0.0
 		move_speed_max = 0.0
@@ -95,11 +102,18 @@ func _physics_process(delta):
 		return
 		
 	# 画面の右側にいる場合、左に移動
-	if position.x > screen_width * 0.6:
-		direction = -1
-	# 画面の左側にいる場合、右に移動
-	elif position.x < screen_width * 0.3:
-		direction = 1
+	if Global.current_level == 10:
+		if position.x > screen_width * 0.6:
+			direction = -1
+		# 画面の左側にいる場合、右に移動
+		elif position.x < screen_width * 0.4:
+			direction = 1
+	else:
+		if position.x > screen_width * 0.7:
+			direction = -1
+		# 画面の左側にいる場合、右に移動
+		elif position.x < screen_width * 0.3:
+			direction = 1
 
 	# ランダムなタイミングでジャンプ
 	if jump_enable:
@@ -120,8 +134,12 @@ func _physics_process(delta):
 	
 	# 水平方向の移動
 	var force = Vector2(direction * move_speed, 0)
-	if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
-		self.apply_impulse(force, Vector2(0, 0))
+	if move_on_jump:
+		if (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
+			self.apply_impulse(force, Vector2(0, 0))
+	else: 
+		if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
+			self.apply_impulse(force, Vector2(0, 0))
 		
 	can_jump_buffer = can_jump
 

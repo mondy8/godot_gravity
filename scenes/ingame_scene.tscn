@@ -78,17 +78,6 @@ stream = ExtResource("1_moq13")
 autoplay = true
 bus = &"Music"
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="FadeOverlay" parent="UI" instance=ExtResource("1_y6ebv")]
-unique_name_in_owner = true
-visible = false
-
-[node name="PauseOverlay" parent="UI" instance=ExtResource("3_8o178")]
-unique_name_in_owner = true
-process_mode = 2
-visible = false
-
 [node name="Game" type="Node2D" parent="."]
 
 [node name="Level01" parent="Game" instance=ExtResource("3_aqr0l")]
@@ -104,5 +93,16 @@ offset_right = 75.0
 offset_bottom = 23.0
 text = "Time: 0
 "
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="FadeOverlay" parent="UI" instance=ExtResource("1_y6ebv")]
+unique_name_in_owner = true
+visible = false
+
+[node name="PauseOverlay" parent="UI" instance=ExtResource("3_8o178")]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

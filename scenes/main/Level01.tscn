@@ -15,7 +15,7 @@ size = Vector2(368, 54)
 friction = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_idmju"]
-size = Vector2(496, 17)
+size = Vector2(496, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omd2s"]
 size = Vector2(8, 6)
@@ -59,11 +59,12 @@ physics_material_override = SubResource("PhysicsMaterial_bdtun")
 
 [node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawGround"]
 modulate = Color(0.17188, 0.488489, 0.500614, 1)
-scale = Vector2(493, 17)
+position = Vector2(0, -4.75)
+scale = Vector2(493, 26.5)
 texture = ExtResource("3_xcwjs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawGround"]
-position = Vector2(0, 0.5)
+position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_idmju")
 
 [node name="SeesawPin" type="StaticBody2D" parent="Seesaw"]
@@ -83,25 +84,24 @@ shape = SubResource("RectangleShape2D_omd2s")
 [node name="ResultUI" type="CanvasLayer" parent="."]
 
 [node name="ResultButton" type="Button" parent="ResultUI"]
-visible = false
-offset_left = 172.0
-offset_top = 204.0
-offset_right = 419.0
-offset_bottom = 239.0
-text = "リベンジする！"
+offset_left = 171.0
+offset_top = 206.0
+offset_right = 418.0
+offset_bottom = 241.0
+text = "Retry !"
 
 [node name="ResultText" type="Label" parent="ResultUI"]
-offset_top = 109.0
+offset_top = 64.0
 offset_right = 576.0
-offset_bottom = 164.0
+offset_bottom = 177.0
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TimeText" type="Label" parent="ResultUI"]
-offset_top = 61.0
+offset_top = 29.0
 offset_right = 576.0
-offset_bottom = 84.0
+offset_bottom = 52.0
 horizontal_alignment = 1
 vertical_alignment = 1
 

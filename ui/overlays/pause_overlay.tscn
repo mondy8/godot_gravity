@@ -17,7 +17,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer3"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
-text = "game_paused"
+text = "Game Paused"
 horizontal_alignment = 1
 
 [node name="SettingsContainer" type="VBoxContainer" parent="VBoxContainer3"]
@@ -41,14 +41,15 @@ theme_override_constants/separation = 8
 [node name="ResumeButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "resume_game"
+text = "Continue"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "settings"
+text = "Settings"
 
 [node name="ExitButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "leave_game"
