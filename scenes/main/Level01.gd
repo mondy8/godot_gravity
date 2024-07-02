@@ -70,6 +70,7 @@ func _on_game_set(loser:String):
 				resultButton.text = 'Play Again!'
 				resultButton.visible = true
 				resultButton.grab_focus()
+				Global.current_level += 1
 				
 			else:
 				audio_clear.play()
@@ -84,8 +85,11 @@ func _on_game_set(loser:String):
 # ボタンが押されたときにレベルを変更
 func _on_result_button_pressed():
 	# レベルはリセットする
-	Global.time = 0
-	change_level.emit(1)
+	if Global.current_level == 11:
+		Global.time = 0
+		change_level.emit(1)
+	else:
+		change_level.emit(Global.current_level)
 
 # カメラシェイク
 func _on_camera_shake(duration: float, magnitude: float) -> void:
