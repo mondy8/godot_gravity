@@ -27,6 +27,10 @@ extends RigidBody2D
 @onready var can_jump_buffer := false
 @onready var is_dropping := false
 @onready var get_damaged := false
+@onready var move_right_interval := 0
+@onready var move_left_interval := 0
+@onready var MOVE_FAST_LIMIT := 20
+
 
 # 着地後にシーソーに与えるシグナル
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
@@ -51,22 +55,25 @@ func _physics_process(delta):
 		set_freeze_enabled(true)
 		game_set.emit('player')
 		return
+		
+	move_right_interval += 1
+	move_left_interval += 1
 	
 	# ジャンプ処理
 	var can_jump = check_jump()
-	print(can_jump)
 	if can_jump == true and can_jump_buffer == false:
 		var collision_point = get_global_position()
-		collision_point.y -= 80
+		collision_point.y -= 35
 		var velocity = linear_velocity
 		var speed = velocity.length()
 		var adjusted_impulse_strength = base_jump_impulse_strength * (speed / 1000)
 		var impulse = collision_normal * adjusted_impulse_strength
-		print(is_dropping)
 		if is_dropping:
 			impulse = impulse * 20
 			is_dropping = false
 			camera_shake.emit(0.5, 6.0)
+			print("dropped!")
+			print(collision_point)
 		seesaw_collided.emit(collision_point, impulse)
 	var force = await input_process(can_jump)
 	self.apply_impulse(force, Vector2(0, 0))
@@ -106,6 +113,27 @@ func check_enemy_bump():
 
 # キー入力判定
 func input_process(can_jump:bool) -> Vector2:
+	# ダッシュ
+	var velocity = linear_velocity
+	var speed = velocity.length()
+	
+	if speed > 1000 and move_right_interval == 10:
+		return move_left_force * 20
+	if speed > 1000 and move_left_interval == 10:
+		return move_right_force * 20
+		
+	if Input.is_action_just_pressed("move_right"):
+		if move_right_interval < MOVE_FAST_LIMIT:
+			move_right_interval = 0
+			return move_right_force * 20
+		move_right_interval = 0
+	if Input.is_action_just_pressed("move_left"):
+		if move_left_interval < MOVE_FAST_LIMIT:
+			move_left_interval = 0
+			return move_left_force * 20
+		move_left_interval = 0
+		
+	# 左右移動
 	if can_jump:
 		if Input.is_action_pressed("move_right") and self.linear_velocity.x < move_speed_max:
 			return move_right_force

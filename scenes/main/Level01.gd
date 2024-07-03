@@ -43,7 +43,6 @@ func _ready() -> void:
 	
 # シーソーへの衝突処理
 func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
-	print("object got notify from Subject !!")
 	var seesawPosition = seesawGround.to_local(collided_position)
 	seesawGround.apply_impulse(seesawPosition, impulse)
 
