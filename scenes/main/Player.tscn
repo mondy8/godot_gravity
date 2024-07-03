@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpscixfrpu3he"]
+[gd_scene load_steps=8 format=3 uid="uid://dpscixfrpu3he"]
 
 [ext_resource type="Script" path="res://scenes/main/Player.gd" id="1_hxkpi"]
 [ext_resource type="Texture2D" uid="uid://dmelj2qgr8w7k" path="res://icon.svg" id="2_f1gqa"]
 [ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_klifx"]
 [ext_resource type="AudioStream" uid="uid://emgb23sd1xak" path="res://music/軽いパンチ1.mp3" id="4_1k1ff"]
 [ext_resource type="AudioStream" uid="uid://byrkby7shlmik" path="res://music/重いパンチ3.mp3" id="5_umhlc"]
+[ext_resource type="AudioStream" uid="uid://cx45k8ynkvywp" path="res://music/パンチの素振り1.mp3" id="5_wgh12"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ijchr"]
 radius = 20.0
@@ -65,6 +66,10 @@ bus = &"Sound"
 [node name="AudioDrop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_1k1ff")
 pitch_scale = 0.72
+bus = &"Sound"
+
+[node name="AudioDashed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_wgh12")
 bus = &"Sound"
 
 [node name="AudioAttacked" type="AudioStreamPlayer" parent="."]

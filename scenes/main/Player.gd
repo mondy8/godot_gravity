@@ -23,6 +23,8 @@ extends RigidBody2D
 @onready var audio_jump = $AudioJump
 @onready var audio_drop = $AudioDrop
 @onready var audio_attacked = $AudioAttacked
+@onready var audio_dashed = $AudioDashed
+@onready var sprite = $Sprite2D
 
 @onready var can_jump_buffer := false
 @onready var is_dropping := false
@@ -117,19 +119,23 @@ func input_process(can_jump:bool) -> Vector2:
 	var velocity = linear_velocity
 	var speed = velocity.length()
 	
-	if speed > 1000 and move_right_interval == 10:
-		return move_left_force * 20
-	if speed > 1000 and move_left_interval == 10:
-		return move_right_force * 20
+	if speed > 1000:
+		create_ghost()
+		if move_right_interval == MOVE_FAST_LIMIT / 2:
+			return move_left_force * 20
+		if move_left_interval == MOVE_FAST_LIMIT / 2:
+			return move_right_force * 20
 		
 	if Input.is_action_just_pressed("move_right"):
 		if move_right_interval < MOVE_FAST_LIMIT:
 			move_right_interval = 0
+			audio_dashed.play()
 			return move_right_force * 20
 		move_right_interval = 0
 	if Input.is_action_just_pressed("move_left"):
 		if move_left_interval < MOVE_FAST_LIMIT:
 			move_left_interval = 0
+			audio_dashed.play()
 			return move_left_force * 20
 		move_left_interval = 0
 		
@@ -163,3 +169,30 @@ func input_process(can_jump:bool) -> Vector2:
 			return drop_force
 	return Vector2(0, 0)
 
+func create_ghost():
+	# スプライトのコピーを作成
+	var ghost_sprite = Sprite2D.new()
+	ghost_sprite.texture = sprite.texture
+	ghost_sprite.scale = sprite.scale
+	ghost_sprite.rotation = sprite.rotation
+	ghost_sprite.modulate = Color(1, 1, 1, 0.5)  # 初期の透明度を設定
+	var global_position = get_global_position()
+	ghost_sprite.global_position = global_position
+
+	# ゴーストスプライトをシーンに追加
+	get_tree().root.add_child(ghost_sprite)
+
+	# ゴーストスプライトをフェードアウト
+	var tween = get_tree().create_tween()
+	tween.tween_property(ghost_sprite, "modulate:a", 0, 0.2)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_QUINT)
+	tween.connect("finished", Callable(self, "_on_tween_completed").bind(ghost_sprite, tween))
+
+	#tween.connect("tween_completed", "_on_tween_completed", [ghost_sprite, tween])
+	tween.play()
+
+func _on_tween_completed(ghost_sprite, tween):
+	# フェードアウトが完了したらゴーストスプライトを削除
+	ghost_sprite.queue_free()
+	#tween.queue_free()
