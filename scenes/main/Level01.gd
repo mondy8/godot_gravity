@@ -1,7 +1,11 @@
 extends Node2D
 
+@onready var enemy01 = preload("res://scenes/main/Enemy_01_ball.tscn")
+@onready var enemy02 = preload("res://scenes/main/Enemy_02_wall.tscn")
+
+
+@onready var enemySpawner = $EnemySpawner
 @onready var player = $Player
-@onready var enemy = $Enemy_heavy
 @onready var seesawGround = $Seesaw/SeesawGround
 @onready var result = $ResultUI
 @onready var resultButton = $ResultUI/ResultButton
@@ -24,13 +28,24 @@ func _ready() -> void:
 	result.visible = false
 	resultButton.visible = false
 	resultButton.connect("pressed", _on_result_button_pressed)
+	
+	# 敵の生成
+	var enemy_instance
+	if Global.current_level == 1:
+		enemy_instance= enemy01.instantiate()
+	elif Global.current_level == 2:
+		enemy_instance= enemy02.instantiate()
+	else:
+		enemy_instance= enemy01.instantiate()
+	enemy_instance.position = enemySpawner.position
+	add_child(enemy_instance)
 
 	# playerからシーソーへ与えるシグナル
 	player.seesaw_collided.connect(_on_seesaw_collided)
-	enemy.seesaw_collided.connect(_on_seesaw_collided)
+	enemy_instance.seesaw_collided.connect(_on_seesaw_collided)
 	# 脱落シグナル
 	player.game_set.connect(_on_game_set)
-	enemy.game_set.connect(_on_game_set)
+	enemy_instance.game_set.connect(_on_game_set)
 	# カメラシェイクシグナル
 	player.camera_shake.connect(_on_camera_shake)
 	

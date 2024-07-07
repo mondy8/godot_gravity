@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqivdh8s2iqeb"]
+
+[ext_resource type="Script" path="res://scenes/main/Enemy_02_wall.gd" id="1_gnfrd"]
+[ext_resource type="Texture2D" uid="uid://cynch03bnexmp" path="res://images/02_ぬりかべ.png" id="2_obpku"]
+[ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_imfnu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sb73k"]
+size = Vector2(95, 129)
+
+[node name="Enemy_02_wall" type="RigidBody2D"]
+mass = 2.0
+lock_rotation = true
+script = ExtResource("1_gnfrd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.78814e-07, -3)
+scale = Vector2(0.364, 0.364)
+texture = ExtResource("2_obpku")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -6.5)
+shape = SubResource("RectangleShape2D_sb73k")
+
+[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 86.8571)
+
+[node name="RightRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 80)
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_imfnu")
+volume_db = -10.4
+pitch_scale = 0.7
+bus = &"Sound"

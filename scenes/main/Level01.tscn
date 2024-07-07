@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjdhuqymuxw5u"]
+[gd_scene load_steps=11 format=3 uid="uid://cjdhuqymuxw5u"]
 
 [ext_resource type="Script" path="res://scenes/main/Level01.gd" id="1_51tbm"]
 [ext_resource type="PackedScene" uid="uid://dpscixfrpu3he" path="res://scenes/main/Player.tscn" id="2_n4gn4"]
 [ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="3_xcwjs"]
-[ext_resource type="PackedScene" uid="uid://b6m1nmqr4qh0e" path="res://scenes/main/Enemy_heavy.tscn" id="5_7ln27"]
 [ext_resource type="AudioStream" uid="uid://cdyw4oy12qlpi" path="res://music/歓声と拍手2.mp3" id="5_bj7mr"]
 [ext_resource type="AudioStream" uid="uid://cfdre65jo3orq" path="res://music/スタジアムの拍手.mp3" id="6_cesxj"]
 [ext_resource type="AudioStream" uid="uid://d33ruoa7ai7ro" path="res://music/スタジアムの歓声2.mp3" id="7_2fnkt"]
@@ -119,9 +118,6 @@ vertical_alignment = 1
 [node name="MainCamera" type="Camera2D" parent="."]
 offset = Vector2(288, 162)
 
-[node name="Enemy_heavy" parent="." instance=ExtResource("5_7ln27")]
-position = Vector2(413, 78)
-
 [node name="AudioClear1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_bj7mr")
 bus = &"Sound"
@@ -133,3 +129,6 @@ bus = &"Sound"
 [node name="AudioWinner" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_2fnkt")
 bus = &"Sound"
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+position = Vector2(414, 29)

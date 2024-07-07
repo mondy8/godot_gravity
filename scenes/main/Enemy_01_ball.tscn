@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cea6a1k8kigir"]
+
+[ext_resource type="Script" path="res://scenes/main/Enemy_01_ball.gd" id="1_ewqty"]
+[ext_resource type="Texture2D" uid="uid://c2jupaank72lf" path="res://images/01_雑魚ボール.png" id="2_uc3rw"]
+[ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_51e7g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_syjsc"]
+radius = 55.536
+
+[node name="Enemy_01_ball" type="RigidBody2D"]
+mass = 2.0
+script = ExtResource("1_ewqty")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.78814e-07, -3)
+scale = Vector2(0.364, 0.364)
+texture = ExtResource("2_uc3rw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("CircleShape2D_syjsc")
+
+[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 86.8571)
+
+[node name="RightRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 80)
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_51e7g")
+volume_db = -10.4
+pitch_scale = 0.7
+bus = &"Sound"

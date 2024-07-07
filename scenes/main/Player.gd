@@ -25,6 +25,7 @@ extends RigidBody2D
 @onready var audio_attacked = $AudioAttacked
 @onready var audio_dashed = $AudioDashed
 @onready var sprite = $Sprite2D
+@onready var animation = $AnimationPlayer
 
 @onready var can_jump_buffer := false
 @onready var is_dropping := false
@@ -32,7 +33,10 @@ extends RigidBody2D
 @onready var move_right_interval := 0
 @onready var move_left_interval := 0
 @onready var MOVE_FAST_LIMIT := 20
-
+@onready var sprite_scale := Vector2(1, 1)
+@onready var sprite_amplitude := 0.01  # Y軸の振幅
+@onready var sprite_frequency := 3.0   # 周波数（1秒あたりのサイクル数）
+@onready var time_elapsed := 0.0
 
 # 着地後にシーソーに与えるシグナル
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
@@ -42,6 +46,7 @@ signal game_set(winner:String)
 signal camera_shake(duration: float, magnitude: float)
 
 func _ready():
+	sprite_scale = sprite.scale
 	if Global.current_level < 3 or Global.current_level == 7:
 		enemy_bump_speed = 10
 	elif Global.current_level > 7 or Global.current_level == 6:
@@ -57,13 +62,14 @@ func _physics_process(delta):
 		set_freeze_enabled(true)
 		game_set.emit('player')
 		return
-		
+	
+	# ダッシュ判定用
 	move_right_interval += 1
 	move_left_interval += 1
 	
-	# ジャンプ処理
 	var can_jump = check_jump()
-	if can_jump == true and can_jump_buffer == false:
+	# ジャンプ着地判定
+	if can_jump and can_jump_buffer == false:
 		var collision_point = get_global_position()
 		collision_point.y -= 35
 		var velocity = linear_velocity
@@ -76,9 +82,19 @@ func _physics_process(delta):
 			camera_shake.emit(0.5, 6.0)
 			print("dropped!")
 			print(collision_point)
+		else:
+			animation.play("stop")
 		seesaw_collided.emit(collision_point, impulse)
+	elif can_jump:
+		# リズムを取る
+		time_elapsed += delta
+		var scale_offset = sprite_scale.y + sin(time_elapsed * sprite_frequency * 2.0 * PI) * sprite_amplitude
+		sprite.scale.y = scale_offset
+	
+	# プレイヤーの移動
 	var force = await input_process(can_jump)
 	self.apply_impulse(force, Vector2(0, 0))
+	
 	can_jump_buffer = can_jump
 	
 	check_enemy_bump()
@@ -112,50 +128,59 @@ func check_enemy_bump():
 					tween.play()
 					camera_shake.emit(0.2, 6.0)
 
-
 # キー入力判定
 func input_process(can_jump:bool) -> Vector2:
-	# ダッシュ
 	var velocity = linear_velocity
 	var speed = velocity.length()
 	
+	# ダッシュ中
 	if speed > 1000:
 		create_ghost()
 		if move_right_interval == MOVE_FAST_LIMIT / 2:
 			return move_left_force * 20
 		if move_left_interval == MOVE_FAST_LIMIT / 2:
 			return move_right_force * 20
-		
+	
+	# ダッシュ判定
 	if Input.is_action_just_pressed("move_right"):
 		if move_right_interval < MOVE_FAST_LIMIT:
 			move_right_interval = 0
 			audio_dashed.play()
+			animation.play("dash")
 			return move_right_force * 20
 		move_right_interval = 0
+		sprite.set_flip_h(false)
 	if Input.is_action_just_pressed("move_left"):
 		if move_left_interval < MOVE_FAST_LIMIT:
 			move_left_interval = 0
 			audio_dashed.play()
+			animation.play("dash")
 			return move_left_force * 20
 		move_left_interval = 0
+		sprite.set_flip_h(true)
 		
-	# 左右移動
+	# ジャンプしていない時
 	if can_jump:
 		if Input.is_action_pressed("move_right") and self.linear_velocity.x < move_speed_max:
+			animation.play("walk")
 			return move_right_force
 		if Input.is_action_pressed("move_left") and self.linear_velocity.x > -move_speed_max:
+			animation.play("walk")
 			return move_left_force
 		if Input.is_action_just_pressed("move_up"):
 			audio_jump.play()
+			animation.play("jump")
 			return jump_force
 		
+	# ジャンプ中
 	else:
 		if Input.is_action_pressed("move_right") and self.linear_velocity.x < move_speed_max:
 			return Vector2(move_right_force.x/6, 0)
-		if Input.is_action_pressed("move_left") and self.linear_velocity.x > -move_speed_max:
+		elif Input.is_action_pressed("move_left") and self.linear_velocity.x > -move_speed_max:
 			return Vector2(move_left_force.x/6, 0)
-		if Input.is_action_just_pressed("move_down") and !is_dropping:
+		elif Input.is_action_just_pressed("move_down") and !is_dropping:
 			is_dropping = true
+			animation.play("drop")
 			set_freeze_enabled(true)
 			var tween = get_tree().create_tween()
 			tween.tween_property(self, "rotation", -3 *  2 * PI, 0.5)
@@ -167,15 +192,20 @@ func input_process(can_jump:bool) -> Vector2:
 			audio_drop.play()
 			set_freeze_enabled(false)
 			return drop_force
+			
 	return Vector2(0, 0)
 
+# ゴーストスプライト
 func create_ghost():
-	# スプライトのコピーを作成
 	var ghost_sprite = Sprite2D.new()
 	ghost_sprite.texture = sprite.texture
 	ghost_sprite.scale = sprite.scale
 	ghost_sprite.rotation = sprite.rotation
 	ghost_sprite.modulate = Color(1, 1, 1, 0.5)  # 初期の透明度を設定
+	ghost_sprite.hframes = sprite.hframes
+	ghost_sprite.vframes = sprite.vframes
+	ghost_sprite.frame = sprite.frame
+	ghost_sprite.frame_coords = sprite.frame_coords
 	var global_position = get_global_position()
 	ghost_sprite.global_position = global_position
 
@@ -192,7 +222,7 @@ func create_ghost():
 	#tween.connect("tween_completed", "_on_tween_completed", [ghost_sprite, tween])
 	tween.play()
 
+# フェードアウトが完了したらゴーストスプライトを削除
 func _on_tween_completed(ghost_sprite, tween):
-	# フェードアウトが完了したらゴーストスプライトを削除
 	ghost_sprite.queue_free()
 	#tween.queue_free()

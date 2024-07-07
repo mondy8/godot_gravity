@@ -1,14 +1,119 @@
-[gd_scene load_steps=8 format=3 uid="uid://dpscixfrpu3he"]
+[gd_scene load_steps=15 format=3 uid="uid://dpscixfrpu3he"]
 
 [ext_resource type="Script" path="res://scenes/main/Player.gd" id="1_hxkpi"]
-[ext_resource type="Texture2D" uid="uid://dmelj2qgr8w7k" path="res://icon.svg" id="2_f1gqa"]
+[ext_resource type="Texture2D" uid="uid://bvsr0p58inkx4" path="res://images/player_sprite.png" id="2_po2iq"]
 [ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_klifx"]
 [ext_resource type="AudioStream" uid="uid://emgb23sd1xak" path="res://music/軽いパンチ1.mp3" id="4_1k1ff"]
 [ext_resource type="AudioStream" uid="uid://byrkby7shlmik" path="res://music/重いパンチ3.mp3" id="5_umhlc"]
 [ext_resource type="AudioStream" uid="uid://cx45k8ynkvywp" path="res://music/パンチの素振り1.mp3" id="5_wgh12"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ijchr"]
-radius = 20.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rgwth"]
+radius = 14.0
+height = 42.0
+
+[sub_resource type="Animation" id="Animation_xm2g1"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 2]
+}
+
+[sub_resource type="Animation" id="Animation_7ew47"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_10sir"]
+resource_name = "dash"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_ogsr7"]
+resource_name = "drop"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_q2gso"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_s5dwu"]
+resource_name = "stop"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4tufb"]
+_data = {
+"RESET": SubResource("Animation_7ew47"),
+"dash": SubResource("Animation_10sir"),
+"drop": SubResource("Animation_ogsr7"),
+"jump": SubResource("Animation_q2gso"),
+"stop": SubResource("Animation_s5dwu"),
+"walk": SubResource("Animation_xm2g1")
+}
 
 [node name="Player" type="RigidBody2D"]
 position = Vector2(297, 100)
@@ -17,11 +122,15 @@ freeze_mode = 1
 script = ExtResource("1_hxkpi")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.304688, 0.304688)
-texture = ExtResource("2_f1gqa")
+position = Vector2(0.999998, 19)
+scale = Vector2(0.126, 0.126)
+texture = ExtResource("2_po2iq")
+centered = false
+offset = Vector2(-260, -420)
+hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ijchr")
+shape = SubResource("CapsuleShape2D_rgwth")
 
 [node name="Raycast" type="Node2D" parent="."]
 
@@ -76,5 +185,11 @@ bus = &"Sound"
 stream = ExtResource("5_umhlc")
 pitch_scale = 1.29
 bus = &"Sound"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4tufb")
+}
+autoplay = "stop"
 
 [connection signal="seesaw_collided" from="." to="." method="_on_seesaw_collided"]
