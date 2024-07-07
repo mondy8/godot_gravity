@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://jyv4g54adkmo"]
+[gd_scene load_steps=6 format=3 uid="uid://jyv4g54adkmo"]
 
 [ext_resource type="Script" path="res://ui/overlays/pause_overlay.gd" id="1_q2yda"]
 [ext_resource type="PackedScene" uid="uid://nbaodrlopo7y" path="res://ui/components/game_settings.tscn" id="2_n78uc"]
+[ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="3_w27bp"]
+
+[sub_resource type="Theme" id="Theme_f4c6c"]
+default_font = ExtResource("3_w27bp")
+
+[sub_resource type="Theme" id="Theme_m68yn"]
+default_font = ExtResource("3_w27bp")
 
 [node name="PauseOverlay" type="CenterContainer"]
 anchors_preset = 15
@@ -41,11 +48,13 @@ theme_override_constants/separation = 8
 [node name="ResumeButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = SubResource("Theme_f4c6c")
 text = "Continue"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = SubResource("Theme_m68yn")
 text = "Settings"
 
 [node name="ExitButton" type="Button" parent="VBoxContainer3/MenuContainer"]

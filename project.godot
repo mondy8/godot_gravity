@@ -36,6 +36,7 @@ movie_writer/movie_file="/Users/imaoka/Documents/_movie/godot_rec.avi"
 [gui]
 
 theme/custom="res://ui/theme.tres"
+theme/custom_font="res://fonts/CP Font.otf"
 
 [input]
 

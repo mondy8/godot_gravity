@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjdhuqymuxw5u"]
+[gd_scene load_steps=14 format=3 uid="uid://cjdhuqymuxw5u"]
 
 [ext_resource type="Script" path="res://scenes/main/Level01.gd" id="1_51tbm"]
 [ext_resource type="PackedScene" uid="uid://dpscixfrpu3he" path="res://scenes/main/Player.tscn" id="2_n4gn4"]
 [ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="3_xcwjs"]
+[ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="4_6ok8f"]
 [ext_resource type="AudioStream" uid="uid://cdyw4oy12qlpi" path="res://music/歓声と拍手2.mp3" id="5_bj7mr"]
 [ext_resource type="AudioStream" uid="uid://cfdre65jo3orq" path="res://music/スタジアムの拍手.mp3" id="6_cesxj"]
 [ext_resource type="AudioStream" uid="uid://d33ruoa7ai7ro" path="res://music/スタジアムの歓声2.mp3" id="7_2fnkt"]
@@ -18,6 +19,12 @@ size = Vector2(496, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omd2s"]
 size = Vector2(8, 6)
+
+[sub_resource type="Theme" id="Theme_fy5cl"]
+default_font = ExtResource("4_6ok8f")
+
+[sub_resource type="Theme" id="Theme_d808w"]
+default_font = ExtResource("4_6ok8f")
 
 [node name="Level01" type="Node2D"]
 script = ExtResource("1_51tbm")
@@ -87,6 +94,7 @@ offset_left = 171.0
 offset_top = 206.0
 offset_right = 418.0
 offset_bottom = 241.0
+theme = SubResource("Theme_fy5cl")
 text = "Retry !"
 
 [node name="ResultText" type="Label" parent="ResultUI"]
@@ -101,13 +109,13 @@ vertical_alignment = 1
 offset_top = 29.0
 offset_right = 576.0
 offset_bottom = 52.0
+theme = SubResource("Theme_d808w")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LevelUI" type="CanvasLayer" parent="."]
 
 [node name="LevelText" type="Label" parent="LevelUI"]
-visible = false
 offset_top = 109.0
 offset_right = 576.0
 offset_bottom = 164.0

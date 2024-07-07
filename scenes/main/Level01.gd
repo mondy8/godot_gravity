@@ -18,6 +18,7 @@ extends Node2D
 @onready var camera = $MainCamera
 
 var is_game_set = false
+var audio_bgm
 
 # レベル変更シグナル
 signal change_level(newLevel:String)
@@ -28,6 +29,8 @@ func _ready() -> void:
 	result.visible = false
 	resultButton.visible = false
 	resultButton.connect("pressed", _on_result_button_pressed)
+	
+	audio_bgm = get_node("../../audio/audioBGM")
 	
 	# 敵の生成
 	var enemy_instance
@@ -92,7 +95,11 @@ func _on_game_set(loser:String):
 				audio_clear.play()
 				is_game_set = true
 				resultText.text = 'You Win!'
-				var timer = self.get_tree().create_timer(2)
+				var tween = get_tree().create_tween()
+				tween.tween_property(audio_bgm, "volume_db", -40, 2.5)
+				#var initial_volume_db = audio_bgm.volume_db
+				tween.set_ease(Tween.EASE_IN)
+				var timer = self.get_tree().create_timer(3)
 				await timer.timeout
 				print('win')
 				change_level.emit(Global.current_level + 1)
