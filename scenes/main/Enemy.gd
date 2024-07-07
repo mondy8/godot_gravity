@@ -2,9 +2,20 @@ extends RigidBody2D
 
 class_name Enemy
 
+var move_speed: float = 30.0
+var move_speed_max:float = 30.0
+var base_jump_impulse_strength: float = 1000.0
+var jump_force = Vector2(0, -600)
+var move_on_jump = false
+
 @onready var ray_right_foot = $RightRayCast2D
 @onready var ray_left_foot = $LeftRayCast2D
+@onready var collision_shape = $CollisionShape2D
+@onready var sprite = $Sprite2D
+@onready var audio_jump = $AudioJump
+
 @export var screen_width: float = 576.0  # 画面の幅
+@onready var collision_normal = Vector2(0, -1)
 
 # ジャンプ中か判定
 func check_jump():
@@ -13,3 +24,10 @@ func check_jump():
 	else: 
 		return false
 
+func jump(target_node: Node2D, jump_force: Vector2) -> void:
+	if check_jump():
+		audio_jump.play()
+		target_node.apply_central_impulse(jump_force)
+
+func randomize_jump(time_min:float, time_max:float) -> float:
+	return randf_range(time_min, time_max)

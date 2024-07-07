@@ -1,16 +1,5 @@
 extends Enemy
 
-@export var move_speed: float = 30.0
-@export var move_speed_max:float = 30.0
-@export var base_jump_impulse_strength: float = 1000.0
-@onready var jump_force = Vector2(0, -600)
-@onready var collision_normal = Vector2(0, -1)
-@onready var move_on_jump = false
-
-@onready var collision_shape = $CollisionShape2D
-@onready var sprite = $Sprite2D
-@onready var audio_jump = $AudioJump
-
 # 脱落シグナル
 signal game_set(loser:String)
 # 着地後にシーソーに与えるシグナル

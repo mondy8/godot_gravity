@@ -5,7 +5,6 @@ extends RigidBody2D
 @export var jump_speed: float = 400.0
 @export var drop_speed: float = 1500.0
 @export var drop_seesaw_speed: float = 150.0
-@export var enemy_bump_speed: float = 150.0
 
 @export var base_jump_impulse_strength: float = 1000.0
 
@@ -23,6 +22,7 @@ extends RigidBody2D
 @onready var audio_jump = $AudioJump
 @onready var audio_drop = $AudioDrop
 @onready var audio_attacked = $AudioAttacked
+@onready var audio_attacked_electric = $AudioAttackedElectric
 @onready var audio_dashed = $AudioDashed
 @onready var sprite = $Sprite2D
 @onready var animation = $AnimationPlayer
@@ -47,14 +47,14 @@ signal camera_shake(duration: float, magnitude: float)
 
 func _ready():
 	sprite_scale = sprite.scale
-	if Global.current_level < 3 or Global.current_level == 7:
-		enemy_bump_speed = 10
-	elif Global.current_level > 7 or Global.current_level == 6:
-		enemy_bump_speed = 150
-		get_damaged = true
-	elif Global.current_level < 7:
-		enemy_bump_speed = 60
-		get_damaged = true
+	#if Global.current_level < 3 or Global.current_level == 7:
+		#enemy_bump_speed = 10
+	#elif Global.current_level > 7 or Global.current_level == 6:
+		#enemy_bump_speed = 150
+		#get_damaged = true
+	#elif Global.current_level < 7:
+		#enemy_bump_speed = 60
+		#get_damaged = true
 
 func _physics_process(delta):
 	# 脱落
@@ -115,11 +115,14 @@ func check_enemy_bump():
 				var collider_position = collider.get_global_position()
 				var self_position = global_position
 				var direction = (self_position - collider_position).normalized()
-				var force = direction * enemy_bump_speed
+				var force = direction * Global.enemy_bump_speed
 				self.apply_impulse(force, Vector2(0, 0))
-				if get_damaged:
+				if Global.player_get_damaged:
 					if !audio_attacked.playing:
-						audio_attacked.play()
+						if Global.current_level == 3:
+							audio_attacked_electric.play()
+						else:
+							audio_attacked.play()
 					var tween = get_tree().create_tween()
 					tween.tween_property(self, "modulate", Color(1, 0, 0, 1), 0.1)
 					tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.1)
