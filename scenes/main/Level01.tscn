@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://d33ruoa7ai7ro" path="res://music/スタジアムの歓声2.mp3" id="7_2fnkt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eh2sk"]
-size = Vector2(368, 54)
+size = Vector2(18, 54)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bdtun"]
 friction = 0.5
@@ -38,15 +38,23 @@ jump_speed = 500.0
 [node name="Ground" type="StaticBody2D" parent="."]
 modulate = Color(0.870588, 1, 1, 1)
 position = Vector2(0, 307)
-metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Ground"]
-position = Vector2(295, 26.75)
-scale = Vector2(370, 54.5)
+[node name="Sprite2D2" type="Sprite2D" parent="Ground"]
+position = Vector2(472, 27)
+scale = Vector2(18, 54)
 texture = ExtResource("3_xcwjs")
 
+[node name="Sprite2D" type="Sprite2D" parent="Ground"]
+position = Vector2(120, 26.75)
+scale = Vector2(20, 54.5)
+texture = ExtResource("3_xcwjs")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Ground"]
+position = Vector2(471, 27)
+shape = SubResource("RectangleShape2D_eh2sk")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(295, 27)
+position = Vector2(120, 27)
 shape = SubResource("RectangleShape2D_eh2sk")
 
 [node name="Seesaw" type="Node2D" parent="."]
@@ -63,15 +71,15 @@ position = Vector2(294, 220)
 mass = 50.0
 physics_material_override = SubResource("PhysicsMaterial_bdtun")
 
-[node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawGround"]
-modulate = Color(0.17188, 0.488489, 0.500614, 1)
-position = Vector2(0, -4.75)
-scale = Vector2(493, 26.5)
-texture = ExtResource("3_xcwjs")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawGround"]
 position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_idmju")
+
+[node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawGround"]
+modulate = Color(0.184314, 0.545098, 0.705882, 1)
+position = Vector2(0, -4.75)
+scale = Vector2(493, 26.5)
+texture = ExtResource("3_xcwjs")
 
 [node name="SeesawPin" type="StaticBody2D" parent="Seesaw"]
 position = Vector2(297, 226)

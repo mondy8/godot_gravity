@@ -6,11 +6,13 @@ signal game_set(loser:String)
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
 
 func _ready():
-	sprite.scale *= 0.5
-	collision_shape.scale *= 0.5
-	mass = 3
-	move_speed = 50.0
-	move_speed_max = 10.0
+	sprite.scale *= 0.4
+	collision_shape.scale *= 0.4
+	mass = 1
+	move_speed = 20.0
+	move_speed_max = 30.0
+	Global.enemy_bump_speed = 30
+	Global.player_get_damaged = true
 
 func _physics_process(delta):
 	# 脱落
@@ -20,10 +22,10 @@ func _physics_process(delta):
 		return
 		
 	# 画面の右側にいる場合、左に移動
-	if position.x > screen_width * 0.7:
+	if position.x > screen_width * 0.55:
 		direction = -1
 	# 画面の左側にいる場合、右に移動
-	elif position.x < screen_width * 0.3:
+	elif position.x < screen_width * 0.45:
 		direction = 1
 	
 	# 水平方向の移動

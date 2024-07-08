@@ -7,6 +7,10 @@ var move_speed_max:float = 30.0
 var base_jump_impulse_strength: float = 1000.0
 var jump_force = Vector2(0, -600)
 var move_on_jump = false
+var direction = 1  # 初期の移動方向（右に移動）
+var jump_timer = 0  # ジャンプタイマー
+var jump_enable = false
+var can_jump_buffer := false
 
 @onready var ray_right_foot = $RightRayCast2D
 @onready var ray_left_foot = $LeftRayCast2D

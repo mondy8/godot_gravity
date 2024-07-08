@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck5s3wt7nhujc"]
+
+[ext_resource type="Script" path="res://scenes/main/Enemy_04_biker.gd" id="1_jl1r5"]
+[ext_resource type="Texture2D" uid="uid://cljosqmwrihxv" path="res://images/04_バイク小僧.png" id="2_dfpi4"]
+[ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_nkdcy"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_12ku6"]
+radius = 28.0
+height = 96.0
+
+[node name="Enemy_04_biker" type="RigidBody2D"]
+mass = 2.0
+lock_rotation = true
+script = ExtResource("1_jl1r5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5, 2)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("2_dfpi4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 14)
+shape = SubResource("CapsuleShape2D_12ku6")
+
+[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 86.8571)
+
+[node name="RightRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 80)
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nkdcy")
+volume_db = -10.4
+pitch_scale = 0.7
+bus = &"Sound"

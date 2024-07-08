@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var enemy01 = preload("res://scenes/main/Enemy_01_ball.tscn")
 @onready var enemy02 = preload("res://scenes/main/Enemy_02_wall.tscn")
+@onready var enemy03 = preload("res://scenes/main/Enemy_03_stinger.tscn")
+@onready var enemy04 = preload("res://scenes/main/Enemy_04_biker.tscn")
 @onready var enemy05 = preload("res://scenes/main/Enemy_05_electric.tscn")
 
 @onready var enemySpawner = $EnemySpawner
@@ -39,6 +41,10 @@ func _ready() -> void:
 	elif Global.current_level == 2:
 		enemy_instance= enemy02.instantiate()
 	elif Global.current_level == 3:
+		enemy_instance= enemy03.instantiate()
+	elif Global.current_level == 4:
+		enemy_instance= enemy04.instantiate()
+	elif Global.current_level == 5:
 		enemy_instance= enemy05.instantiate()
 	else:
 		enemy_instance= enemy01.instantiate()

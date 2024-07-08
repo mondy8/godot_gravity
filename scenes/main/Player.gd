@@ -119,7 +119,7 @@ func check_enemy_bump():
 				self.apply_impulse(force, Vector2(0, 0))
 				if Global.player_get_damaged:
 					if !audio_attacked.playing:
-						if Global.current_level == 3:
+						if Global.current_level == 5:
 							audio_attacked_electric.play()
 						else:
 							audio_attacked.play()

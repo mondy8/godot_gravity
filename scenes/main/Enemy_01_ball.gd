@@ -5,11 +5,6 @@ signal game_set(loser:String)
 # 着地後にシーソーに与えるシグナル
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
 
-var direction = 1  # 初期の移動方向（右に移動）
-var jump_timer = 0  # ジャンプタイマー
-var jump_enable = false
-var can_jump_buffer := false
-
 func _ready():
 	sprite.scale *= 0.3
 	collision_shape.scale *= 0.3
