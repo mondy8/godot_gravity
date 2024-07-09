@@ -1,0 +1,121 @@
+[gd_scene load_steps=10 format=3 uid="uid://b7j2aiwgkxprr"]
+
+[ext_resource type="Script" path="res://scenes/main/Enemy_08_rock.gd" id="1_lsnxe"]
+[ext_resource type="Texture2D" uid="uid://brbif62r488wp" path="res://images/08_デカイワ_sprite.png" id="2_b3o7s"]
+[ext_resource type="AudioStream" uid="uid://b5rcf41ja45ac" path="res://music/ロボットを殴る1.mp3" id="4_1k1sc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nu48r"]
+size = Vector2(137, 95)
+
+[sub_resource type="Animation" id="Animation_qn634"]
+length = 0.01
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vjk4p"]
+resource_name = "electric"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_28glj"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qayrw"]
+resource_name = "jump"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lywh5"]
+_data = {
+"RESET": SubResource("Animation_qn634"),
+"default": SubResource("Animation_28glj"),
+"electric": SubResource("Animation_vjk4p"),
+"jump": SubResource("Animation_qayrw")
+}
+
+[node name="Enemy_08_rock" type="RigidBody2D"]
+mass = 2.0
+script = ExtResource("1_lsnxe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.08165e-12, 47.08)
+scale = Vector2(0.364, 0.364)
+texture = ExtResource("2_b3o7s")
+centered = false
+offset = Vector2(-250, -500)
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -13.5)
+shape = SubResource("RectangleShape2D_nu48r")
+
+[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 86.8571)
+
+[node name="RightRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 80)
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_1k1sc")
+pitch_scale = 1.99
+bus = &"Sound"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lywh5")
+}
+autoplay = "RESET"
+
+[node name="AudioAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_1k1sc")
+bus = &"Sound"

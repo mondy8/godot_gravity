@@ -11,6 +11,7 @@ func _ready():
 	mass = 1
 	move_speed = 15.0
 	move_speed_max = 20.0
+	Global.player_get_damaged = false
 
 func _physics_process(delta):
 	# 脱落
@@ -28,9 +29,5 @@ func _physics_process(delta):
 	
 	# 水平方向の移動
 	var force = Vector2(direction * move_speed, 0)
-	if move_on_jump:
-		if (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
-			self.apply_impulse(force, Vector2(0, 0))
-	else: 
-		if self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max:
-			self.apply_impulse(force, Vector2(0, 0))
+	if self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max:
+		self.apply_impulse(force, Vector2(0, 0))

@@ -24,7 +24,6 @@ func _ready():
 	move_speed = 40.0
 	move_speed_max = 15.0
 	jump_force = Vector2(0, -200)
-	move_on_jump = false # ジャンプ中に動くか
 	jump_timer = randomize_jump(min_jump_time, max_jump_time)
 	Global.enemy_bump_speed = init_bump_speed
 	Global.player_get_damaged = true
@@ -60,7 +59,7 @@ func _physics_process(delta):
 		jump(self, jump_force)
 		jump_timer = randomize_jump(min_jump_time, max_jump_time)
 	
-	# メイン処理
+	# ジャンプ処理
 	var can_jump = check_jump()
 	if can_jump == true and can_jump_buffer == false:
 		var collision_point = get_global_position()
@@ -72,12 +71,8 @@ func _physics_process(delta):
 	
 	# 水平方向の移動
 	var force = Vector2(direction * move_speed, 0)
-	if move_on_jump:
-		if (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
-			self.apply_impulse(force, Vector2(0, 0))
-	else: 
-		if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
-			self.apply_impulse(force, Vector2(0, 0))
+	if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
+		self.apply_impulse(force, Vector2(0, 0))
 		
 	can_jump_buffer = can_jump
 	
@@ -95,7 +90,6 @@ func sting():
 	var timer = self.get_tree().create_timer(0.5)
 	await timer.timeout
 	Global.enemy_bump_speed = init_bump_speed
-	
 
 func randomize_sting(time_min:float, time_max:float) -> float:
 	return randf_range(time_min, time_max)
