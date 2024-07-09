@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://biox0bucgqq0r"]
+
+[ext_resource type="Script" path="res://scenes/main/Enemy_06_electric.gd" id="1_yw6ep"]
+[ext_resource type="Texture2D" uid="uid://cdprhhmha4yw4" path="res://images/06_ウニマン_sprite.png" id="2_7rmpm"]
+[ext_resource type="AudioStream" uid="uid://qgkpxd5cni0p" path="res://music/Electric_Shock06-1(Short).mp3" id="3_5fx31"]
+[ext_resource type="AudioStream" uid="uid://c5o5npvb3l62i" path="res://music/剣で斬る2.mp3" id="4_53kld"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sec50"]
+radius = 52.0096
+
+[sub_resource type="Animation" id="Animation_vjk4p"]
+resource_name = "electric"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_qn634"]
+resource_name = "sting"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_cvd36"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lywh5"]
+_data = {
+"RESET": SubResource("Animation_cvd36"),
+"electric": SubResource("Animation_vjk4p"),
+"sting": SubResource("Animation_qn634")
+}
+
+[node name="Enemy_06_electric" type="RigidBody2D"]
+mass = 2.0
+lock_rotation = true
+script = ExtResource("1_yw6ep")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.66, -3)
+scale = Vector2(0.364, 0.364)
+texture = ExtResource("2_7rmpm")
+hframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sec50")
+
+[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 86.8571)
+
+[node name="RightRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-26, 27)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 80)
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5fx31")
+volume_db = -10.4
+pitch_scale = 0.7
+bus = &"Sound"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lywh5")
+}
+
+[node name="AudioSting" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_53kld")
+pitch_scale = 0.82
+bus = &"Sound"

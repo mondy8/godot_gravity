@@ -44,6 +44,10 @@ func _ready():
 		SaveGame.load_game(get_tree())
 	
 	pause_overlay.game_exited.connect(_save_game)
+	
+	current_level_buffer = Global.current_level
+	audioBGM.stream = audio_array[Global.current_level - 1]
+	audioBGM.play()
 
 
 func _input(event) -> void:
