@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5envutcrn27v"]
+
+[ext_resource type="Script" path="res://scenes/main/Enemy_09_biker_bro.gd" id="1_6rc5c"]
+[ext_resource type="Texture2D" uid="uid://bdhu46fxr7drw" path="res://images/09_バイク親玉.png" id="2_xyhe6"]
+[ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_ovx0n"]
+[ext_resource type="AudioStream" uid="uid://emgb23sd1xak" path="res://music/軽いパンチ1.mp3" id="4_fouam"]
+[ext_resource type="AudioStream" uid="uid://ba8bhb4p4twb" path="res://music/車のクラクション.mp3" id="5_dqow8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rb5ch"]
+radius = 47.5
+height = 121.0
+
+[node name="Enemy_09_biker_bro" type="RigidBody2D"]
+mass = 2.0
+lock_rotation = true
+script = ExtResource("1_6rc5c")
+
+[node name="LeftSideRayCast" type="RayCast2D" parent="."]
+position = Vector2(-52, 11)
+scale = Vector2(0.184632, 0.191406)
+target_position = Vector2(-169.975, 1.63266)
+
+[node name="RightSideRayCast" type="RayCast2D" parent="."]
+position = Vector2(55, 11)
+scale = Vector2(0.184632, 0.191406)
+target_position = Vector2(167.902, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-6, 53)
+scale = Vector2(0.364, 0.364)
+texture = ExtResource("2_xyhe6")
+centered = false
+offset = Vector2(-250, -500)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -13.5)
+shape = SubResource("CapsuleShape2D_rb5ch")
+
+[node name="LeftRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(38, 37)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 86.8571)
+
+[node name="RightRayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-41, 29)
+scale = Vector2(0.429688, 0.4375)
+target_position = Vector2(0, 80)
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ovx0n")
+pitch_scale = 1.99
+bus = &"Sound"
+
+[node name="AudioAttack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fouam")
+volume_db = 6.0
+pitch_scale = 0.72
+bus = &"Sound"
+
+[node name="AudioBeep" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_dqow8")
+volume_db = 6.0
+bus = &"Sound"

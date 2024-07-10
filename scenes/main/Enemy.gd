@@ -22,9 +22,21 @@ var can_jump_buffer := false
 
 # ジャンプ中か判定
 func check_jump():
-	if ray_right_foot.is_colliding() or ray_left_foot.is_colliding():
-		return true
-	else: 
+	if ray_right_foot.is_colliding():
+		var collider = ray_right_foot.get_collider()
+		if collider is Player:
+			return false
+		else:
+			return true
+	
+	elif ray_left_foot.is_colliding():
+		var collider = ray_left_foot.get_collider()
+		if collider is Player:
+			return false
+		else:
+			return true
+	
+	else:
 		return false
 
 func jump(target_node: Node2D, jump_force: Vector2) -> void:

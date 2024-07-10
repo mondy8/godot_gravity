@@ -96,12 +96,12 @@ position = Vector2(0.5, -13.5)
 shape = SubResource("RectangleShape2D_nu48r")
 
 [node name="LeftRayCast2D" type="RayCast2D" parent="."]
-position = Vector2(26, 27)
+position = Vector2(74, 28)
 scale = Vector2(0.429688, 0.4375)
 target_position = Vector2(0, 86.8571)
 
 [node name="RightRayCast2D" type="RayCast2D" parent="."]
-position = Vector2(-26, 27)
+position = Vector2(-73, 28)
 scale = Vector2(0.429688, 0.4375)
 target_position = Vector2(0, 80)
 
@@ -118,4 +118,6 @@ autoplay = "RESET"
 
 [node name="AudioAttack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_1k1sc")
+volume_db = 6.0
+pitch_scale = 0.72
 bus = &"Sound"

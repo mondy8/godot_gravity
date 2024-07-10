@@ -1,9 +1,15 @@
 extends Enemy
 
+@onready var audio_ring = $AudioRing
+
 # 脱落シグナル
 signal game_set(loser:String)
 # 着地後にシーソーに与えるシグナル
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
+
+var ring_timer = 1.0
+var min_ring_time = 0.0
+var max_ring_time = 2.0
 
 func _ready():
 	sprite.scale *= 0.5
@@ -20,6 +26,13 @@ func _physics_process(delta):
 		set_freeze_enabled(true)
 		game_set.emit('enemy')
 		return
+	
+	# ランダムなタイミングでチリン
+	ring_timer -= delta
+	if ring_timer <= 0:
+		audio_ring.play()
+		ring_timer = randomize_ring(min_ring_time, max_ring_time)
+	print(ring_timer)
 		
 	# 画面の右側にいる場合、左に移動
 	if position.x > screen_width * 0.6:
@@ -35,3 +48,6 @@ func _physics_process(delta):
 	var force = Vector2(direction * move_speed, 0)
 	if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
 		self.apply_impulse(force, Vector2(0, 0))
+
+func randomize_ring(time_min:float, time_max:float) -> float:
+	return randf_range(time_min, time_max)

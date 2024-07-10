@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+class_name Player
+
 @export var move_speed: float = 1000.0
 @export var move_speed_max = 100
 @export var jump_speed: float = 400.0
@@ -37,6 +39,7 @@ extends RigidBody2D
 @onready var sprite_amplitude := 0.01  # Y軸の振幅
 @onready var sprite_frequency := 3.0   # 周波数（1秒あたりのサイクル数）
 @onready var time_elapsed := 0.0
+@onready var dash_speed := 20.0
 
 # 着地後にシーソーに与えるシグナル
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
@@ -132,9 +135,9 @@ func input_process(can_jump:bool) -> Vector2:
 	if speed > 1000:
 		create_ghost()
 		if move_right_interval == MOVE_FAST_LIMIT / 2:
-			return move_left_force * 20
+			return move_left_force * dash_speed
 		if move_left_interval == MOVE_FAST_LIMIT / 2:
-			return move_right_force * 20
+			return move_right_force * dash_speed
 	
 	# ダッシュ判定
 	if Input.is_action_just_pressed("move_right"):
@@ -142,7 +145,7 @@ func input_process(can_jump:bool) -> Vector2:
 			move_right_interval = 0
 			audio_dashed.play()
 			animation.play("dash")
-			return move_right_force * 20
+			return move_right_force * dash_speed
 		move_right_interval = 0
 		sprite.set_flip_h(false)
 	if Input.is_action_just_pressed("move_left"):
@@ -150,7 +153,7 @@ func input_process(can_jump:bool) -> Vector2:
 			move_left_interval = 0
 			audio_dashed.play()
 			animation.play("dash")
-			return move_left_force * 20
+			return move_left_force * dash_speed
 		move_left_interval = 0
 		sprite.set_flip_h(true)
 		

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ck5s3wt7nhujc"]
+[gd_scene load_steps=6 format=3 uid="uid://ck5s3wt7nhujc"]
 
 [ext_resource type="Script" path="res://scenes/main/Enemy_04_biker.gd" id="1_jl1r5"]
 [ext_resource type="Texture2D" uid="uid://cljosqmwrihxv" path="res://images/04_バイク小僧.png" id="2_dfpi4"]
 [ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_nkdcy"]
+[ext_resource type="AudioStream" uid="uid://b4r71gpija2sd" path="res://music/自転車チリン.mp3" id="4_hpfyb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_12ku6"]
 radius = 28.0
@@ -36,4 +37,9 @@ target_position = Vector2(0, 80)
 stream = ExtResource("3_nkdcy")
 volume_db = -10.4
 pitch_scale = 0.7
+bus = &"Sound"
+
+[node name="AudioRing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hpfyb")
+pitch_scale = 0.88
 bus = &"Sound"

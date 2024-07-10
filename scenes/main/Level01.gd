@@ -8,6 +8,7 @@ extends Node2D
 @onready var enemy06 = preload("res://scenes/main/Enemy_06_electric.tscn")
 @onready var enemy07 = preload("res://scenes/main/Enemy_07_bird.tscn")
 @onready var enemy08 = preload("res://scenes/main/Enemy_08_rock.tscn")
+@onready var enemy09 = preload("res://scenes/main/Enemy_09_biker_bro.tscn")
 
 @onready var enemySpawner = $EnemySpawner
 @onready var player = $Player
@@ -57,6 +58,8 @@ func _ready() -> void:
 	elif Global.current_level == 8:
 		enemy_instance= enemy08.instantiate()
 		enemy_instance.camera_shake.connect(_on_camera_shake) # カメラシェイク
+	elif Global.current_level == 9:
+		enemy_instance= enemy09.instantiate()
 	else:
 		enemy_instance= enemy01.instantiate()
 	enemy_instance.position = enemySpawner.position

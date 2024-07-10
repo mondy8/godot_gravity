@@ -20,9 +20,9 @@ func _ready():
 	mass = 3.5
 	move_speed = 50.0
 	move_speed_max = 50.0
-	jump_force = Vector2(0, -2000)
+	jump_force = Vector2(0, -1500)
 	jump_timer = randomize_jump(min_jump_time, max_jump_time)
-	Global.enemy_bump_speed = 50
+	Global.enemy_bump_speed = 100
 	Global.player_get_damaged = false
 	
 	init_sprite_scale = sprite.scale
@@ -35,11 +35,11 @@ func _physics_process(delta):
 		return
 		
 	# 画面の右側にいる場合、左に移動
-	if position.x > screen_width * 0.7:
+	if position.x > screen_width * 0.55:
 		direction = -1
 		sprite.set_flip_h(false)
 	# 画面の左側にいる場合、右に移動
-	elif position.x < screen_width * 0.3:
+	elif position.x < screen_width * 0.45:
 		direction = 1
 		sprite.set_flip_h(true)
 
