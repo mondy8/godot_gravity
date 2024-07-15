@@ -11,6 +11,7 @@ func _ready():
 	mass = 1
 	move_speed = 15.0
 	move_speed_max = 20.0
+	Global.enemy_bump_speed = 0
 	Global.player_get_damaged = false
 
 func _physics_process(delta):

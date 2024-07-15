@@ -34,7 +34,9 @@ class_name Player
 @onready var get_damaged := false
 @onready var move_right_interval := 0
 @onready var move_left_interval := 0
+@onready var dash_interval := 0
 @onready var MOVE_FAST_LIMIT := 20
+@onready var dash_interval_limit := 30
 @onready var sprite_scale := Vector2(1, 1)
 @onready var sprite_amplitude := 0.01  # Y軸の振幅
 @onready var sprite_frequency := 3.0   # 周波数（1秒あたりのサイクル数）
@@ -61,6 +63,7 @@ func _physics_process(delta):
 	# ダッシュ判定用
 	move_right_interval += 1
 	move_left_interval += 1
+	dash_interval += 1
 	
 	var can_jump = check_jump()
 	# ジャンプ着地判定
@@ -141,18 +144,20 @@ func input_process(can_jump:bool) -> Vector2:
 	
 	# ダッシュ判定
 	if Input.is_action_just_pressed("move_right"):
-		if move_right_interval < MOVE_FAST_LIMIT:
+		if dash_interval > dash_interval_limit and move_right_interval < MOVE_FAST_LIMIT:
 			move_right_interval = 0
 			audio_dashed.play()
 			animation.play("dash")
+			dash_interval = 0
 			return move_right_force * dash_speed
 		move_right_interval = 0
 		sprite.set_flip_h(false)
 	if Input.is_action_just_pressed("move_left"):
-		if move_left_interval < MOVE_FAST_LIMIT:
+		if dash_interval > dash_interval_limit and move_left_interval < MOVE_FAST_LIMIT:
 			move_left_interval = 0
 			audio_dashed.play()
 			animation.play("dash")
+			dash_interval = 0
 			return move_left_force * dash_speed
 		move_left_interval = 0
 		sprite.set_flip_h(true)

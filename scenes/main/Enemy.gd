@@ -22,6 +22,8 @@ var can_jump_buffer := false
 
 # ジャンプ中か判定
 func check_jump():
+	if ray_right_foot.is_colliding() or ray_left_foot.is_colliding():
+		return true
 	if ray_right_foot.is_colliding():
 		var collider = ray_right_foot.get_collider()
 		if collider is Player:

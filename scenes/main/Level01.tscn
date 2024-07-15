@@ -59,7 +59,6 @@ shape = SubResource("RectangleShape2D_eh2sk")
 
 [node name="Seesaw" type="Node2D" parent="."]
 position = Vector2(0, -25)
-metadata/_edit_group_ = true
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Seesaw"]
 position = Vector2(294, 220)

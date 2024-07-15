@@ -44,6 +44,8 @@ func _physics_process(delta):
 	# 水平方向の移動
 	var can_jump = check_jump()
 	var force = Vector2(direction * move_speed, 0)
+	if !can_jump:
+		force *= 0.7
 	if self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max:
 		self.apply_impulse(force, Vector2(0, 0))
 	

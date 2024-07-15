@@ -15,15 +15,15 @@ var max_sting_time := 130.0
 var sting_timer := 0
 var init_sprite_scale := Vector2(1, 1)
 var init_collision_scale := Vector2(1, 1)
-var init_bump_speed = 30
+var init_bump_speed = 50
 
 func _ready():
 	sprite.scale *= 0.6
 	collision_shape.scale *= 0.6
 	mass = 2.0
-	move_speed = 40.0
+	move_speed = 30.0
 	move_speed_max = 15.0
-	jump_force = Vector2(0, -200)
+	jump_force = Vector2(0, -1600)
 	jump_timer = randomize_jump(min_jump_time, max_jump_time)
 	Global.enemy_bump_speed = init_bump_speed
 	Global.player_get_damaged = true
@@ -43,7 +43,7 @@ func _physics_process(delta):
 	if position.x > screen_width * 0.57:
 		direction = -1
 	# 画面の左側にいる場合、右に移動
-	elif position.x < screen_width * 0.33:
+	elif position.x < screen_width * 0.43:
 		direction = 1
 
 	# ランダムなタイミングで刺す
@@ -71,6 +71,8 @@ func _physics_process(delta):
 	
 	# 水平方向の移動
 	var force = Vector2(direction * move_speed, 0)
+	if !can_jump:
+		force *= 0.7
 	if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
 		self.apply_impulse(force, Vector2(0, 0))
 		
