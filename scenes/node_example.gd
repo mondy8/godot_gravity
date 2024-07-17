@@ -5,6 +5,7 @@ extends Sprite2D
 func load_data(data:Dictionary) -> void:
 	print(data.hello) 
 	
+	
 # specify in nodes to save data
 # of this node to the save game
 func save_data() -> Dictionary:

@@ -2,6 +2,11 @@ extends RigidBody2D
 
 class_name Enemy
 
+@onready var charcter_canvas = preload("res://scenes/main/CharacterCanvas.tscn")
+
+var SCREEN_WIDTH: float = 576.0  # 画面の幅
+var SCREEN_HEIGHT: float = 400.0  # 画面の高さ
+
 var move_speed: float = 30.0
 var move_speed_max:float = 30.0
 var base_jump_impulse_strength: float = 1000.0
@@ -10,6 +15,7 @@ var direction = 1  # 初期の移動方向（右に移動）
 var jump_timer = 0  # ジャンプタイマー
 var jump_enable = false
 var can_jump_buffer := false
+var canvas
 
 @onready var ray_right_foot = $RightRayCast2D
 @onready var ray_left_foot = $LeftRayCast2D
@@ -19,6 +25,13 @@ var can_jump_buffer := false
 
 @export var screen_width: float = 576.0  # 画面の幅
 @onready var collision_normal = Vector2(0, -1)
+
+# Canvas Layerの配置
+func set_canvas():
+	canvas = charcter_canvas.instantiate()
+	var position_arrow = canvas.get_node("PositionArrow")
+	position_arrow.modulate = Color(0.15, 0.15, 0.15, 1)
+	add_child(canvas)
 
 # ジャンプ中か判定
 func check_jump():

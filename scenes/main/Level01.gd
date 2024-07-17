@@ -86,7 +86,11 @@ func _ready() -> void:
 	
 # シーソーへの衝突処理
 func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
+	print("seasaw collided!!")
 	var seesawPosition = seesawGround.to_local(collided_position)
+	#print("seesawPosition",seesawPosition)
+	print("impulse:", impulse)
+	
 	seesawGround.apply_impulse(seesawPosition, impulse)
 
 # ゲーム終了
@@ -101,7 +105,6 @@ func _on_game_set(loser:String):
 			resultButton.text = 'Revenge!'
 			resultButton.visible = true
 			resultButton.grab_focus()
-			print('lose')
 			return
 		else:
 			if Global.current_level == 10:
@@ -124,7 +127,6 @@ func _on_game_set(loser:String):
 				tween.set_ease(Tween.EASE_IN)
 				var timer = self.get_tree().create_timer(3)
 				await timer.timeout
-				print('win')
 				change_level.emit(Global.current_level + 1)
 			return
 

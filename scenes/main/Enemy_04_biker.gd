@@ -12,6 +12,7 @@ var min_ring_time = 0.0
 var max_ring_time = 2.0
 
 func _ready():
+	super.set_canvas()
 	sprite.scale *= 0.5
 	collision_shape.scale *= 0.5
 	mass = 1.5
@@ -22,7 +23,7 @@ func _ready():
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > 400 or position.x < -150 or position.x > 576 + 150:
+	if position.y > SCREEN_HEIGHT:
 		set_freeze_enabled(true)
 		game_set.emit('enemy')
 		return
@@ -32,7 +33,6 @@ func _physics_process(delta):
 	if ring_timer <= 0:
 		audio_ring.play()
 		ring_timer = randomize_ring(min_ring_time, max_ring_time)
-	print(ring_timer)
 		
 	# 画面の右側にいる場合、左に移動
 	if position.x > screen_width * 0.6:

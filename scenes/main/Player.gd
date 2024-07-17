@@ -2,12 +2,13 @@ extends RigidBody2D
 
 class_name Player
 
+@onready var charcter_canvas = preload("res://scenes/main/CharacterCanvas.tscn")
+
 @export var move_speed: float = 1000.0
 @export var move_speed_max = 100
 @export var jump_speed: float = 400.0
 @export var drop_speed: float = 1500.0
 @export var drop_seesaw_speed: float = 150.0
-
 @export var base_jump_impulse_strength: float = 1000.0
 
 @onready var move_right_force = Vector2(move_speed, 0)
@@ -42,6 +43,7 @@ class_name Player
 @onready var sprite_frequency := 3.0   # 周波数（1秒あたりのサイクル数）
 @onready var time_elapsed := 0.0
 @onready var dash_speed := 20.0
+var canvas
 
 # 着地後にシーソーに与えるシグナル
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
@@ -52,10 +54,14 @@ signal camera_shake(duration: float, magnitude: float)
 
 func _ready():
 	sprite_scale = sprite.scale
+	canvas = charcter_canvas.instantiate()
+	var position_arrow = canvas.get_node("PositionArrow")
+	position_arrow.modulate = Color(0.85, 0.85, 0.85, 1)
+	add_child(canvas)
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > 400 or position.x < -150 or position.x > 576 + 150:
+	if position.y > 400:
 		set_freeze_enabled(true)
 		game_set.emit('player')
 		return
@@ -69,19 +75,23 @@ func _physics_process(delta):
 	# ジャンプ着地判定
 	if can_jump and can_jump_buffer == false:
 		var collision_point = get_global_position()
-		collision_point.y -= 35
 		var velocity = linear_velocity
 		var speed = velocity.length()
 		var adjusted_impulse_strength = base_jump_impulse_strength * (speed / 1000)
 		var impulse = collision_normal * adjusted_impulse_strength
 		if is_dropping:
-			impulse = impulse * 20
+			if collision_point.x < Global.SCREEN_WIDTH / 6 or collision_point.x > Global.SCREEN_WIDTH * 5 / 6:
+				impulse = Vector2(0, -20000)
+			elif collision_point.x < Global.SCREEN_WIDTH * 2 / 6 or collision_point.x > Global.SCREEN_WIDTH * 4 / 6:
+				impulse = Vector2(0, -30000)
+			else: 
+				impulse = Vector2(0, -50000)
+				
 			is_dropping = false
 			camera_shake.emit(0.5, 6.0)
-			print("dropped!")
-			print(collision_point)
 		else:
 			animation.play("stop")
+			
 		seesaw_collided.emit(collision_point, impulse)
 	elif can_jump:
 		# リズムを取る
@@ -96,7 +106,7 @@ func _physics_process(delta):
 	can_jump_buffer = can_jump
 	
 	check_enemy_bump()
-
+	
 # ジャンプ中か判定
 func check_jump():
 	if ray_right_foot.is_colliding() or ray_left_foot.is_colliding() or ray_right_side.is_colliding() or ray_left_side.is_colliding():

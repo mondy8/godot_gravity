@@ -18,12 +18,13 @@ var init_collision_scale := Vector2(1, 1)
 var init_bump_speed = 50
 
 func _ready():
+	super.set_canvas()
 	sprite.scale *= 0.6
 	collision_shape.scale *= 0.6
 	mass = 2.0
-	move_speed = 30.0
+	move_speed = 40.0
 	move_speed_max = 15.0
-	jump_force = Vector2(0, -1600)
+	jump_force = Vector2(0, -200)
 	jump_timer = randomize_jump(min_jump_time, max_jump_time)
 	Global.enemy_bump_speed = init_bump_speed
 	Global.player_get_damaged = true
@@ -34,7 +35,7 @@ func _ready():
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > 400 or position.x < -150 or position.x > 576 + 150:
+	if position.y > SCREEN_HEIGHT:
 		set_freeze_enabled(true)
 		game_set.emit('enemy')
 		return
@@ -48,7 +49,6 @@ func _physics_process(delta):
 
 	# ランダムなタイミングで刺す
 	sting_timer -= delta
-	print(sting_timer)
 	if sting_timer <= 0:
 		sting()
 		sting_timer = randomize_sting(min_sting_time, max_sting_time)

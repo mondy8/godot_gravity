@@ -11,6 +11,7 @@ var min_jump_time := 0.5
 var max_jump_time := 2.0
 
 func _ready():
+	super.set_canvas()
 	sprite.scale *= 0.6
 	collision_shape.scale *= 0.6
 	mass = 0.8
@@ -24,7 +25,7 @@ func _ready():
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > 400 or position.x < -150 or position.x > 576 + 150:
+	if position.y > SCREEN_HEIGHT:
 		set_freeze_enabled(true)
 		game_set.emit('enemy')
 		return

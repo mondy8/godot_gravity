@@ -6,6 +6,7 @@ signal game_set(loser:String)
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
 
 func _ready():
+	super.set_canvas()
 	sprite.scale *= 0.4
 	collision_shape.scale *= 0.4
 	mass = 1
@@ -16,7 +17,7 @@ func _ready():
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > 400 or position.x < -150 or position.x > 576 + 150:
+	if position.y > SCREEN_HEIGHT:
 		set_freeze_enabled(true)
 		game_set.emit('enemy')
 		return
@@ -29,6 +30,7 @@ func _physics_process(delta):
 		direction = 1
 	
 	# 水平方向の移動
+	var can_jump = check_jump()
 	var force = Vector2(direction * move_speed, 0)
-	if self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max:
+	if can_jump and self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max:
 		self.apply_impulse(force, Vector2(0, 0))

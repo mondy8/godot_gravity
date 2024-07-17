@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx3eip8q1i68g"]
+
+[ext_resource type="Script" path="res://scenes/main/CharacterCanvas.gd" id="1_fww6q"]
+[ext_resource type="Texture2D" uid="uid://isjgyq5lqece" path="res://images/bg_triangle.png" id="2_5w72t"]
+
+[node name="CharacterCanvas" type="CanvasLayer"]
+script = ExtResource("1_fww6q")
+
+[node name="PositionArrow" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(297, 100)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_5w72t")
