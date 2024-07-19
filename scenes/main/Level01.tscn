@@ -1,12 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjdhuqymuxw5u"]
+[gd_scene load_steps=16 format=3 uid="uid://cjdhuqymuxw5u"]
 
 [ext_resource type="Script" path="res://scenes/main/Level01.gd" id="1_51tbm"]
 [ext_resource type="PackedScene" uid="uid://dpscixfrpu3he" path="res://scenes/main/Player.tscn" id="2_n4gn4"]
 [ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="3_xcwjs"]
 [ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="4_6ok8f"]
+[ext_resource type="Texture2D" uid="uid://c2jupaank72lf" path="res://images/01_雑魚ボール.png" id="5_6rbvw"]
 [ext_resource type="AudioStream" uid="uid://cdyw4oy12qlpi" path="res://music/歓声と拍手2.mp3" id="5_bj7mr"]
 [ext_resource type="AudioStream" uid="uid://cfdre65jo3orq" path="res://music/スタジアムの拍手.mp3" id="6_cesxj"]
 [ext_resource type="AudioStream" uid="uid://d33ruoa7ai7ro" path="res://music/スタジアムの歓声2.mp3" id="7_2fnkt"]
+[ext_resource type="AudioStream" uid="uid://biy6xioiwn5ml" path="res://music/Motion-Swish02-1.mp3" id="9_nu7dr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eh2sk"]
 size = Vector2(18, 54)
@@ -120,13 +122,43 @@ theme = SubResource("Theme_d808w")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CharacterUI" type="CanvasLayer" parent="."]
+
+[node name="CharacterSprite" type="Sprite2D" parent="CharacterUI"]
+position = Vector2(681, 435)
+texture = ExtResource("5_6rbvw")
+
 [node name="LevelUI" type="CanvasLayer" parent="."]
+rotation = -0.29147
+transform = Transform2D(0.957823, -0.287361, 0.287361, 0.957823, 0, 0)
 
 [node name="LevelText" type="Label" parent="LevelUI"]
-offset_top = 109.0
-offset_right = 576.0
-offset_bottom = 164.0
+offset_left = 500.0
+offset_top = 52.0
+offset_right = 759.0
+offset_bottom = 107.0
 theme_override_font_sizes/font_size = 40
+text = "Level 1"
+vertical_alignment = 1
+
+[node name="SubText" type="Label" parent="LevelUI"]
+offset_left = 500.0
+offset_top = 107.0
+offset_right = 861.0
+offset_bottom = 162.0
+theme_override_font_sizes/font_size = 20
+text = "ころがさないで、のらないで。
+"
+vertical_alignment = 1
+
+[node name="MainText" type="Label" parent="LevelUI"]
+offset_left = 500.0
+offset_top = 152.0
+offset_right = 867.0
+offset_bottom = 207.0
+theme_override_font_sizes/font_size = 40
+text = "ミスターザコボール
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -145,5 +177,9 @@ bus = &"Sound"
 stream = ExtResource("7_2fnkt")
 bus = &"Sound"
 
+[node name="AudioLabelUI" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_nu7dr")
+bus = &"Sound"
+
 [node name="EnemySpawner" type="Node2D" parent="."]
-position = Vector2(414, 29)
+position = Vector2(418, -68)

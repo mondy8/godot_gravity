@@ -19,9 +19,13 @@ extends Node2D
 @onready var resultText = $ResultUI/ResultText
 @onready var timetText = $ResultUI/TimeText
 @onready var levelText = $LevelUI/LevelText
+@onready var characterSprite = $CharacterUI/CharacterSprite
+@onready var subText = $LevelUI/SubText
+@onready var mainText = $LevelUI/MainText
 @onready var audio_clear = $AudioClear1
 @onready var audio_lose = $AudioLose
 @onready var audio_winner = $AudioWinner
+@onready var audio_label_ui = $AudioLabelUI
 @onready var camera = $MainCamera
 
 var is_game_set = false
@@ -33,6 +37,9 @@ signal change_level(newLevel:String)
 signal start_timer(control: bool)
 
 func _ready() -> void:
+	
+	showLevelUI()
+	
 	result.visible = false
 	resultButton.visible = false
 	resultButton.connect("pressed", _on_result_button_pressed)
@@ -65,8 +72,6 @@ func _ready() -> void:
 		enemy_instance= enemy10.instantiate()
 	else:
 		enemy_instance= enemy01.instantiate()
-	enemy_instance.position = enemySpawner.position
-	add_child(enemy_instance)
 
 	# playerからシーソーへ与えるシグナル
 	player.seesaw_collided.connect(_on_seesaw_collided)
@@ -79,17 +84,17 @@ func _ready() -> void:
 	
 	levelText.text = "Level " + str(Global.current_level)
 	levelText.visible = true
-	var timer = self.get_tree().create_timer(1)
+	var timer = self.get_tree().create_timer(4)
 	await timer.timeout
 	levelText.visible = false
 	start_timer.emit(true)
 	
+	enemy_instance.position = enemySpawner.position
+	add_child(enemy_instance)
+	
 # シーソーへの衝突処理
 func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
-	print("seasaw collided!!")
 	var seesawPosition = seesawGround.to_local(collided_position)
-	#print("seesawPosition",seesawPosition)
-	print("impulse:", impulse)
 	
 	seesawGround.apply_impulse(seesawPosition, impulse)
 
@@ -123,7 +128,6 @@ func _on_game_set(loser:String):
 				resultText.text = 'You Win!'
 				var tween = get_tree().create_tween()
 				tween.tween_property(audio_bgm, "volume_db", -40, 2.5)
-				#var initial_volume_db = audio_bgm.volume_db
 				tween.set_ease(Tween.EASE_IN)
 				var timer = self.get_tree().create_timer(3)
 				await timer.timeout
@@ -150,3 +154,34 @@ func _on_camera_shake(duration: float, magnitude: float) -> void:
 
 	# 元の位置に戻す
 	tween.tween_property(camera, "offset", Vector2(288, 162), 0.1)
+
+func showLevelUI():
+	var tween1 = get_tree().create_tween()
+	var tween2 = get_tree().create_tween()
+	var tween3 = get_tree().create_tween()
+	var tween4 = get_tree().create_tween()
+	tween1.set_trans(Tween.TRANS_BACK)
+	tween2.set_trans(Tween.TRANS_BACK)
+	tween3.set_trans(Tween.TRANS_BACK)
+	tween4.set_trans(Tween.TRANS_BACK)
+	tween1.set_ease(Tween.EASE_IN_OUT)
+	tween2.set_ease(Tween.EASE_IN_OUT)
+	tween3.set_ease(Tween.EASE_IN_OUT)
+	tween4.set_ease(Tween.EASE_IN_OUT)
+	tween1.tween_property(levelText, "position:x", 0, 0.6)
+	tween1.tween_property(levelText, "position:x", 0, 2)
+	tween1.tween_property(levelText, "position:x", -500, 1)
+	tween2.tween_property(subText, "position:x", 0, 0.8)
+	tween2.tween_property(subText, "position:x", 0, 2)
+	tween2.tween_property(subText, "position:x", -500, 1)
+	tween3.tween_property(mainText, "position:x", 0, 0.9)
+	tween3.tween_property(mainText, "position:x", 0, 2)
+	tween3.tween_property(mainText, "position:x", -500, 1)
+	tween4.tween_property(characterSprite, "position", Vector2(452, 241), 0.4)
+	tween4.tween_property(characterSprite, "position", Vector2(452, 241), 3)
+	tween4.tween_property(characterSprite, "position", Vector2(681,435), 0.4)
+	
+	audio_label_ui.play()
+	var timer = self.get_tree().create_timer(2.8)
+	await timer.timeout
+	audio_label_ui.play()
