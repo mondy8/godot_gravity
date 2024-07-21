@@ -71,6 +71,9 @@ func _physics_process(delta):
 	
 	# 水平方向の移動
 	var force = Vector2(direction * move_speed, 0)
+	# 端にいる場合は戻ろうとする
+	if position.x < screen_width * 0.25 or position.x > screen_width * 0.75:
+		force = Vector2(direction * move_speed * 5, 0)
 	if !can_jump:
 		force *= 0.7
 	if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):

@@ -1,6 +1,6 @@
 extends Node
 
-var current_level := 1
+var current_level := 9
 
 var time := 0.0
 

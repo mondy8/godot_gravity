@@ -3,6 +3,7 @@ extends Enemy
 @onready var left_side_ray = $LeftSideRayCast
 @onready var right_side_ray = $RightSideRayCast
 @onready var audio_beep = $AudioBeep
+@onready var audio_attack = $AudioAttack
 
 var init_bump_speed := 30
 
@@ -44,15 +45,28 @@ func _physics_process(delta):
 	
 	# 水平方向の移動
 	var can_jump = check_jump()
+	if can_jump == true and can_jump_buffer == false:
+		var collision_point = get_global_position()
+		var velocity = linear_velocity
+		var speed = velocity.length()
+		var adjusted_impulse_strength = base_jump_impulse_strength * (speed / 10)
+		var impulse = collision_normal * adjusted_impulse_strength
+		seesaw_collided.emit(collision_point, impulse)
+		audio_attack.play()
 	var force = Vector2(direction * move_speed, 0)
+	# 端にいる場合は戻ろうとする
 	if !can_jump:
-		force *= 0.4
+		force *= 0.2
+	elif position.x < screen_width * 0.25 or position.x > screen_width * 0.75:
+		force = Vector2(direction * move_speed * 9.65, 0)
 	if self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max:
 		self.apply_impulse(force, Vector2(0, 0))
 	
 	var is_colliding_player = check_colliding_player()
 	if is_colliding_player:
 		player_collision()
+	
+	can_jump_buffer = can_jump
 
 func check_colliding_player() -> bool:
 	if left_side_ray.is_colliding():

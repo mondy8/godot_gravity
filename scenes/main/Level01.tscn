@@ -181,5 +181,8 @@ bus = &"Sound"
 stream = ExtResource("9_nu7dr")
 bus = &"Sound"
 
+[node name="PlayerSpawner" type="Node2D" parent="."]
+position = Vector2(176, -55)
+
 [node name="EnemySpawner" type="Node2D" parent="."]
-position = Vector2(418, -68)
+position = Vector2(452, -64)

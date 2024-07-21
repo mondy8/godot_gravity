@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5envutcrn27v"]
+[gd_scene load_steps=6 format=3 uid="uid://b5envutcrn27v"]
 
 [ext_resource type="Script" path="res://scenes/main/Enemy_09_biker_bro.gd" id="1_6rc5c"]
 [ext_resource type="Texture2D" uid="uid://bdhu46fxr7drw" path="res://images/09_バイク親玉.png" id="2_xyhe6"]
-[ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_ovx0n"]
-[ext_resource type="AudioStream" uid="uid://emgb23sd1xak" path="res://music/軽いパンチ1.mp3" id="4_fouam"]
+[ext_resource type="AudioStream" uid="uid://b5rcf41ja45ac" path="res://music/ロボットを殴る1.mp3" id="3_ljp8c"]
 [ext_resource type="AudioStream" uid="uid://ba8bhb4p4twb" path="res://music/車のクラクション.mp3" id="5_dqow8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rb5ch"]
@@ -16,12 +15,12 @@ lock_rotation = true
 script = ExtResource("1_6rc5c")
 
 [node name="LeftSideRayCast" type="RayCast2D" parent="."]
-position = Vector2(-52, 11)
+position = Vector2(-56, 6)
 scale = Vector2(0.184632, 0.191406)
 target_position = Vector2(-169.975, 1.63266)
 
 [node name="RightSideRayCast" type="RayCast2D" parent="."]
-position = Vector2(55, 11)
+position = Vector2(41, 4)
 scale = Vector2(0.184632, 0.191406)
 target_position = Vector2(167.902, 0)
 
@@ -37,24 +36,18 @@ position = Vector2(0.5, -13.5)
 shape = SubResource("CapsuleShape2D_rb5ch")
 
 [node name="LeftRayCast2D" type="RayCast2D" parent="."]
-position = Vector2(38, 37)
+position = Vector2(29, 11)
 scale = Vector2(0.429688, 0.4375)
-target_position = Vector2(0, 86.8571)
+target_position = Vector2(-2.32728, 93.7143)
 
 [node name="RightRayCast2D" type="RayCast2D" parent="."]
-position = Vector2(-41, 29)
+position = Vector2(-42, 11)
 scale = Vector2(0.429688, 0.4375)
-target_position = Vector2(0, 80)
-
-[node name="AudioJump" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_ovx0n")
-pitch_scale = 1.99
-bus = &"Sound"
+target_position = Vector2(0, 91.4286)
 
 [node name="AudioAttack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_fouam")
-volume_db = 6.0
-pitch_scale = 0.72
+stream = ExtResource("3_ljp8c")
+pitch_scale = 1.23
 bus = &"Sound"
 
 [node name="AudioBeep" type="AudioStreamPlayer" parent="."]

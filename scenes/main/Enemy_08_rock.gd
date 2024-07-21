@@ -10,7 +10,7 @@ signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
 # カメラシェイクシグナル
 signal camera_shake(duration: float, magnitude: float)
 
-var min_jump_time := 0.5
+var min_jump_time := 0.1
 var max_jump_time := 1.0
 var init_sprite_scale := Vector2(1, 1)
 
@@ -21,7 +21,7 @@ func _ready():
 	mass = 3.5
 	move_speed = 50.0
 	move_speed_max = 50.0
-	jump_force = Vector2(0, -1500)
+	jump_force = Vector2(0, -1300)
 	jump_timer = randomize_jump(min_jump_time, max_jump_time)
 	Global.enemy_bump_speed = 100
 	Global.player_get_damaged = false
