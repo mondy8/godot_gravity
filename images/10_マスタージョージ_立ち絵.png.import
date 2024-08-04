@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3tdnfe2p6k5x"
-path="res://.godot/imported/08_デカ岩_単品.png-870e45c3b4d4c5d85fd12beef29c21a4.ctex"
+uid="uid://b6ak74l6nlvi5"
+path="res://.godot/imported/10_マスタージョージ_立ち絵.png-895caf3c0b031397a67112124af96c50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/08_デカ岩_単品.png"
-dest_files=["res://.godot/imported/08_デカ岩_単品.png-870e45c3b4d4c5d85fd12beef29c21a4.ctex"]
+source_file="res://images/10_マスタージョージ_立ち絵.png"
+dest_files=["res://.godot/imported/10_マスタージョージ_立ち絵.png-895caf3c0b031397a67112124af96c50.ctex"]
 
 [params]
 

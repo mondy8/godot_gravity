@@ -23,8 +23,8 @@ func _ready():
 	move_speed_max = 50.0
 	jump_force = Vector2(0, -1300)
 	jump_timer = randomize_jump(min_jump_time, max_jump_time)
-	Global.enemy_bump_speed = 100
-	Global.player_get_damaged = false
+	Global.enemy_bump_speed = 200
+	Global.player_get_damaged = true
 	
 	init_sprite_scale = sprite.scale
 

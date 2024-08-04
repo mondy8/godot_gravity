@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca4gesm0lisvr"
-path="res://.godot/imported/05_電気ビリビリ_単品.png-713667925eb59de3346efc2d30b2169a.ctex"
+uid="uid://cq88j8aaf7gn7"
+path="res://.godot/imported/icon_heart.png-85b44d8004ac2643e97053e160f9d8ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/05_電気ビリビリ_単品.png"
-dest_files=["res://.godot/imported/05_電気ビリビリ_単品.png-713667925eb59de3346efc2d30b2169a.ctex"]
+source_file="res://images/icon_heart.png"
+dest_files=["res://.godot/imported/icon_heart.png-85b44d8004ac2643e97053e160f9d8ca.ctex"]
 
 [params]
 

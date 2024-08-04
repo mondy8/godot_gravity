@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qwygc64nln86"
-path="res://.godot/imported/06_ウ二マン_単品.png-1fa2cb3a5e010da1da70300f83cf9212.ctex"
+uid="uid://u4agaptkyds6"
+path="res://.godot/imported/02_ぬりかべ_立ち絵.png-3d1e178a938f413da289ca35954a2cb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/06_ウ二マン_単品.png"
-dest_files=["res://.godot/imported/06_ウ二マン_単品.png-1fa2cb3a5e010da1da70300f83cf9212.ctex"]
+source_file="res://images/02_ぬりかべ_立ち絵.png"
+dest_files=["res://.godot/imported/02_ぬりかべ_立ち絵.png-3d1e178a938f413da289ca35954a2cb2.ctex"]
 
 [params]
 

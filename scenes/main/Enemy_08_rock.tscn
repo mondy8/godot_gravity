@@ -118,6 +118,6 @@ autoplay = "RESET"
 
 [node name="AudioAttack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_1k1sc")
-volume_db = 6.0
+volume_db = -2.0
 pitch_scale = 0.72
 bus = &"Sound"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cjdhuqymuxw5u"]
+[gd_scene load_steps=18 format=3 uid="uid://cjdhuqymuxw5u"]
 
 [ext_resource type="Script" path="res://scenes/main/Level01.gd" id="1_51tbm"]
 [ext_resource type="PackedScene" uid="uid://dpscixfrpu3he" path="res://scenes/main/Player.tscn" id="2_n4gn4"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cfdre65jo3orq" path="res://music/スタジアムの拍手.mp3" id="6_cesxj"]
 [ext_resource type="AudioStream" uid="uid://d33ruoa7ai7ro" path="res://music/スタジアムの歓声2.mp3" id="7_2fnkt"]
 [ext_resource type="AudioStream" uid="uid://biy6xioiwn5ml" path="res://music/Motion-Swish02-1.mp3" id="9_nu7dr"]
+[ext_resource type="Texture2D" uid="uid://cq88j8aaf7gn7" path="res://images/icon_heart.png" id="10_gayth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eh2sk"]
 size = Vector2(18, 54)
@@ -128,7 +129,8 @@ vertical_alignment = 1
 [node name="CharacterUI" type="CanvasLayer" parent="."]
 
 [node name="CharacterSprite" type="Sprite2D" parent="CharacterUI"]
-position = Vector2(829, 531)
+position = Vector2(705, 452)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_6rbvw")
 
 [node name="LevelUI" type="CanvasLayer" parent="."]
@@ -203,3 +205,65 @@ position = Vector2(176, -55)
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 position = Vector2(452, -64)
+
+[node name="HPUI" type="CanvasLayer" parent="."]
+
+[node name="HPUIContainer" type="Control" parent="HPUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -44.0
+offset_right = 40.0
+offset_bottom = -4.0
+
+[node name="PlayerHP" type="Label" parent="HPUI/HPUIContainer"]
+layout_mode = 0
+offset_left = 263.0
+offset_top = 11.0
+offset_right = 335.0
+offset_bottom = 34.0
+text = "Player
+"
+
+[node name="PlayerHBoxContainer" type="HBoxContainer" parent="HPUI/HPUIContainer"]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 12.0
+offset_right = 452.0
+offset_bottom = 32.0
+theme_override_constants/separation = 7
+
+[node name="PlayerHP1" type="TextureRect" parent="HPUI/HPUIContainer/PlayerHBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_gayth")
+expand_mode = 2
+
+[node name="PlayerHP2" type="TextureRect" parent="HPUI/HPUIContainer/PlayerHBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_gayth")
+expand_mode = 2
+
+[node name="EnemyHP" type="Label" parent="HPUI/HPUIContainer"]
+layout_mode = 0
+offset_left = 413.0
+offset_top = 11.0
+offset_right = 485.0
+offset_bottom = 34.0
+text = "Enemy"
+
+[node name="EnemyHBoxContainer2" type="HBoxContainer" parent="HPUI/HPUIContainer"]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 12.0
+offset_right = 554.0
+offset_bottom = 32.0
+theme_override_constants/separation = 7
+
+[node name="EnemyHP1" type="TextureRect" parent="HPUI/HPUIContainer/EnemyHBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("10_gayth")
+expand_mode = 2
+
+[node name="EnemyHP2" type="TextureRect" parent="HPUI/HPUIContainer/EnemyHBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("10_gayth")
+expand_mode = 2

@@ -52,5 +52,4 @@ bus = &"Sound"
 
 [node name="AudioBeep" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_dqow8")
-volume_db = 6.0
 bus = &"Sound"

@@ -32,6 +32,5 @@ target_position = Vector2(0, 80)
 
 [node name="AudioJump" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_51e7g")
-volume_db = -10.4
 pitch_scale = 0.7
 bus = &"Sound"

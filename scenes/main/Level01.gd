@@ -10,16 +10,16 @@ extends Node2D
 @onready var enemy08 = preload("res://scenes/main/Enemy_08_rock.tscn")
 @onready var enemy09 = preload("res://scenes/main/Enemy_09_biker_bro.tscn")
 @onready var enemy10 = preload("res://scenes/main/Enemy_10_master.tscn")
-@onready var enemy01_image = preload("res://images/01_雑魚ボール.png")
-@onready var enemy02_image = preload("res://images/02_ぬりかべ.png")
-@onready var enemy03_image = preload("res://images/03_ローリングハリネズミ.png")
-@onready var enemy04_image = preload("res://images/04_バイク小僧.png")
-@onready var enemy05_image = preload("res://images/05_電気ビリビリ_単品.png")
-@onready var enemy06_image = preload("res://images/06_ウ二マン_単品.png")
-@onready var enemy07_image = preload("res://images/07_デブ鳥_単品.png")
-@onready var enemy08_image = preload("res://images/08_デカ岩_単品.png")
-@onready var enemy09_image = preload("res://images/09_バイク親玉.png")
-@onready var enemy10_image = preload("res://images/10_マスタージョージ_単品.png")
+@onready var enemy01_image = preload("res://images/01_雑魚ボール_立ち絵.png")
+@onready var enemy02_image = preload("res://images/02_ぬりかべ_立ち絵.png")
+@onready var enemy03_image = preload("res://images/03_ローリングハリネズミ_立ち絵.png")
+@onready var enemy04_image = preload("res://images/04_バイク小僧_立ち絵.png")
+@onready var enemy05_image = preload("res://images/05_電気ビリビリ_立ち絵.png")
+@onready var enemy06_image = preload("res://images/06_ウ二マン_立ち絵.png")
+@onready var enemy07_image = preload("res://images/07_デブ鳥_立ち絵.png")
+@onready var enemy08_image = preload("res://images/08_デカ岩_立ち絵.png")
+@onready var enemy09_image = preload("res://images/09_バイク親玉_立ち絵.png")
+@onready var enemy10_image = preload("res://images/10_マスタージョージ_立ち絵.png")
 
 
 @onready var enemySpawner = $EnemySpawner
@@ -27,6 +27,11 @@ extends Node2D
 @onready var player = $Player
 @onready var seesawGround = $Seesaw/SeesawGround
 @onready var result = $ResultUI
+@onready var hpUI = $HPUI/HPUIContainer
+@onready var playerHP1 = $HPUI/HPUIContainer/PlayerHBoxContainer/PlayerHP1
+@onready var playerHP2 = $HPUI/HPUIContainer/PlayerHBoxContainer/PlayerHP2
+@onready var enemyHP1 = $HPUI/HPUIContainer/EnemyHBoxContainer2/EnemyHP1
+@onready var enemyHP2 = $HPUI/HPUIContainer/EnemyHBoxContainer2/EnemyHP2
 @onready var resultButton = $ResultUI/ResultButton
 @onready var resultText = $ResultUI/ResultText
 @onready var timetText = $ResultUI/TimeText
@@ -83,16 +88,17 @@ signal change_level(newLevel:String)
 signal start_timer(control: bool)
 
 func _ready() -> void:
+	# 初期化
 	Global.player_hp = 2
 	Global.enemy_hp = 2
-	
-	showLevelUI()
-	
 	result.visible = false
 	resultButton.visible = false
 	resultButton.connect("pressed", _on_result_button_pressed)
-	
 	audio_bgm = get_node("../../audio/audioBGM")
+	playerHP1.visible = true
+	playerHP2.visible = true
+	enemyHP1.visible = true
+	enemyHP2.visible = true
 	
 	# 敵の生成
 	if Global.current_level == 1:
@@ -141,16 +147,15 @@ func _ready() -> void:
 	player.camera_shake.connect(_on_camera_shake)
 	
 	# レベルスタート演出
+	showLevelUI()
 	levelText.text = "Level " + str(Global.current_level)
 	subText.text = subTextsArray[Global.current_level - 1][Global.death_number % 3]
 	mainText.text = characterNameArray[Global.current_level - 1]
-	#characterSprite.texture = characterImageArray[Global.current_level - 1]
-	#levelText.visible = true
 	var timer = self.get_tree().create_timer(3.5)
 	await timer.timeout
-	#levelText.visible = false
 	start_timer.emit(true)
 	
+	# 敵配置
 	enemy_instance.position = enemySpawner.position
 	add_child(enemy_instance)
 	
@@ -162,14 +167,13 @@ func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
 
 # ゲーム終了
 func _on_game_set(loser:String):
-	print('hit')
 	if !is_game_set:
 		# 残機あり
 		if loser == 'player':
 			var player_hp_buffer = Global.player_hp
 			Global.player_hp -= 1
-			print(player_hp_buffer - 1)
 			if (player_hp_buffer - 1) != 0:
+				playerHP2.visible = false
 				# playerの位置をスタートへ移動
 				# rigidbodyの移動 参考：https://stackoverflow.com/questions/77721286/set-a-rigid-body-position-in-godot-4?newreg=fb10af98801a484a947edbb845fe75c2
 				PhysicsServer2D.body_set_state(
@@ -180,10 +184,14 @@ func _on_game_set(loser:String):
 				player.set_freeze_enabled(false)
 				Global.player_fall = false
 				return
+			else:
+				playerHP1.visible = false
+				playerHP2.visible = false
 		elif loser == 'enemy':
 			var enemy_hp_buffer = Global.enemy_hp
 			Global.enemy_hp -= 1
 			if (enemy_hp_buffer - 1) != 0:
+				enemyHP2.visible = false
 				# enemyの位置をスタートへ移動
 				PhysicsServer2D.body_set_state(
 					enemy_instance.get_rid(),
@@ -192,6 +200,9 @@ func _on_game_set(loser:String):
 				)
 				enemy_instance.set_freeze_enabled(false)
 				return
+			else:
+				enemyHP1.visible = false
+				enemyHP2.visible = false
 			
 		# 残機なし
 		result.visible = true
@@ -256,14 +267,17 @@ func showLevelUI():
 	var tween2 = get_tree().create_tween()
 	var tween3 = get_tree().create_tween()
 	var tween4 = get_tree().create_tween()
+	var tween5 = get_tree().create_tween()
 	tween1.set_trans(Tween.TRANS_BACK)
 	tween2.set_trans(Tween.TRANS_BACK)
 	tween3.set_trans(Tween.TRANS_BACK)
 	tween4.set_trans(Tween.TRANS_BACK)
+	tween5.set_trans(Tween.TRANS_BACK)
 	tween1.set_ease(Tween.EASE_IN_OUT)
 	tween2.set_ease(Tween.EASE_IN_OUT)
 	tween3.set_ease(Tween.EASE_IN_OUT)
 	tween4.set_ease(Tween.EASE_IN_OUT)
+	tween5.set_ease(Tween.EASE_IN_OUT)
 	tween1.tween_property(levelText, "position:x", 0, 0.6)
 	tween1.tween_property(levelText, "position:x", 0, 2)
 	tween1.tween_property(levelText, "position:x", -500, 1)
@@ -276,8 +290,11 @@ func showLevelUI():
 	tween4.tween_property(characterSprite, "position", Vector2(452, 241), 0.4)
 	tween4.tween_property(characterSprite, "position", Vector2(452, 241), 3)
 	tween4.tween_property(characterSprite, "position", Vector2(829,531), 0.4)
+	tween5.tween_property(hpUI, "position:y", -44, 3)
+	tween5.tween_property(hpUI, "position:y", 0, 0.4)
 	
 	audio_label_ui.play()
 	var timer = self.get_tree().create_timer(2.8)
 	await timer.timeout
 	audio_label_ui.play()
+	

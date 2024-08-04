@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/main/Enemy_06_electric.gd" id="1_yw6ep"]
 [ext_resource type="Texture2D" uid="uid://cdprhhmha4yw4" path="res://images/06_ウニマン_sprite.png" id="2_7rmpm"]
-[ext_resource type="AudioStream" uid="uid://qgkpxd5cni0p" path="res://music/Electric_Shock06-1(Short).mp3" id="3_5fx31"]
+[ext_resource type="AudioStream" uid="uid://biy6xioiwn5ml" path="res://music/Motion-Swish02-1.mp3" id="3_7556w"]
 [ext_resource type="AudioStream" uid="uid://c5o5npvb3l62i" path="res://music/剣で斬る2.mp3" id="4_53kld"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sec50"]
@@ -88,8 +88,7 @@ scale = Vector2(0.429688, 0.4375)
 target_position = Vector2(0, 80)
 
 [node name="AudioJump" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_5fx31")
-volume_db = -10.4
+stream = ExtResource("3_7556w")
 pitch_scale = 0.7
 bus = &"Sound"
 

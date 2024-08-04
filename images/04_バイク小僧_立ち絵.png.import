@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyu20dgmmscnh"
-path="res://.godot/imported/07_デブ鳥_単品.png-67804f6b311ba8ec1a886a1eca878f93.ctex"
+uid="uid://csktspg5ogn6h"
+path="res://.godot/imported/04_バイク小僧_立ち絵.png-150a6964bb629e9c8b8dbc5ad992d148.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/07_デブ鳥_単品.png"
-dest_files=["res://.godot/imported/07_デブ鳥_単品.png-67804f6b311ba8ec1a886a1eca878f93.ctex"]
+source_file="res://images/04_バイク小僧_立ち絵.png"
+dest_files=["res://.godot/imported/04_バイク小僧_立ち絵.png-150a6964bb629e9c8b8dbc5ad992d148.ctex"]
 
 [params]
 
