@@ -71,6 +71,11 @@ func _on_change_level(newLevel:int):
 	for child in game.get_children():
 		child.queue_free()
 		
+	Global.player_hp = 2
+	Global.enemy_hp = 2
+	Global.player_fall = false
+	Global.enemy_fall = false
+		
 	# 新しいシーンをインスタンス化
 	var scene_instance = LEVEL_SCENE_01.instantiate()
 	# 新しいシーンをツリーに追加

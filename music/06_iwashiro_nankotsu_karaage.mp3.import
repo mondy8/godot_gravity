@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/06_iwashiro_nankotsu_karaage.mp3-daba5c2151de
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

@@ -36,6 +36,7 @@ class_name Player
 @onready var move_right_interval := 0
 @onready var move_left_interval := 0
 @onready var dash_interval := 0
+@onready var gameset_interval := 0
 @onready var MOVE_FAST_LIMIT := 20
 @onready var dash_interval_limit := 30
 @onready var sprite_scale := Vector2(1, 1)
@@ -44,6 +45,7 @@ class_name Player
 @onready var time_elapsed := 0.0
 @onready var dash_speed := 20.0
 var canvas
+
 
 # 着地後にシーソーに与えるシグナル
 signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
@@ -61,7 +63,9 @@ func _ready():
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > 400:
+	if position.y > 400 and !Global.player_fall:
+		Global.player_fall = true
+		position.y = 399
 		set_freeze_enabled(true)
 		game_set.emit('player')
 		return
@@ -231,11 +235,8 @@ func create_ghost():
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_QUINT)
 	tween.connect("finished", Callable(self, "_on_tween_completed").bind(ghost_sprite, tween))
-
-	#tween.connect("tween_completed", "_on_tween_completed", [ghost_sprite, tween])
 	tween.play()
 
 # フェードアウトが完了したらゴーストスプライトを削除
 func _on_tween_completed(ghost_sprite, tween):
 	ghost_sprite.queue_free()
-	#tween.queue_free()
