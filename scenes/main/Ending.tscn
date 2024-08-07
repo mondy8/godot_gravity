@@ -1,0 +1,661 @@
+[gd_scene load_steps=33 format=3 uid="uid://djy45mtxqclga"]
+
+[ext_resource type="Script" path="res://scenes/main/Ending.gd" id="1_tt0on"]
+[ext_resource type="Texture2D" uid="uid://bvsr0p58inkx4" path="res://images/player_sprite.png" id="2_s3ffi"]
+[ext_resource type="AudioStream" uid="uid://c8ikcywqtwvxy" path="res://music/11_ending_iwashiro_ichigohime_no_kyuseishu.mp3" id="3_6ie28"]
+[ext_resource type="Texture2D" uid="uid://c2jupaank72lf" path="res://images/01_雑魚ボール.png" id="4_x3xqa"]
+[ext_resource type="Texture2D" uid="uid://cynch03bnexmp" path="res://images/02_ぬりかべ.png" id="5_1llq1"]
+[ext_resource type="Texture2D" uid="uid://cl84660f4fxlt" path="res://images/03_ローリングハリネズミ.png" id="6_307p3"]
+[ext_resource type="Texture2D" uid="uid://cljosqmwrihxv" path="res://images/04_バイク小僧.png" id="7_iss8a"]
+[ext_resource type="Texture2D" uid="uid://fdac712i8n14" path="res://images/05_電気ビリビリ_sprite.png" id="8_t4d23"]
+[ext_resource type="Texture2D" uid="uid://cdprhhmha4yw4" path="res://images/06_ウニマン_sprite.png" id="9_7cx45"]
+[ext_resource type="Texture2D" uid="uid://dwn35hyat10sj" path="res://images/07_デブドリ_sprite.png" id="10_f4chu"]
+[ext_resource type="Texture2D" uid="uid://brbif62r488wp" path="res://images/08_デカイワ_sprite.png" id="11_i7fus"]
+[ext_resource type="Texture2D" uid="uid://bdhu46fxr7drw" path="res://images/09_バイク親玉.png" id="12_px78o"]
+[ext_resource type="Texture2D" uid="uid://bn0ffsa2poove" path="res://images/10_マスタージョージ_sprite.png" id="13_u23er"]
+[ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="14_y187x"]
+
+[sub_resource type="Animation" id="Animation_vm52a"]
+resource_name = "player"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("characters/player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("characters/player:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 0.89), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cckdc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("characters/player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("characters/player:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ju4pw"]
+_data = {
+"RESET": SubResource("Animation_cckdc"),
+"player": SubResource("Animation_vm52a")
+}
+
+[sub_resource type="Animation" id="Animation_b7463"]
+resource_name = "enemy01"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../characters/enemy01:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.48787e-16, -6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_g70pv"]
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../characters/enemy03:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_um5fd"]
+resource_name = "enemy03"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../characters/enemy03:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.48787e-16, -6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0t80r"]
+_data = {
+"RESET": SubResource("Animation_g70pv"),
+"enemy01": SubResource("Animation_b7463"),
+"enemy03": SubResource("Animation_um5fd")
+}
+
+[sub_resource type="Animation" id="Animation_81y4v"]
+resource_name = "enemy05"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy05:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_wdnkt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy05:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../characters/enemy04:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.28902, 1.28902)]
+}
+
+[sub_resource type="Animation" id="Animation_2b3dj"]
+resource_name = "enemy04"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy04:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.28902, 1.28902), Vector2(1.28902, 1.28902), Vector2(1.289, 1.109), Vector2(1.289, 1.28)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a1j22"]
+_data = {
+"RESET": SubResource("Animation_wdnkt"),
+"enemy04": SubResource("Animation_2b3dj"),
+"enemy05": SubResource("Animation_81y4v")
+}
+
+[sub_resource type="Animation" id="Animation_drq5u"]
+resource_name = "enemey06"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy06:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../characters/enemy06:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.28902, 1.28902), Vector2(1.989, 1.989), Vector2(1.28, 1.28)]
+}
+
+[sub_resource type="Animation" id="Animation_gn5ko"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy06:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../characters/enemy06:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.28902, 1.28902)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../characters/enemy07:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../characters/enemy07:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.8656, 1.8656)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../characters/enemy08:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../characters/enemy08:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7035, 293.201)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../characters/enemy08:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.86593, 1.6821)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../characters/enemy08:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.00782e-14]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../characters/enemy09:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.866, 1.86)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("enemy10:frame")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3q417"]
+resource_name = "enemy07"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy07:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../characters/enemy07:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5, 0.7, 0.9, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.8656, 1.8656), Vector2(1.8656, 1.8656), Vector2(1.866, 1.646), Vector2(1.866, 1.86), Vector2(1.86589, 1.8616), Vector2(1.866, 1.64), Vector2(1.86566, 1.8648)]
+}
+
+[sub_resource type="Animation" id="Animation_28edq"]
+resource_name = "enemy08"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy08:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.1, 0, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../characters/enemy08:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.7, 1.9, 2.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(7035, 293.201), Vector2(7205, -506.799), Vector2(7055, -271.799), Vector2(7035, 293.201)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../characters/enemy08:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.7),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.86593, 1.6821)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../characters/enemy08:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.7, 1.9, 2.1, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [3.00782e-14, 0.575959, -0.862193, 3.48787e-16]
+}
+
+[sub_resource type="Animation" id="Animation_kysra"]
+resource_name = "enemy09"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy09:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.866, 1.86), Vector2(1.866, 1.86), Vector2(1.866, 1.58), Vector2(1.866, 1.86)]
+}
+
+[sub_resource type="Animation" id="Animation_h4fl1"]
+resource_name = "enemy10"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("enemy10:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k76fg"]
+_data = {
+"RESET": SubResource("Animation_gn5ko"),
+"enemey06": SubResource("Animation_drq5u"),
+"enemy07": SubResource("Animation_3q417"),
+"enemy08": SubResource("Animation_28edq"),
+"enemy09": SubResource("Animation_kysra"),
+"enemy10": SubResource("Animation_h4fl1")
+}
+
+[node name="Ending" type="Node2D"]
+script = ExtResource("1_tt0on")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 578.0
+offset_bottom = 250.0
+theme_override_font_sizes/font_size = 21
+text = "製作者：MONDY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="audioBGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6ie28")
+volume_db = -5.0
+autoplay = true
+bus = &"Music"
+
+[node name="animations" type="Node2D" parent="."]
+
+[node name="anim_player" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_ju4pw")
+}
+autoplay = "player"
+
+[node name="anim_enemy01" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../anim_player")
+libraries = {
+"": SubResource("AnimationLibrary_0t80r")
+}
+autoplay = "enemy01"
+
+[node name="anim_enemy03" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../anim_player")
+libraries = {
+"": SubResource("AnimationLibrary_0t80r")
+}
+autoplay = "enemy03"
+
+[node name="anim_enemy04" type="AnimationPlayer" parent="animations"]
+libraries = {
+"": SubResource("AnimationLibrary_a1j22")
+}
+autoplay = "enemy04"
+
+[node name="anim_enemy05" type="AnimationPlayer" parent="animations"]
+libraries = {
+"": SubResource("AnimationLibrary_a1j22")
+}
+autoplay = "enemy05"
+
+[node name="anim_enemy06" type="AnimationPlayer" parent="animations"]
+libraries = {
+"": SubResource("AnimationLibrary_k76fg")
+}
+autoplay = "enemey06"
+
+[node name="anim_enemy07" type="AnimationPlayer" parent="animations"]
+libraries = {
+"": SubResource("AnimationLibrary_k76fg")
+}
+autoplay = "enemy07"
+
+[node name="anim_enemy08" type="AnimationPlayer" parent="animations"]
+libraries = {
+"": SubResource("AnimationLibrary_k76fg")
+}
+autoplay = "enemy08"
+
+[node name="anim_enemy09" type="AnimationPlayer" parent="animations"]
+libraries = {
+"": SubResource("AnimationLibrary_k76fg")
+}
+autoplay = "enemy09"
+
+[node name="anim_enemy10" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
+libraries = {
+"": SubResource("AnimationLibrary_k76fg")
+}
+autoplay = "enemy10"
+
+[node name="characters" type="Node2D" parent="."]
+position = Vector2(846, 289.36)
+scale = Vector2(0.2, 0.2)
+
+[node name="player" type="Sprite2D" parent="characters"]
+position = Vector2(-1005, 220)
+scale = Vector2(1, 1)
+texture = ExtResource("2_s3ffi")
+centered = false
+offset = Vector2(-250, -500)
+hframes = 6
+frame = 1
+
+[node name="enemy01" type="Sprite2D" parent="characters"]
+rotation = -5.40344
+scale = Vector2(1, 1)
+texture = ExtResource("4_x3xqa")
+
+[node name="enemy02" type="Sprite2D" parent="characters"]
+position = Vector2(1022.26, -42.2559)
+scale = Vector2(1.28902, 1.28902)
+texture = ExtResource("5_1llq1")
+
+[node name="enemy03" type="Sprite2D" parent="characters"]
+position = Vector2(1895, 0.000331332)
+rotation = -6.28319
+scale = Vector2(1, 1)
+texture = ExtResource("6_307p3")
+
+[node name="enemy04" type="Sprite2D" parent="characters"]
+position = Vector2(2785, 250)
+scale = Vector2(1.28902, 1.28902)
+texture = ExtResource("7_iss8a")
+centered = false
+offset = Vector2(-250, -500)
+
+[node name="enemy05" type="Sprite2D" parent="characters"]
+position = Vector2(3700.88, -100.925)
+scale = Vector2(1.36553, 1.36553)
+texture = ExtResource("8_t4d23")
+hframes = 2
+
+[node name="enemy06" type="Sprite2D" parent="characters"]
+position = Vector2(4640, -56.7991)
+scale = Vector2(1.28902, 1.28902)
+texture = ExtResource("9_7cx45")
+hframes = 2
+
+[node name="enemy07" type="Sprite2D" parent="characters"]
+position = Vector2(5774.14, 260)
+scale = Vector2(1.8656, 1.8656)
+texture = ExtResource("10_f4chu")
+centered = false
+offset = Vector2(-250, -500)
+hframes = 2
+
+[node name="enemy08" type="Sprite2D" parent="characters"]
+position = Vector2(7035, 293.201)
+scale = Vector2(1.86593, 1.6821)
+texture = ExtResource("11_i7fus")
+centered = false
+offset = Vector2(-250, -500)
+hframes = 2
+
+[node name="enemy09" type="Sprite2D" parent="characters"]
+position = Vector2(8295, 298.201)
+scale = Vector2(1.866, 1.86)
+texture = ExtResource("12_px78o")
+centered = false
+offset = Vector2(-250, -500)
+
+[node name="enemy10" type="Sprite2D" parent="characters"]
+position = Vector2(9305, -111.798)
+scale = Vector2(1.28902, 1.28902)
+texture = ExtResource("13_u23er")
+flip_h = true
+hframes = 4
+
+[node name="Buttons" type="CanvasLayer" parent="."]
+offset = Vector2(2.08165e-12, 200)
+transform = Transform2D(1, 0, 0, 1, 2.08165e-12, 200)
+
+[node name="ShareButton" type="Button" parent="Buttons"]
+offset_left = 193.0
+offset_top = 168.0
+offset_right = 401.0
+offset_bottom = 216.0
+theme_override_fonts/font = ExtResource("14_y187x")
+text = "結果をシェア！"
+
+[node name="BackButton" type="Button" parent="Buttons"]
+offset_left = 193.0
+offset_top = 237.0
+offset_right = 401.0
+offset_bottom = 285.0
+theme_override_fonts/font = ExtResource("14_y187x")
+text = "タイトルに戻る"
