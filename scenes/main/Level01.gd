@@ -157,6 +157,7 @@ func _ready() -> void:
 	
 	# 敵配置
 	enemy_instance.position = enemySpawner.position
+	enemy_instance.position.x = randf_range(Global.SCREEN_WIDTH / 4, Global.SCREEN_WIDTH * 3 / 4)
 	add_child(enemy_instance)
 	
 # シーソーへの衝突処理
@@ -211,7 +212,6 @@ func _on_game_set(loser:String):
 			audio_lose.play()
 			is_game_set = true
 			resultText.text = 'You Lose...'
-			resultButton.text = 'Revenge!'
 			resultButton.visible = true
 			resultButton.grab_focus()
 			return
@@ -219,16 +219,20 @@ func _on_game_set(loser:String):
 			if Global.current_level == 10:
 				audio_winner.play()
 				is_game_set = true
-				resultText.text = 'You Are the Champion!\nThank you for Playing!'
-				timetText.text = "Clear time: " + str(Global.time)
-				resultButton.text = 'Play Again!'
-				resultButton.visible = true
-				resultButton.grab_focus()
-				Global.current_level += 1
+				Global.death_number_array[Global.current_level - 1] = Global.death_number
+				Global.death_number = 0
+				resultText.text = 'You Are the\nChampion!'
+				var tween = get_tree().create_tween()
+				tween.tween_property(audio_bgm, "volume_db", -40, 2.5)
+				tween.set_ease(Tween.EASE_IN)
+				var timer = self.get_tree().create_timer(3)
+				await timer.timeout
+				change_level.emit(Global.current_level + 1)
 				
 			else:
 				audio_clear.play()
 				is_game_set = true
+				Global.death_number_array[Global.current_level - 1] = Global.death_number
 				Global.death_number = 0
 				resultText.text = 'You Win!'
 				var tween = get_tree().create_tween()

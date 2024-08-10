@@ -18,13 +18,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_q2yda")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(576, 400)
+layout_mode = 2
+color = Color(0, 0, 0, 0.458824)
+
 [node name="VBoxContainer3" type="VBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 21
 
 [node name="Label" type="Label" parent="VBoxContainer3"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
-text = "Game Paused"
+text = "ポーズ"
 horizontal_alignment = 1
 
 [node name="SettingsContainer" type="VBoxContainer" parent="VBoxContainer3"]
@@ -38,27 +44,28 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="VBoxContainer3/SettingsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "return_to_menu"
+theme_override_fonts/font = ExtResource("3_w27bp")
+text = "戻る"
 
 [node name="MenuContainer" type="VBoxContainer" parent="VBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 14
 
 [node name="ResumeButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_f4c6c")
-text = "Continue"
+text = "ゲームを再開"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = SubResource("Theme_m68yn")
-text = "Settings"
+text = "サウンド設定"
 
 [node name="ExitButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-text = "leave_game"
+theme_override_fonts/font = ExtResource("3_w27bp")
+text = "タイトルに戻る"

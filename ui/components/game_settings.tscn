@@ -39,7 +39,7 @@ layout_mode = 2
 [node name="MasterVolumeEnabled" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("2_mudwu")
-text = "settings_volume_master_enabled"
+text = "全体"
 
 [node name="MasterEnabledToggle" type="CheckButton" parent="MarginContainer/GridContainer"]
 unique_name_in_owner = true
@@ -48,7 +48,7 @@ button_pressed = true
 
 [node name="MasterVolumeLabel" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-text = "settings_volume_master"
+text = "全体ボリューム"
 
 [node name="MasterVolumeSlider" parent="MarginContainer/GridContainer" instance=ExtResource("1_0gpwr")]
 unique_name_in_owner = true
@@ -57,7 +57,7 @@ property = "mastervolume"
 
 [node name="MusicEnabledLabel" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-text = "settings_volume_music_enabled"
+text = "BGM"
 
 [node name="MusicEnabledToggle" type="CheckButton" parent="MarginContainer/GridContainer"]
 unique_name_in_owner = true
@@ -66,7 +66,7 @@ button_pressed = true
 
 [node name="MusicVolumeLabel" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-text = "settings_volume_music"
+text = "BGMボリューム"
 
 [node name="MusicVolumeSlider" parent="MarginContainer/GridContainer" instance=ExtResource("1_0gpwr")]
 unique_name_in_owner = true
@@ -75,7 +75,7 @@ property = "musicvolume"
 
 [node name="SoundEnabledLabel" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-text = "settings_volume_sound_enabled"
+text = "効果音"
 
 [node name="SoundEnabledToggle" type="CheckButton" parent="MarginContainer/GridContainer"]
 unique_name_in_owner = true
@@ -84,7 +84,7 @@ button_pressed = true
 
 [node name="SoundVolumeLabel" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
-text = "settings_volume_sound"
+text = "効果音ボリューム"
 
 [node name="SoundVolumeSlider" parent="MarginContainer/GridContainer" instance=ExtResource("1_0gpwr")]
 unique_name_in_owner = true

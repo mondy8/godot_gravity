@@ -10,6 +10,7 @@ script/source = "extends Node2D
 class_name ingame
 
 const LEVEL_SCENE_01 = preload(\"res://scenes/main/Level01.tscn\")
+const ENDING_SCENE = preload(\"res://scenes/main/Ending.tscn\")
 const AUDIO_01 = preload(\"res://music/01_iwashiro_carpaccio1.mp3\")
 const AUDIO_02 = preload(\"res://music/02_iwashiro_amalfi_jigoku.mp3\")
 const AUDIO_03 = preload(\"res://music/03_iwashiro_sanzokusan.mp3\")
@@ -61,24 +62,25 @@ func _save_game() -> void:
 	SaveGame.save_game(get_tree())
 
 func _on_change_level(newLevel:int):
+	if newLevel == 11:
+		fade_overlay.fade_out()
+		fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
+		return
+	
 	audioBGM.volume_db = initial_volume_db
 	if current_level_buffer != newLevel:
 		audioBGM.stream = audio_array[newLevel - 1]
 		audioBGM.play()
 		current_level_buffer = newLevel
 	Global.current_level = newLevel
-	timeLabel.text = \"time: \" + str(\"%.1f\" % Global.time)
+	timeLabel.text = \"Time: \" + str(\"%.1f\" % Global.time)
+		
+	Global.init_level()
+		
+	# シーンを切り替え
 	for child in game.get_children():
 		child.queue_free()
-		
-	Global.player_hp = 2
-	Global.enemy_hp = 2
-	Global.player_fall = false
-	Global.enemy_fall = false
-		
-	# 新しいシーンをインスタンス化
 	var scene_instance = LEVEL_SCENE_01.instantiate()
-	# 新しいシーンをツリーに追加
 	game.add_child(scene_instance)
 	connect_signal(scene_instance)
 	
@@ -97,6 +99,13 @@ func connect_signal(scene_instance):
 	scene_instance.change_level.connect(_on_change_level)
 	scene_instance.start_timer.connect(_on_start_timer)
 	
+# エンディングへ
+func _on_fade_overlay_on_complete_fade_out() -> void:
+	#for child in game.get_children():
+		#child.queue_free()
+	#var ending_scene_instance = ENDING_SCENE.instantiate()
+	#game.add_child(ending_scene_instance)
+	get_tree().change_scene_to_packed(ENDING_SCENE)
 "
 
 [node name="IngameScene" type="Node2D"]
@@ -129,6 +138,7 @@ text = "Time: 0
 "
 
 [node name="UI" type="CanvasLayer" parent="."]
+layer = 10
 
 [node name="FadeOverlay" parent="UI" instance=ExtResource("1_y6ebv")]
 unique_name_in_owner = true

@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://g4qhvbvdm62w"]
+[gd_scene load_steps=7 format=3 uid="uid://g4qhvbvdm62w"]
 
 [ext_resource type="Script" path="res://scenes/game_settings_scene.gd" id="1_3764u"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="1_w6tmj"]
 [ext_resource type="PackedScene" uid="uid://nbaodrlopo7y" path="res://ui/components/game_settings.tscn" id="2_qsqie"]
 [ext_resource type="Theme" uid="uid://d22mpqutkotsu" path="res://ui/theme.tres" id="3_unbh4"]
+[ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="4_cm4rd"]
+[ext_resource type="AudioStream" uid="uid://bw2ifd7rtbklw" path="res://music/00_iwashiro_sarusaru_music.mp3" id="6_he7r3"]
 
 [node name="GameSettingsScene" type="Node2D"]
 script = ExtResource("1_3764u")
@@ -24,7 +26,7 @@ theme_override_constants/separation = 20
 [node name="SettingsLabel" type="Label" parent="UI/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
-text = "settings"
+text = "サウンド設定"
 
 [node name="GameSettings" parent="UI/CenterContainer/VBoxContainer" instance=ExtResource("2_qsqie")]
 layout_mode = 2
@@ -33,12 +35,15 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_unbh4")
-text = "return_to_main"
+theme_override_fonts/font = ExtResource("4_cm4rd")
+text = "戻る"
 
 [node name="FadeOverlay" parent="UI" instance=ExtResource("1_w6tmj")]
 unique_name_in_owner = true
 visible = false
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="audioBGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_he7r3")
+volume_db = -5.0
 autoplay = true
 bus = &"Music"

@@ -2,12 +2,15 @@ extends CenterContainer
 
 signal game_exited
 
+#const MENU_SCENE = preload("res://scenes/main_menu_scene.tscn")
+
 @onready var resume_button := %ResumeButton
 @onready var settings_button := %SettingsButton
 @onready var exit_button := %ExitButton
 @onready var settings_container := %SettingsContainer
 @onready var menu_container := %MenuContainer
 @onready var back_button := %BackButton
+#@onready var fade_overlay = %FadeOverlay
 
 func _ready() -> void:
 	resume_button.pressed.connect(_resume)
@@ -30,7 +33,12 @@ func _settings() -> void:
 	
 func _exit() -> void:
 	game_exited.emit()
-	get_tree().quit()
+	get_tree().change_scene_to_file("res://scenes/main_menu_scene.tscn")
+	#fade_overlay.fade_out()
+	#fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
+		#
+#func _on_fade_overlay_on_complete_fade_out() -> void:
+
 	
 func _pause_menu() -> void:
 	settings_container.visible = false
