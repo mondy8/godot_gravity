@@ -18,10 +18,6 @@ var is_init = false
 func _ready() -> void:
 	init()
 
-func _process(delta):
-	if !is_init:
-		init()
-
 func _on_settings_button_pressed() -> void:
 	#new_game = false
 	next_scene = SETTINGS_SCENE
@@ -29,12 +25,13 @@ func _on_settings_button_pressed() -> void:
 	
 func _on_play_button_pressed() -> void:
 	next_scene = GAME_SCENE
+	Global.init_game()
 	overlay.fade_out()
 	
-func _on_continue_button_pressed() -> void:
+#func _on_continue_button_pressed() -> void:
 	#new_game = false
-	next_scene = GAME_SCENE
-	overlay.fade_out()
+	#next_scene = GAME_SCENE
+	#overlay.fade_out()
 
 #func _on_exit_button_pressed() -> void:
 	#get_tree().quit()

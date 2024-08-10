@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://djy45mtxqclga"]
+[gd_scene load_steps=35 format=3 uid="uid://djy45mtxqclga"]
 
 [ext_resource type="Script" path="res://scenes/main/Ending.gd" id="1_tt0on"]
 [ext_resource type="Texture2D" uid="uid://bvsr0p58inkx4" path="res://images/player_sprite.png" id="2_s3ffi"]
@@ -14,6 +14,35 @@
 [ext_resource type="Texture2D" uid="uid://bdhu46fxr7drw" path="res://images/09_バイク親玉.png" id="12_px78o"]
 [ext_resource type="Texture2D" uid="uid://bn0ffsa2poove" path="res://images/10_マスタージョージ_sprite.png" id="13_u23er"]
 [ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="14_y187x"]
+[ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="15_76bcr"]
+[ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="16_sgdrr"]
+
+[sub_resource type="Animation" id="Animation_cckdc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("characters/player:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("characters/player:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_vm52a"]
 resource_name = "player"
@@ -44,37 +73,26 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 0.89), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_cckdc"]
-length = 0.001
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ju4pw"]
+_data = {
+"RESET": SubResource("Animation_cckdc"),
+"player": SubResource("Animation_vm52a")
+}
+
+[sub_resource type="Animation" id="Animation_g70pv"]
+length = 2.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("characters/player:frame")
+tracks/0/path = NodePath("../../characters/enemy03:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("characters/player:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ju4pw"]
-_data = {
-"RESET": SubResource("Animation_cckdc"),
-"player": SubResource("Animation_vm52a")
+"values": [-6.28319]
 }
 
 [sub_resource type="Animation" id="Animation_b7463"]
@@ -92,22 +110,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [3.48787e-16, -6.28319]
-}
-
-[sub_resource type="Animation" id="Animation_g70pv"]
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../characters/enemy03:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-6.28319]
 }
 
 [sub_resource type="Animation" id="Animation_um5fd"]
@@ -132,23 +134,6 @@ _data = {
 "RESET": SubResource("Animation_g70pv"),
 "enemy01": SubResource("Animation_b7463"),
 "enemy03": SubResource("Animation_um5fd")
-}
-
-[sub_resource type="Animation" id="Animation_81y4v"]
-resource_name = "enemy05"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy05:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
 }
 
 [sub_resource type="Animation" id="Animation_wdnkt"]
@@ -195,39 +180,28 @@ tracks/0/keys = {
 "values": [Vector2(1.28902, 1.28902), Vector2(1.28902, 1.28902), Vector2(1.289, 1.109), Vector2(1.289, 1.28)]
 }
 
+[sub_resource type="Animation" id="Animation_81y4v"]
+resource_name = "enemy05"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy05:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a1j22"]
 _data = {
 "RESET": SubResource("Animation_wdnkt"),
 "enemy04": SubResource("Animation_2b3dj"),
 "enemy05": SubResource("Animation_81y4v")
-}
-
-[sub_resource type="Animation" id="Animation_drq5u"]
-resource_name = "enemey06"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy06:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy06:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.6, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1.28902, 1.28902), Vector2(1.989, 1.989), Vector2(1.28, 1.28)]
 }
 
 [sub_resource type="Animation" id="Animation_gn5ko"]
@@ -351,6 +325,34 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_drq5u"]
+resource_name = "enemey06"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../characters/enemy06:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../characters/enemy06:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.28902, 1.28902), Vector2(1.989, 1.989), Vector2(1.28, 1.28)]
 }
 
 [sub_resource type="Animation" id="Animation_3q417"]
@@ -484,7 +486,8 @@ script = ExtResource("1_tt0on")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 578.0
-offset_bottom = 250.0
+offset_bottom = 210.0
+theme_override_constants/line_spacing = 13
 theme_override_font_sizes/font_size = 21
 text = "製作者：MONDY"
 horizontal_alignment = 1
@@ -568,7 +571,6 @@ scale = Vector2(0.2, 0.2)
 
 [node name="player" type="Sprite2D" parent="characters"]
 position = Vector2(-1005, 220)
-scale = Vector2(1, 1)
 texture = ExtResource("2_s3ffi")
 centered = false
 offset = Vector2(-250, -500)
@@ -577,7 +579,6 @@ frame = 1
 
 [node name="enemy01" type="Sprite2D" parent="characters"]
 rotation = -5.40344
-scale = Vector2(1, 1)
 texture = ExtResource("4_x3xqa")
 
 [node name="enemy02" type="Sprite2D" parent="characters"]
@@ -588,7 +589,6 @@ texture = ExtResource("5_1llq1")
 [node name="enemy03" type="Sprite2D" parent="characters"]
 position = Vector2(1895, 0.000331332)
 rotation = -6.28319
-scale = Vector2(1, 1)
 texture = ExtResource("6_307p3")
 
 [node name="enemy04" type="Sprite2D" parent="characters"]
@@ -645,6 +645,7 @@ offset = Vector2(2.08165e-12, 200)
 transform = Transform2D(1, 0, 0, 1, 2.08165e-12, 200)
 
 [node name="ShareButton" type="Button" parent="Buttons"]
+unique_name_in_owner = true
 offset_left = 193.0
 offset_top = 168.0
 offset_right = 401.0
@@ -652,10 +653,22 @@ offset_bottom = 216.0
 theme_override_fonts/font = ExtResource("14_y187x")
 text = "結果をシェア！"
 
-[node name="BackButton" type="Button" parent="Buttons"]
+[node name="MenuButton" type="Button" parent="Buttons"]
+unique_name_in_owner = true
 offset_left = 193.0
 offset_top = 237.0
 offset_right = 401.0
 offset_bottom = 285.0
 theme_override_fonts/font = ExtResource("14_y187x")
 text = "タイトルに戻る"
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="FadeOverlay" parent="UI" instance=ExtResource("15_76bcr")]
+unique_name_in_owner = true
+visible = false
+
+[node name="PauseOverlay" parent="UI" instance=ExtResource("16_sgdrr")]
+unique_name_in_owner = true
+process_mode = 2
+visible = false

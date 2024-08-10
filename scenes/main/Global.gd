@@ -26,3 +26,13 @@ func init_level():
 	enemy_hp = 2
 	player_fall = false
 	enemy_fall = false
+
+func init_game():
+	player_hp = 2
+	enemy_hp = 2
+	player_fall = false
+	enemy_fall = false
+	current_level = 1
+	time = 0
+	death_number = 0
+	death_number_array = [0,0,0,0,0,0,0,0,0,0]
