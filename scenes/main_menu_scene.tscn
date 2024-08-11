@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dv2y18ye8j7o0"]
+[gd_scene load_steps=8 format=3 uid="uid://dv2y18ye8j7o0"]
 
 [ext_resource type="Script" path="res://scenes/main_menu_scene.gd" id="1_1foie"]
 [ext_resource type="PackedScene" uid="uid://cik30de5gaaah" path="res://scenes/ingame_scene.tscn" id="2_nl5i6"]
 [ext_resource type="PackedScene" uid="uid://g4qhvbvdm62w" path="res://scenes/game_settings_scene.tscn" id="3_dgs4d"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="3_kf1us"]
-[ext_resource type="PackedScene" uid="uid://b4blrdjthcxnn" path="res://ui/components/game_logo.tscn" id="4_fnufg"]
 [ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="5_lrtao"]
 [ext_resource type="AudioStream" uid="uid://bw2ifd7rtbklw" path="res://music/00_iwashiro_sarusaru_music.mp3" id="7_s5j81"]
 
@@ -23,15 +22,23 @@ settings_scene = ExtResource("3_dgs4d")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 124.0
+offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CenterContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 1.1)
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 12
 
-[node name="GameLogo" parent="UI/CenterContainer/VBoxContainer" instance=ExtResource("4_fnufg")]
+[node name="PracticeButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 35)
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_lrtao")
+text = "練習モード"
 
 [node name="ContinueButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -41,7 +48,7 @@ text = "continue"
 
 [node name="NewGameButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(300, 35)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_lrtao")
@@ -49,7 +56,7 @@ text = "シーソートーナメントへ挑戦！"
 
 [node name="SettingsButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(300, 35)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_lrtao")
@@ -69,15 +76,22 @@ size_flags_horizontal = 4
 theme_override_constants/margin_top = 10
 
 [node name="Label" type="Label" parent="UI/CenterContainer/VBoxContainer/Credits"]
-visible = false
 layout_mode = 2
-text = "credits"
+text = "credits MONDY、エス・BGM：イワシロ音楽素材"
 label_settings = SubResource("LabelSettings_2ikbh")
 horizontal_alignment = 1
 
 [node name="FadeOverlay" parent="UI" instance=ExtResource("3_kf1us")]
 unique_name_in_owner = true
 visible = false
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 121.0
+offset_top = 300.0
+offset_right = 480.0
+offset_bottom = 337.0
+text = "ベストタイム：160秒 ベストやり直し回数：2回"
+horizontal_alignment = 1
 
 [node name="audioBGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_s5j81")
