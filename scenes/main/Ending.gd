@@ -1,7 +1,5 @@
 extends Node2D
 
-const MENU_SCENE = preload("res://scenes/main_menu_scene.tscn")
-
 @onready var label = $Label
 @onready var characters = $characters
 @onready var buttons = $Buttons
@@ -126,7 +124,7 @@ func _on_menu_button_pressed() -> void:
 		fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 		
 func _on_fade_overlay_on_complete_fade_out() -> void:
-	get_tree().change_scene_to_packed(MENU_SCENE)
+	get_tree().change_scene_to_file("res://scenes/main_menu_scene.tscn")
 
 # 配列の合計
 func sum(arr:Array):

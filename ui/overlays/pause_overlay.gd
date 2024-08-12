@@ -2,8 +2,6 @@ extends CenterContainer
 
 signal game_exited
 
-#const MENU_SCENE = preload("res://scenes/main_menu_scene.tscn")
-
 @onready var resume_button := %ResumeButton
 @onready var settings_button := %SettingsButton
 @onready var exit_button := %ExitButton
