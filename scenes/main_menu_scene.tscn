@@ -32,12 +32,6 @@ custom_minimum_size = Vector2(2.08165e-12, 1.1)
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="BestResultLabel" type="Label" parent="UI/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 13
-text = "ベストタイム：160秒 ベストやり直し回数：2回"
-horizontal_alignment = 1
-
 [node name="PracticeButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 35)
@@ -87,12 +81,20 @@ text = "credits MONDY、エス・BGM：イワシロ音楽素材"
 label_settings = SubResource("LabelSettings_2ikbh")
 horizontal_alignment = 1
 
-[node name="audioBGM" type="AudioStreamPlayer" parent="UI"]
+[node name="FadeOverlay" parent="UI" instance=ExtResource("3_kf1us")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Label" type="Label" parent="UI"]
+offset_left = 121.0
+offset_top = 300.0
+offset_right = 480.0
+offset_bottom = 337.0
+text = "ベストタイム：160秒 ベストやり直し回数：2回"
+horizontal_alignment = 1
+
+[node name="audioBGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_s5j81")
 volume_db = -5.0
 autoplay = true
 bus = &"Music"
-
-[node name="FadeOverlay" parent="UI" instance=ExtResource("3_kf1us")]
-unique_name_in_owner = true
-visible = false

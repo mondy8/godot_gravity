@@ -1,8 +1,8 @@
 extends Node2D
 
-@onready var GAME_SCENE = preload("res://scenes/ingame_scene.tscn")
-@onready var SETTINGS_SCENE = preload("res://scenes/game_settings_scene.tscn")
-@onready var PRACTICE_SCENE = preload("res://scenes/practice_scene.tscn")
+static var GAME_SCENE = preload("res://scenes/ingame_scene.tscn")
+static var SETTINGS_SCENE = preload("res://scenes/game_settings_scene.tscn")
+static var PRACTICE_SCENE = preload("res://scenes/practice_scene.tscn")
 
 @export var game_scene:PackedScene
 @export var settings_scene:PackedScene

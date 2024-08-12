@@ -30,8 +30,8 @@ func _settings() -> void:
 	back_button.grab_focus()
 	
 func _exit() -> void:
+	#get_tree().change_scene_to_file("res://scenes/main_menu_scene.tscn")
 	game_exited.emit()
-	get_tree().change_scene_to_file("res://scenes/main_menu_scene.tscn")
 	#fade_overlay.fade_out()
 	#fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 		#

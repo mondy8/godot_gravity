@@ -54,18 +54,21 @@ theme_override_constants/separation = 14
 
 [node name="ResumeButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 theme = SubResource("Theme_f4c6c")
 text = "ゲームを再開"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 theme = SubResource("Theme_m68yn")
 text = "サウンド設定"
 
 [node name="ExitButton" type="Button" parent="VBoxContainer3/MenuContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_w27bp")
 text = "タイトルに戻る"

@@ -9,8 +9,9 @@
 script/source = "extends Node2D
 class_name ingame
 
-const LEVEL_SCENE_01 = preload(\"res://scenes/main/Level01.tscn\")
-const ENDING_SCENE = preload(\"res://scenes/main/Ending.tscn\")
+static var LEVEL_SCENE_01 = preload(\"res://scenes/main/Level01.tscn\")
+static var ENDING_SCENE = preload(\"res://scenes/main/Ending.tscn\")
+static var MENU_SCENE = preload(\"res://scenes/main_menu_scene.tscn\")
 const AUDIO_01 = preload(\"res://music/01_iwashiro_carpaccio1.mp3\")
 const AUDIO_02 = preload(\"res://music/02_iwashiro_amalfi_jigoku.mp3\")
 const AUDIO_03 = preload(\"res://music/03_iwashiro_sanzokusan.mp3\")
@@ -35,6 +36,7 @@ const audio_array = [AUDIO_01, AUDIO_02, AUDIO_03, AUDIO_04, AUDIO_05, AUDIO_06,
 var level_signal_connected = false
 var current_level_buffer = 1
 var initial_volume_db
+var next_scene
 
 func _ready():
 	connect_signal(level01)
@@ -44,7 +46,8 @@ func _ready():
 	if SaveGame.has_save():
 		SaveGame.load_game(get_tree())
 	
-	pause_overlay.game_exited.connect(_save_game)
+	pause_overlay.game_exited.connect(_on_game_exit)
+	#pause_overlay.game_exited.connect(_save_game)
 	
 	current_level_buffer = Global.current_level
 	audioBGM.stream = audio_array[Global.current_level - 1]
@@ -63,6 +66,7 @@ func _save_game() -> void:
 
 func _on_change_level(newLevel:int):
 	if newLevel == 11:
+		next_scene = ENDING_SCENE
 		fade_overlay.fade_out()
 		fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 		return
@@ -101,11 +105,12 @@ func connect_signal(scene_instance):
 	
 # エンディングへ
 func _on_fade_overlay_on_complete_fade_out() -> void:
-	#for child in game.get_children():
-		#child.queue_free()
-	#var ending_scene_instance = ENDING_SCENE.instantiate()
-	#game.add_child(ending_scene_instance)
-	get_tree().change_scene_to_packed(ENDING_SCENE)
+	get_tree().change_scene_to_packed(next_scene)
+
+func _on_game_exit():
+	next_scene = MENU_SCENE
+	fade_overlay.fade_out()
+	fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 "
 
 [node name="IngameScene" type="Node2D"]
