@@ -10,12 +10,12 @@ static var PRACTICE_SCENE = load("res://scenes/practice_scene.tscn")
 @export var settings_scene:PackedScene
 
 @onready var overlay := %FadeOverlay
-@onready var continue_button := %ContinueButton
 @onready var new_game_button := %NewGameButton
 @onready var settings_button := %SettingsButton
-@onready var exit_button := %ExitButton
 @onready var practice_button := %PracticeButton
 @onready var ball_timer := %BallTimer
+@onready var audio_select := $audio_select
+@onready var audio_press := $audio_press
 
 var next_scene
 
@@ -25,15 +25,18 @@ func _ready() -> void:
 func _on_settings_button_pressed() -> void:
 	next_scene = SETTINGS_SCENE
 	overlay.fade_out()
+	audio_press.play()
 	
 func _on_play_button_pressed() -> void:
 	next_scene = GAME_SCENE
 	Global.init_game()
 	overlay.fade_out()
+	audio_press.play()
 	
 func _on_practice_button_pressed() -> void:
 	next_scene = PRACTICE_SCENE
 	overlay.fade_out()
+	audio_press.play()
 
 func _on_fade_overlay_on_complete_fade_out() -> void:
 	#if new_game and SaveGame.has_save():
@@ -49,8 +52,14 @@ func init():
 	
 	# connect signals
 	new_game_button.pressed.connect(_on_play_button_pressed)
+	new_game_button.connect("focus_entered", Callable(self, "_on_button_entered"))
+	new_game_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
 	settings_button.pressed.connect(_on_settings_button_pressed)
+	settings_button.connect("focus_entered", Callable(self, "_on_button_entered"))
+	settings_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
 	practice_button.pressed.connect(_on_practice_button_pressed)
+	practice_button.connect("focus_entered", Callable(self, "_on_button_entered"))
+	practice_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
 	overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 	
 	practice_button.grab_focus()
@@ -67,3 +76,5 @@ func _on_timer_timeout() -> void:
 	ball_timer.wait_time = time_value
 	add_child(ball_instance)
 	
+func _on_button_entered():
+	audio_select.play()

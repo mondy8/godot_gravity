@@ -7,6 +7,7 @@ extends VBoxContainer
 @onready var sound_volume_toggle := %SoundEnabledToggle
 @onready var sound_volume_slider := %SoundVolumeSlider
 @onready var language_dropdown := %LanguageDropdown
+@onready var audio_slide := $audio_slide
 
 ## maps the index of a locale to the locale itself
 var locales:PackedStringArray = []
@@ -22,10 +23,11 @@ func _ready() -> void:
 		if current_locale == locale:
 			select_index = idx
 		idx += 1
-	language_dropdown.select(select_index)		
+	language_dropdown.select(select_index)
 			
 
 func _on_master_volume_toggle_toggled(button_pressed: bool) -> void:
+	audio_slide.play()
 	master_volume_slider.editable = button_pressed
 	music_volume_slider.editable = music_volume_toggle.button_pressed and button_pressed
 	sound_volume_slider.editable = sound_volume_toggle.button_pressed and button_pressed
@@ -33,11 +35,13 @@ func _on_master_volume_toggle_toggled(button_pressed: bool) -> void:
 
 
 func _on_music_enabled_toggle_toggled(button_pressed: bool) -> void:
+	audio_slide.play()
 	music_volume_slider.editable = master_volume_toggle.button_pressed and button_pressed
 	UserSettings.set_value("musicvolume_enabled", button_pressed)
 
 
 func _on_sound_enabled_toggle_toggled(button_pressed: bool) -> void:
+	audio_slide.play()
 	sound_volume_slider.editable = master_volume_toggle.button_pressed and button_pressed
 	UserSettings.set_value("soundvolume_enabled", button_pressed)
 

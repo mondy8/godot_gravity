@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://g4qhvbvdm62w"]
+[gd_scene load_steps=9 format=3 uid="uid://g4qhvbvdm62w"]
 
 [ext_resource type="Script" path="res://scenes/game_settings_scene.gd" id="1_3764u"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="1_w6tmj"]
@@ -6,6 +6,8 @@
 [ext_resource type="Theme" uid="uid://d22mpqutkotsu" path="res://ui/theme.tres" id="3_unbh4"]
 [ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="4_cm4rd"]
 [ext_resource type="AudioStream" uid="uid://bw2ifd7rtbklw" path="res://music/00_iwashiro_sarusaru_music.mp3" id="6_he7r3"]
+[ext_resource type="AudioStream" uid="uid://cwi2buwbpupeg" path="res://music/カコ.mp3" id="7_ar70w"]
+[ext_resource type="AudioStream" uid="uid://bebry024vhmtp" path="res://music/カポ.mp3" id="8_ce0a1"]
 
 [node name="GameSettingsScene" type="Node2D"]
 script = ExtResource("1_3764u")
@@ -47,3 +49,11 @@ stream = ExtResource("6_he7r3")
 volume_db = -5.0
 autoplay = true
 bus = &"Music"
+
+[node name="audio_select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ar70w")
+bus = &"Sound"
+
+[node name="audio_press" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ce0a1")
+bus = &"Sound"

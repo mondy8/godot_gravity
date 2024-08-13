@@ -1,6 +1,7 @@
 extends HSlider
 
 @export var property:String = ""
+@onready var audio_slide := $"../../../audio_slide"
 
 var initialised = false
 

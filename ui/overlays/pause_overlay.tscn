@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://jyv4g54adkmo"]
+[gd_scene load_steps=8 format=3 uid="uid://jyv4g54adkmo"]
 
 [ext_resource type="Script" path="res://ui/overlays/pause_overlay.gd" id="1_q2yda"]
 [ext_resource type="PackedScene" uid="uid://nbaodrlopo7y" path="res://ui/components/game_settings.tscn" id="2_n78uc"]
 [ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="3_w27bp"]
+[ext_resource type="AudioStream" uid="uid://cwi2buwbpupeg" path="res://music/カコ.mp3" id="4_bhgrp"]
+[ext_resource type="AudioStream" uid="uid://bebry024vhmtp" path="res://music/カポ.mp3" id="5_gba8q"]
 
 [sub_resource type="Theme" id="Theme_f4c6c"]
 default_font = ExtResource("3_w27bp")
@@ -72,3 +74,11 @@ custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_w27bp")
 text = "タイトルに戻る"
+
+[node name="audio_select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_bhgrp")
+bus = &"Sound"
+
+[node name="audio_press" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_gba8q")
+bus = &"Sound"

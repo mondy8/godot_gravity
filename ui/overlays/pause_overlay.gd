@@ -8,13 +8,23 @@ signal game_exited
 @onready var settings_container := %SettingsContainer
 @onready var menu_container := %MenuContainer
 @onready var back_button := %BackButton
-#@onready var fade_overlay = %FadeOverlay
+@onready var audio_select := $audio_select
+@onready var audio_press := $audio_press
 
 func _ready() -> void:
 	resume_button.pressed.connect(_resume)
+	resume_button.connect("focus_entered", Callable(self, "_on_button_entered"))
+	resume_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
 	settings_button.pressed.connect(_settings)
+	settings_button.connect("focus_entered", Callable(self, "_on_button_entered"))
+	settings_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
 	exit_button.pressed.connect(_exit)
+	exit_button.connect("focus_entered", Callable(self, "_on_button_entered"))
+	exit_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
 	back_button.pressed.connect(_pause_menu)
+	back_button.connect("focus_entered", Callable(self, "_on_button_entered"))
+	back_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
+	
 	
 func grab_button_focus() -> void:
 	resume_button.grab_focus()
@@ -22,21 +32,17 @@ func grab_button_focus() -> void:
 func _resume() -> void:
 	get_tree().paused = false
 	visible = false
-	
+	audio_press.play()
 	
 func _settings() -> void:
 	menu_container.visible = false
 	settings_container.visible = true
 	back_button.grab_focus()
+	audio_press.play()
 	
 func _exit() -> void:
-	#get_tree().change_scene_to_file("res://scenes/main_menu_scene.tscn")
 	game_exited.emit()
-	#fade_overlay.fade_out()
-	#fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
-		#
-#func _on_fade_overlay_on_complete_fade_out() -> void:
-
+	audio_press.play()
 	
 func _pause_menu() -> void:
 	settings_container.visible = false
@@ -50,3 +56,7 @@ func _unhandled_input(event):
 			_resume()
 		if settings_container.visible:
 			_pause_menu()
+			
+func _on_button_entered():
+	if get_tree().paused:
+		audio_select.play()

@@ -9,9 +9,9 @@
 script/source = "extends Node2D
 class_name ingame
 
-static var LEVEL_SCENE_01 = load(\"res://scenes/main/Level01.tscn\")
-static var ENDING_SCENE = load(\"res://scenes/main/Ending.tscn\")
-static var MENU_SCENE = load(\"res://scenes/main_menu_scene.tscn\")
+@onready var LEVEL_SCENE_01 = load(\"res://scenes/main/Level01.tscn\")
+@onready var ENDING_SCENE = load(\"res://scenes/main/Ending.tscn\")
+@onready var MENU_SCENE = load(\"res://scenes/main_menu_scene.tscn\")
 const AUDIO_01 = preload(\"res://music/01_iwashiro_carpaccio1.mp3\")
 const AUDIO_02 = preload(\"res://music/02_iwashiro_amalfi_jigoku.mp3\")
 const AUDIO_03 = preload(\"res://music/03_iwashiro_sanzokusan.mp3\")
