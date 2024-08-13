@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvg7nyh11l3hp"]
+
+[ext_resource type="Texture2D" uid="uid://c2jupaank72lf" path="res://images/01_雑魚ボール.png" id="1_2kajj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_diq3e"]
+radius = 13.0
+
+[node name="BallRigidBody2D" type="RigidBody2D"]
+position = Vector2(348, -250)
+mass = 0.1
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 1.90735e-06)
+scale = Vector2(0.082, 0.082)
+texture = ExtResource("1_2kajj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 1)
+shape = SubResource("CircleShape2D_diq3e")

@@ -4,6 +4,8 @@ static var GAME_SCENE = load("res://scenes/ingame_scene.tscn")
 static var SETTINGS_SCENE = load("res://scenes/game_settings_scene.tscn")
 static var PRACTICE_SCENE = load("res://scenes/practice_scene.tscn")
 
+@onready var ball = preload("res://scenes/intro_ball_rigid_body_2d.tscn")
+
 @export var game_scene:PackedScene
 @export var settings_scene:PackedScene
 
@@ -13,6 +15,7 @@ static var PRACTICE_SCENE = load("res://scenes/practice_scene.tscn")
 @onready var settings_button := %SettingsButton
 @onready var exit_button := %ExitButton
 @onready var practice_button := %PracticeButton
+@onready var ball_timer := %BallTimer
 
 var next_scene
 
@@ -20,7 +23,6 @@ func _ready() -> void:
 	init()
 
 func _on_settings_button_pressed() -> void:
-	#new_game = false
 	next_scene = SETTINGS_SCENE
 	overlay.fade_out()
 	
@@ -32,14 +34,6 @@ func _on_play_button_pressed() -> void:
 func _on_practice_button_pressed() -> void:
 	next_scene = PRACTICE_SCENE
 	overlay.fade_out()
-	
-#func _on_continue_button_pressed() -> void:
-	#new_game = false
-	#next_scene = GAME_SCENE
-	#overlay.fade_out()
-
-#func _on_exit_button_pressed() -> void:
-	#get_tree().quit()
 
 func _on_fade_overlay_on_complete_fade_out() -> void:
 	#if new_game and SaveGame.has_save():
@@ -55,14 +49,21 @@ func init():
 	
 	# connect signals
 	new_game_button.pressed.connect(_on_play_button_pressed)
-	#continue_button.pressed.connect(_on_continue_button_pressed)
 	settings_button.pressed.connect(_on_settings_button_pressed)
-	#exit_button.pressed.connect(_on_exit_button_pressed)
 	practice_button.pressed.connect(_on_practice_button_pressed)
 	overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 	
 	practice_button.grab_focus()
-	#if continue_button.visible:
-	#else:
-		#new_game_button.grab_focus()
+
+func _on_timer_timeout() -> void:
+	var ball_instance = ball.instantiate()
+	ball_instance.position.x = randf_range(170, 400)
+	var scale_value = randf_range(0.3, 2)
+	var init_sprite_scale = ball_instance.get_node("Sprite2D").scale
+	ball_instance.get_node("Sprite2D").scale = init_sprite_scale * scale_value
+	var init_collision_scale = ball_instance.get_node("CollisionShape2D").scale
+	ball_instance.get_node("CollisionShape2D").scale = init_collision_scale * scale_value
+	var time_value = randf_range(3, 5)
+	ball_timer.wait_time = time_value
+	add_child(ball_instance)
 	

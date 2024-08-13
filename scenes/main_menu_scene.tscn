@@ -1,15 +1,96 @@
-[gd_scene load_steps=8 format=3 uid="uid://dv2y18ye8j7o0"]
+[gd_scene load_steps=19 format=3 uid="uid://dv2y18ye8j7o0"]
 
 [ext_resource type="Script" path="res://scenes/main_menu_scene.gd" id="1_1foie"]
 [ext_resource type="PackedScene" uid="uid://cik30de5gaaah" path="res://scenes/ingame_scene.tscn" id="2_nl5i6"]
 [ext_resource type="PackedScene" uid="uid://g4qhvbvdm62w" path="res://scenes/game_settings_scene.tscn" id="3_dgs4d"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="3_kf1us"]
 [ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="5_lrtao"]
+[ext_resource type="Texture2D" uid="uid://oio5taglwi47" path="res://images/title_logo.png" id="7_34b2y"]
 [ext_resource type="AudioStream" uid="uid://bw2ifd7rtbklw" path="res://music/00_iwashiro_sarusaru_music.mp3" id="7_s5j81"]
+[ext_resource type="Texture2D" uid="uid://bvsr0p58inkx4" path="res://images/player_sprite.png" id="8_ca0gl"]
+[ext_resource type="Script" path="res://scenes/intro_PlayerRigidBody2D.gd" id="8_oho66"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2ikbh"]
 font_size = 8
 font_color = Color(1, 1, 1, 0.486275)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_p4k0t"]
+friction = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3ok0"]
+size = Vector2(496, 121.154)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pu80y"]
+size = Vector2(8, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3rlo6"]
+size = Vector2(269, 30)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgvpf"]
+radius = 16.0
+height = 34.0
+
+[sub_resource type="Animation" id="Animation_gapqk"]
+resource_name = "player_move"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.082, 0.082), Vector2(0.082, 0.082), Vector2(0.082, 0.062), Vector2(0.082, 0.082)]
+}
+
+[sub_resource type="Animation" id="Animation_wxeht"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.082, 0.082)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6yt6w"]
+_data = {
+"RESET": SubResource("Animation_wxeht"),
+"player_move": SubResource("Animation_gapqk")
+}
 
 [node name="MainMenuScene" type="Node2D"]
 script = ExtResource("1_1foie")
@@ -30,11 +111,11 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CenterContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 1.1)
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 8
 
 [node name="PracticeButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 35)
+custom_minimum_size = Vector2(270, 35)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_lrtao")
@@ -48,7 +129,7 @@ text = "continue"
 
 [node name="NewGameButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 35)
+custom_minimum_size = Vector2(270, 35)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_lrtao")
@@ -56,7 +137,7 @@ text = "シーソートーナメントへ挑戦！"
 
 [node name="SettingsButton" type="Button" parent="UI/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 35)
+custom_minimum_size = Vector2(270, 35)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_lrtao")
@@ -77,7 +158,7 @@ theme_override_constants/margin_top = 10
 
 [node name="Label" type="Label" parent="UI/CenterContainer/VBoxContainer/Credits"]
 layout_mode = 2
-text = "credits MONDY、エス・BGM：イワシロ音楽素材"
+text = "credits MONDY・エス　BGM：イワシロ音楽素材"
 label_settings = SubResource("LabelSettings_2ikbh")
 horizontal_alignment = 1
 
@@ -87,9 +168,9 @@ visible = false
 
 [node name="Label" type="Label" parent="UI"]
 offset_left = 121.0
-offset_top = 300.0
+offset_top = 293.0
 offset_right = 480.0
-offset_bottom = 337.0
+offset_bottom = 330.0
 text = "ベストタイム：160秒 ベストやり直し回数：2回"
 horizontal_alignment = 1
 
@@ -98,3 +179,75 @@ stream = ExtResource("7_s5j81")
 volume_db = -5.0
 autoplay = true
 bus = &"Music"
+
+[node name="Seesaw" type="Node2D" parent="."]
+position = Vector2(-2, -183)
+metadata/_edit_group_ = true
+
+[node name="SeesawGround" type="RigidBody2D" parent="Seesaw"]
+position = Vector2(294, 220)
+mass = 50.0
+physics_material_override = SubResource("PhysicsMaterial_p4k0t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawGround"]
+position = Vector2(0, 43.5)
+scale = Vector2(0.52, 0.52)
+shape = SubResource("RectangleShape2D_r3ok0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Seesaw/SeesawGround"]
+position = Vector2(0, 44)
+scale = Vector2(0.52, 0.52)
+texture = ExtResource("7_34b2y")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Seesaw"]
+position = Vector2(295, 261)
+node_a = NodePath("../SeesawPin")
+node_b = NodePath("../SeesawGround")
+
+[node name="SeesawPin" type="StaticBody2D" parent="Seesaw"]
+position = Vector2(298, 267)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/SeesawPin"]
+position = Vector2(-3, -6)
+shape = SubResource("RectangleShape2D_pu80y")
+
+[node name="ButtonStaticBody2D" type="StaticBody2D" parent="Seesaw"]
+position = Vector2(2, 183)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/ButtonStaticBody2D"]
+position = Vector2(287.5, 146)
+shape = SubResource("RectangleShape2D_3rlo6")
+
+[node name="PlayerRigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(251, -214)
+lock_rotation = true
+script = ExtResource("8_oho66")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerRigidBody2D"]
+position = Vector2(1, 1.90735e-06)
+scale = Vector2(0.082, 0.082)
+texture = ExtResource("8_ca0gl")
+centered = false
+offset = Vector2(-250, -500)
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerRigidBody2D"]
+position = Vector2(2, -23)
+shape = SubResource("CapsuleShape2D_qgvpf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerRigidBody2D"]
+libraries = {
+"": SubResource("AnimationLibrary_6yt6w")
+}
+autoplay = "player_move"
+
+[node name="BallRespawn" type="Node2D" parent="."]
+position = Vector2(418, -1483)
+
+[node name="BallTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[connection signal="timeout" from="BallTimer" to="." method="_on_timer_timeout"]

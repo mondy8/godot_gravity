@@ -52,6 +52,7 @@ func _ready():
 	current_level_buffer = Global.current_level
 	audioBGM.stream = audio_array[Global.current_level - 1]
 	audioBGM.play()
+	fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 
 
 func _input(event) -> void:
@@ -68,7 +69,6 @@ func _on_change_level(newLevel:int):
 	if newLevel == 11:
 		next_scene = ENDING_SCENE
 		fade_overlay.fade_out()
-		fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 		return
 	
 	audioBGM.volume_db = initial_volume_db
@@ -102,15 +102,16 @@ func _on_timer_timeout() -> void:
 func connect_signal(scene_instance):
 	scene_instance.change_level.connect(_on_change_level)
 	scene_instance.start_timer.connect(_on_start_timer)
-	
-# エンディングへ
-func _on_fade_overlay_on_complete_fade_out() -> void:
-	get_tree().change_scene_to_packed(next_scene)
 
 func _on_game_exit():
+	get_tree().paused = false
 	next_scene = MENU_SCENE
+	pause_overlay.visible = false
 	fade_overlay.fade_out()
-	fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
+
+func _on_fade_overlay_on_complete_fade_out() -> void:
+	print(next_scene)
+	get_tree().change_scene_to_packed(next_scene)
 "
 
 [node name="IngameScene" type="Node2D"]

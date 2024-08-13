@@ -10,7 +10,7 @@ func _ready():
 	sprite.scale *= 0.3
 	collision_shape.scale *= 0.3
 	mass = 1
-	move_speed = 15.0
+	move_speed = 10.0
 	move_speed_max = 20.0
 	Global.enemy_bump_speed = 0
 	Global.player_get_damaged = false
