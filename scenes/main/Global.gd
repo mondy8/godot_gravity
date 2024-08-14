@@ -1,20 +1,16 @@
 extends Node
 
-var current_level := 8
-
+var current_level := 1
 var time := 0.0
-
+var death_number := 0
+var death_number_array = [0,0,0,0,0,0,0,0,0,0]
 var best_time = null
+var best_revenge = null
 
 var enemy_bump_speed := 10
 var player_get_damaged := false
-
 var player_hp := 2
 var enemy_hp := 2
-
-var death_number := 0
-var death_number_array = [0,0,0,0,0,0,0,0,0,0]
-
 var player_fall := false
 var enemy_fall := false
 

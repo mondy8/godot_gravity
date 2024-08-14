@@ -63,8 +63,7 @@ func _ready():
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > 400 and !Global.player_fall:
-		Global.player_fall = true
+	if position.y > 400:
 		position.y = 399
 		set_freeze_enabled(true)
 		player_respawn.emit()
@@ -109,7 +108,7 @@ func _physics_process(delta):
 	
 	can_jump_buffer = can_jump
 	
-	check_enemy_bump()
+	#check_enemy_bump()
 	
 # ジャンプ中か判定
 func check_jump():
@@ -117,31 +116,31 @@ func check_jump():
 		return true
 	else: 
 		return false
-
-# 敵と衝突中の処理
-func check_enemy_bump():
-	for child in ray.get_children():
-		if child.is_colliding():
-			var collider = child.get_collider()
-			if collider is Enemy:
-				var collider_position = collider.get_global_position()
-				var self_position = global_position
-				var direction = (self_position - collider_position).normalized()
-				var force = direction * Global.enemy_bump_speed
-				self.apply_impulse(force, Vector2(0, 0))
-				if Global.player_get_damaged:
-					if !audio_attacked.playing:
-						if Global.current_level == 5:
-							audio_attacked_electric.play()
-						else:
-							audio_attacked.play()
-					var tween = get_tree().create_tween()
-					tween.tween_property(self, "modulate", Color(1, 0, 0, 1), 0.1)
-					tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.1)
-					tween.set_ease(Tween.EASE_IN_OUT)
-					tween.set_trans(Tween.TRANS_QUINT)
-					tween.play()
-					camera_shake.emit(0.2, 6.0)
+#
+## 敵と衝突中の処理
+#func check_enemy_bump():
+	#for child in ray.get_children():
+		#if child.is_colliding():
+			#var collider = child.get_collider()
+			#if collider is Enemy:
+				#var collider_position = collider.get_global_position()
+				#var self_position = global_position
+				#var direction = (self_position - collider_position).normalized()
+				#var force = direction * Global.enemy_bump_speed
+				#self.apply_impulse(force, Vector2(0, 0))
+				#if Global.player_get_damaged:
+					#if !audio_attacked.playing:
+						#if Global.current_level == 5:
+							#audio_attacked_electric.play()
+						#else:
+							#audio_attacked.play()
+					#var tween = get_tree().create_tween()
+					#tween.tween_property(self, "modulate", Color(1, 0, 0, 1), 0.1)
+					#tween.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.1)
+					#tween.set_ease(Tween.EASE_IN_OUT)
+					#tween.set_trans(Tween.TRANS_QUINT)
+					#tween.play()
+					#camera_shake.emit(0.2, 6.0)
 
 # キー入力判定
 func input_process(can_jump:bool) -> Vector2:

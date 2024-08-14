@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://djy45mtxqclga"]
+[gd_scene load_steps=38 format=3 uid="uid://djy45mtxqclga"]
 
 [ext_resource type="Script" path="res://scenes/main/Ending.gd" id="1_tt0on"]
 [ext_resource type="Texture2D" uid="uid://bvsr0p58inkx4" path="res://images/player_sprite.png" id="2_s3ffi"]
@@ -16,6 +16,9 @@
 [ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="14_y187x"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="15_76bcr"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="16_sgdrr"]
+[ext_resource type="AudioStream" uid="uid://cwi2buwbpupeg" path="res://music/カコ.mp3" id="17_516il"]
+[ext_resource type="AudioStream" uid="uid://bebry024vhmtp" path="res://music/カポ.mp3" id="18_kejvu"]
+[ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="19_d7s6l"]
 
 [sub_resource type="Animation" id="Animation_cckdc"]
 length = 0.001
@@ -644,8 +647,15 @@ hframes = 4
 offset = Vector2(2.08165e-12, 200)
 transform = Transform2D(1, 0, 0, 1, 2.08165e-12, 200)
 
-[node name="ShareButton" type="Button" parent="Buttons"]
+[node name="Control" type="Control" parent="Buttons"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ShareButton" type="Button" parent="Buttons/Control"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 193.0
 offset_top = 168.0
 offset_right = 401.0
@@ -653,8 +663,9 @@ offset_bottom = 216.0
 theme_override_fonts/font = ExtResource("14_y187x")
 text = "結果をシェア！"
 
-[node name="MenuButton" type="Button" parent="Buttons"]
+[node name="MenuButton" type="Button" parent="Buttons/Control"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 193.0
 offset_top = 237.0
 offset_right = 401.0
@@ -672,3 +683,18 @@ visible = false
 unique_name_in_owner = true
 process_mode = 2
 visible = false
+
+[node name="audio_select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_516il")
+bus = &"Sound"
+
+[node name="audio_press" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_kejvu")
+bus = &"Sound"
+
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0.286275, 0.305882, 0.392157, 1)
+z_index = -1
+position = Vector2(277, 153.5)
+scale = Vector2(772, 503)
+texture = ExtResource("19_d7s6l")

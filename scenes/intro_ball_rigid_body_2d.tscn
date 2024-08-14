@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvg7nyh11l3hp"]
+[gd_scene load_steps=4 format=3 uid="uid://dvg7nyh11l3hp"]
 
 [ext_resource type="Texture2D" uid="uid://c2jupaank72lf" path="res://images/01_雑魚ボール.png" id="1_2kajj"]
+[ext_resource type="Script" path="res://scenes/intro_ball_rigid_body_2d.gd" id="1_qd0m3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_diq3e"]
 radius = 13.0
 
 [node name="BallRigidBody2D" type="RigidBody2D"]
 position = Vector2(348, -250)
+script = ExtResource("1_qd0m3")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene load_steps=7 format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="AudioStream" uid="uid://byq8vtc8omb5e" path="res://music/01_iwashiro_carpaccio1.mp3" id="1_p2whs"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="1_y6ebv"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="3_8o178"]
 [ext_resource type="PackedScene" uid="uid://cjdhuqymuxw5u" path="res://scenes/main/Level01.tscn" id="3_aqr0l"]
+[ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="5_tjllx"]
 
 [sub_resource type="GDScript" id="GDScript_gossy"]
 script/source = "extends Node2D
@@ -110,7 +111,6 @@ func _on_game_exit():
 	fade_overlay.fade_out()
 
 func _on_fade_overlay_on_complete_fade_out() -> void:
-	print(next_scene)
 	get_tree().change_scene_to_packed(next_scene)
 "
 
@@ -154,5 +154,12 @@ visible = false
 unique_name_in_owner = true
 process_mode = 2
 visible = false
+
+[node name="BG" type="Sprite2D" parent="."]
+modulate = Color(0.286275, 0.305882, 0.392157, 1)
+z_index = -1
+position = Vector2(277, 153.5)
+scale = Vector2(772, 503)
+texture = ExtResource("5_tjllx")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

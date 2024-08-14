@@ -16,6 +16,7 @@ static var PRACTICE_SCENE = load("res://scenes/practice_scene.tscn")
 @onready var ball_timer := %BallTimer
 @onready var audio_select := $audio_select
 @onready var audio_press := $audio_press
+@onready var best_score_text := %best_score_text
 
 var next_scene
 
@@ -44,8 +45,11 @@ func _on_fade_overlay_on_complete_fade_out() -> void:
 	get_tree().change_scene_to_packed(next_scene)
 	
 func init():
+	if SaveGame.has_save():
+		SaveGame.load_game(get_tree())
 	overlay.visible = true
 	next_scene = GAME_SCENE
+	
 	#new_game_button.disabled = game_scene == null
 	#settings_button.disabled = settings_scene == null
 	#continue_button.visible = SaveGame.has_save() and SaveGame.ENABLED
@@ -63,11 +67,31 @@ func init():
 	overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 	
 	practice_button.grab_focus()
+	
+	var config = ConfigFile.new()
+	var err = config.load("user://scores.cfg")
+	best_score_text.visible = false
+	print(err)
+	if err != OK:
+		return
+	else:
+		print(config.get_sections())
+		for player in config.get_sections():
+			# Fetch the data for each section.
+			var best_time = config.get_value(player, "best_time")
+			var best_revenge = config.get_value(player, "best_revenge")
+			var result_text = "ベストタイム："  + str(best_time) + "秒 ベストやり直し回数：" + str(best_revenge) + "回"
+			best_score_text.text = result_text
+			best_score_text.visible = true
+			Global.best_time = best_time
+			Global.best_revenge = best_revenge
+			print(result_text)
+
 
 func _on_timer_timeout() -> void:
 	var ball_instance = ball.instantiate()
 	ball_instance.position.x = randf_range(170, 400)
-	var scale_value = randf_range(0.3, 2)
+	var scale_value = randf_range(0.5, 2)
 	var init_sprite_scale = ball_instance.get_node("Sprite2D").scale
 	ball_instance.get_node("Sprite2D").scale = init_sprite_scale * scale_value
 	var init_collision_scale = ball_instance.get_node("CollisionShape2D").scale

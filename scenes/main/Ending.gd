@@ -7,6 +7,8 @@ extends Node2D
 @onready var menuButton = %MenuButton
 @onready var fade_overlay = %FadeOverlay
 @onready var pause_overlay = %PauseOverlay
+@onready var audio_select := $audio_select
+@onready var audio_press := $audio_press
 
 @export var fade_time = 1.0
 @export var display_time = 2.0
@@ -49,6 +51,30 @@ func _ready():
 	var max_index = Global.death_number_array.find(max_value)
 	rival = characterNameArray[max_index]
 	
+	# ベスト記録を更新
+	var result_time = time
+	var result_revenge = revenge
+	if(!Global.best_time):
+		Global.best_time = time
+	elif(time < Global.best_time):
+		Global.best_time = time
+	else:
+		result_time = Global.best_time
+	if(!Global.best_revenge):
+		Global.best_revenge = revenge
+	elif(revenge < Global.best_revenge):
+		Global.best_revenge = revenge
+	else:
+		result_revenge = Global.best_revenge
+	var config = ConfigFile.new()
+	config.set_value("Player", "best_time", result_time)
+	config.set_value("Player", "best_revenge", result_revenge)
+	config.save("user://scores.cfg")
+	print(Global.best_time)
+	print(Global.best_revenge)
+	print(result_time)
+	print(result_revenge)
+	
 	endingText = [
 		"SO シーソー！\nリザルト",
 		"クリアタイム：" + str(time) + "秒",
@@ -63,6 +89,8 @@ func _ready():
 	display_next_text()
 	move_characters()
 	fade_overlay.fade_in()
+	shareButton.connect("mouse_entered", Callable(self, "_on_button_entered"))
+	menuButton.connect("mouse_entered", Callable(self, "_on_button_entered"))
 
 func display_next_text():
 	# 全てのテキストが表示されたら終了
@@ -115,13 +143,15 @@ func move_characters():
 	
 # シェアボタン
 func _on_share_button_pressed() -> void:
-	var url = TWITTER_SHARE_URL + ("あなたはシーソーチャンピオンになった！").uri_encode() + "%0A" + ("クリアタイム：").uri_encode() + str(time) + ("秒").uri_encode() + "%0A" + ("リベンジ回数：").uri_encode() + str(revenge) + ("回").uri_encode() + "%0A" + ("あなたのライバル：").uri_encode() + (rival).uri_encode() + "%0A" + ("https://godotplayer.com/games/seesaw").uri_encode() + "&hashtags=" + ("SOシーソー").uri_encode()
+	audio_press.play()
+	var url = TWITTER_SHARE_URL + ("あなたはシーソーチャンピオンになった！").uri_encode() + "%0A" + ("クリアタイム：").uri_encode() + str(time) + ("秒").uri_encode() + "%0A" + ("リベンジ回数：").uri_encode() + str(revenge) + ("回").uri_encode() + "%0A" + ("あなたのライバル：").uri_encode() + (rival).uri_encode() + "%0A" + ("https://godotplayer.com/games/soseesaw").uri_encode() + "&hashtags=" + ("SOシーソー").uri_encode()
 	OS.shell_open(url)
 	
 # メニューボタン
 func _on_menu_button_pressed() -> void:
-		fade_overlay.fade_out()
-		fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
+	audio_press.play()
+	fade_overlay.fade_out()
+	fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
 		
 func _on_fade_overlay_on_complete_fade_out() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu_scene.tscn")
@@ -132,3 +162,6 @@ func sum(arr:Array):
 	for i in arr:
 		result+=i
 	return result
+
+func _on_button_entered():
+	audio_select.play()

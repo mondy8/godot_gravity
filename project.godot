@@ -99,4 +99,4 @@ locale/translations=PackedStringArray("res://i18n/translation.de.translation", "
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.286275, 0.305882, 0.392157, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
