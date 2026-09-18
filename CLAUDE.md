@@ -19,6 +19,7 @@ Godot Engine 4.7 製のブラウザゲーム「SOシーソー！」。物理演�
 - 既存のフォルダ構成・命名（`scenes/main/Enemy_NN_*.gd` など）を踏襲する。
   リファクタリングで一括改名するときは必ず事前に相談する
 - 大きな変更は「エディタで開いて動かして確認できる」粒度に分割する
+- ビルド／エクスポートは作者が手動で行う。エージェントは実行しない（後述）
 
 ## コマンド
 
@@ -37,7 +38,8 @@ Godot Engine 4.7 製のブラウザゲーム「SOシーソー！」。物理演�
 
 ゲームの実行には [headless-godot-skill-kit](https://github.com/abagames/headless-godot-skill-kit)
 を使用する。本リポジトリには `.agents/skills/headless-godot/` として取り込み済みで、
-**実行・シーン編集・エクスポートは必ずこのスキルの手順に従う**（`SKILL.md` と `skills/*.md` を読むこと）。
+**実行とシーン編集は必ずこのスキルの手順に従う**（`SKILL.md` と `skills/*.md` を読むこと）。
+ただし**エクスポートだけは行わない**（後述）。
 
 ```sh
 # 起動スモーク (run/main_scene を実際に起動して _ready のエラーを検出)
@@ -58,10 +60,16 @@ godot --headless --path . --script res://tools/tests/run_tests.gd 2>&1 | tee log
 - 終了時の `ObjectDB instances were leaked` / `resources still in use` は既知の警告。
   終了コードが 0 で期待した出力があれば失敗扱いにしない
 
-### エクスポート
+### エクスポート: **実行しない**
 
-`export_presets.cfg` に Web(HTML5) / Windows / Linux / macOS のプリセットあり。
-公開ビルドは Web。手順は `.agents/skills/headless-godot/skills/export_and_import.md` に従う。
+エクスポートは作者が手動で行う。エージェントは**エクスポートを実行してはいけない**。
+
+- `--export-release` / `--export-debug` / `--export-pack` を実行しない
+- 「変更の確認」目的でエクスポートしない。確認は上記の起動スモークとロジックテストで済ませる
+- `export_presets.cfg`（Web(HTML5) / Windows / Linux / macOS）と `output/` を書き換えない
+- headless-godot スキルの `skills/export_and_import.md` にエクスポート手順があるが、
+  **本リポジトリではエクスポート部分は適用外**。import（`--import` によるリソース取り込み）は必要に応じて可
+- エクスポートが必要だと判断した場合は、自分で実行せず作者に依頼する
 
 ## アーキテクチャ
 
