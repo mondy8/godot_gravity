@@ -25,7 +25,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("characters/player:frame")
+tracks/0/path = NodePath("player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -37,7 +37,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("characters/player:scale")
+tracks/1/path = NodePath("player:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -54,7 +54,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("characters/player:frame")
+tracks/0/path = NodePath("player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -66,7 +66,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("characters/player:scale")
+tracks/1/path = NodePath("player:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -88,7 +88,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../characters/enemy03:rotation")
+tracks/0/path = NodePath("enemy03:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -105,7 +105,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../characters/enemy01:rotation")
+tracks/0/path = NodePath("enemy01:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -122,7 +122,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../characters/enemy03:rotation")
+tracks/0/path = NodePath("enemy03:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -144,7 +144,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy05:frame")
+tracks/0/path = NodePath("enemy05:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -156,7 +156,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy04:scale")
+tracks/1/path = NodePath("enemy04:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -173,7 +173,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy04:scale")
+tracks/0/path = NodePath("enemy04:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -190,7 +190,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy05:frame")
+tracks/0/path = NodePath("enemy05:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -212,7 +212,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy06:frame")
+tracks/0/path = NodePath("enemy06:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -224,7 +224,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy06:scale")
+tracks/1/path = NodePath("enemy06:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -236,7 +236,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../characters/enemy07:frame")
+tracks/2/path = NodePath("enemy07:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -248,7 +248,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../characters/enemy07:scale")
+tracks/3/path = NodePath("enemy07:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -260,7 +260,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../characters/enemy08:frame")
+tracks/4/path = NodePath("enemy08:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -272,7 +272,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../characters/enemy08:position")
+tracks/5/path = NodePath("enemy08:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -284,7 +284,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../characters/enemy08:scale")
+tracks/6/path = NodePath("enemy08:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -296,7 +296,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../characters/enemy08:rotation")
+tracks/7/path = NodePath("enemy08:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -308,7 +308,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../characters/enemy09:scale")
+tracks/8/path = NodePath("enemy09:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -336,7 +336,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy06:frame")
+tracks/0/path = NodePath("enemy06:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -348,7 +348,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy06:scale")
+tracks/1/path = NodePath("enemy06:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -365,7 +365,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy07:frame")
+tracks/0/path = NodePath("enemy07:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -377,7 +377,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy07:scale")
+tracks/1/path = NodePath("enemy07:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -394,7 +394,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy08:frame")
+tracks/0/path = NodePath("enemy08:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -406,7 +406,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy08:position")
+tracks/1/path = NodePath("enemy08:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -418,7 +418,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../characters/enemy08:scale")
+tracks/2/path = NodePath("enemy08:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -430,7 +430,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../characters/enemy08:rotation")
+tracks/3/path = NodePath("enemy08:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -447,7 +447,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy09:scale")
+tracks/0/path = NodePath("enemy09:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -505,57 +505,63 @@ bus = &"Music"
 [node name="animations" type="Node2D" parent="."]
 
 [node name="anim_player" type="AnimationPlayer" parent="animations"]
-root_node = NodePath("../..")
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_ju4pw")
 }
 autoplay = "player"
 
 [node name="anim_enemy01" type="AnimationPlayer" parent="animations"]
-root_node = NodePath("../anim_player")
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_0t80r")
 }
 autoplay = "enemy01"
 
 [node name="anim_enemy03" type="AnimationPlayer" parent="animations"]
-root_node = NodePath("../anim_player")
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_0t80r")
 }
 autoplay = "enemy03"
 
 [node name="anim_enemy04" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_a1j22")
 }
 autoplay = "enemy04"
 
 [node name="anim_enemy05" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_a1j22")
 }
 autoplay = "enemy05"
 
 [node name="anim_enemy06" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_k76fg")
 }
 autoplay = "enemey06"
 
 [node name="anim_enemy07" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_k76fg")
 }
 autoplay = "enemy07"
 
 [node name="anim_enemy08" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_k76fg")
 }
 autoplay = "enemy08"
 
 [node name="anim_enemy09" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
 &"": SubResource("AnimationLibrary_k76fg")
 }

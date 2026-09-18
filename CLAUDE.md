@@ -22,6 +22,29 @@ Godot Engine 4.7 製のブラウザゲーム「SOシーソー！」。物理演�
 - 大きな変更は「エディタで開いて動かして確認できる」粒度に分割する
 - ビルド／エクスポートは作者が手動で行う。エージェントは実行しない（後述）
 
+## コメントの方針
+
+**冗長なコメントは書かない。** コードを読めば分かることを日本語に言い換えただけのコメントは不要。
+
+```gdscript
+# 悪い例: コードと同じことを言っているだけ
+var move_speed: float = 30.0  # 移動速度
+func _ready():
+	# 初期化
+	Global.player_hp = 2
+
+# 良い例: なぜそうしているかを書く
+# ジャンプしない敵のシーンには AudioJump が無いので null を許容する
+@onready var audio_jump = get_node_or_null("AudioJump")
+```
+
+- コメントを残すのは、**コメントが無いと意図が分からない実装のときだけ**。
+  たとえば「なぜこの値なのか」「なぜこの回避策が要るのか」「参考にした資料」など
+- 「何をしているか」ではなく「なぜそうしたか」を書く。処理の説明が必要なほど複雑なら、
+  コメントで補うより関数に切り出して名前で説明する
+- 既存コードには説明的なコメントが多く残っているが、**一括削除はしない**。
+  その箇所を編集するついでに整理する程度にとどめる
+
 ## コマンド
 
 ### GDScript の整形 / 静的解析
@@ -86,8 +109,8 @@ godot --headless --path . --script res://tools/tests/run_tests.gd 2>&1 | tee log
 
 ### シーン遷移
 
-`bootsplash_scene` → `main_menu_scene` → `ingame_scene`（または `practice_scene` / `game_settings_scene`）
-→ `Ending` → メニュー。遷移はいずれも `ui/overlays/fade_overlay.tscn` のフェード完了シグナル `on_complete_fade_out` を
+`run/main_scene` は `main_menu_scene`。そこから `ingame_scene`（または `practice_scene` /
+`game_settings_scene`）→ `Ending` → メニューへ戻る。遷移はいずれも `ui/overlays/fade_overlay.tscn` のフェード完了シグナル `on_complete_fade_out` を
 受けた `_on_fade_overlay_on_complete_fade_out()` の中で `change_scene_to_*()` を呼ぶ形。
 新しい遷移を足すときもこのパターンに合わせる。
 
@@ -125,10 +148,10 @@ godot --headless --path . --script res://tools/tests/run_tests.gd 2>&1 | tee log
 
 ## 既知の問題
 
-- `scenes/main/Level01.gd:36` の `@onready var timetText = $ResultUI/TimeText` が参照する
-  `TimeText` ノードが `Level01.tscn` に存在せず、起動時に `Node not found` エラーが出る。
-  この変数はどこからも使われていない。ノードを足すか宣言を消すかは作者の判断（エディタ作業向き）
-
+- 現在、各シーンを headless 起動しても未解決のエラー・警告は出ていない
+  （`Ending.tscn` の AnimationPlayer は `root_node` を `../../characters` に統一済み。
+  新しく AnimationPlayer を足すときもこれに合わせる）
+C
 ## `.tscn` を触るときの落とし穴
 
 いずれも実地で確認済み。headless-godot スキルの手順より本項が優先。

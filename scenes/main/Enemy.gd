@@ -21,7 +21,8 @@ var canvas
 @onready var ray_left_foot = $LeftRayCast2D
 @onready var collision_shape = $CollisionShape2D
 @onready var sprite = $Sprite2D
-@onready var audio_jump = $AudioJump
+# ジャンプしない敵のシーンには AudioJump が無いので null を許容する
+@onready var audio_jump = get_node_or_null("AudioJump")
 
 @export var screen_width: float = 576.0  # 画面の幅
 @onready var collision_normal = Vector2(0, -1)
@@ -59,7 +60,8 @@ func check_jump():
 
 func jump(target_node: Node2D, jump_force: Vector2) -> void:
 	if check_jump():
-		audio_jump.play()
+		if audio_jump != null:
+			audio_jump.play()
 		target_node.apply_central_impulse(jump_force)
 
 
