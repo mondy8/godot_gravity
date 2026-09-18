@@ -14,17 +14,17 @@ signal game_exited
 
 func _ready() -> void:
 	resume_button.pressed.connect(_resume)
-	resume_button.connect("focus_entered", Callable(self, "_on_button_entered"))
-	resume_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
+	resume_button.focus_entered.connect(_on_button_entered)
+	resume_button.mouse_entered.connect(_on_button_entered)
 	settings_button.pressed.connect(_settings)
-	settings_button.connect("focus_entered", Callable(self, "_on_button_entered"))
-	settings_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
+	settings_button.focus_entered.connect(_on_button_entered)
+	settings_button.mouse_entered.connect(_on_button_entered)
 	exit_button.pressed.connect(_exit)
-	exit_button.connect("focus_entered", Callable(self, "_on_button_entered"))
-	exit_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
+	exit_button.focus_entered.connect(_on_button_entered)
+	exit_button.mouse_entered.connect(_on_button_entered)
 	back_button.pressed.connect(_pause_menu)
-	back_button.connect("focus_entered", Callable(self, "_on_button_entered"))
-	back_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
+	back_button.focus_entered.connect(_on_button_entered)
+	back_button.mouse_entered.connect(_on_button_entered)
 
 
 func grab_button_focus() -> void:

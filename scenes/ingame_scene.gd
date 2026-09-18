@@ -1,9 +1,10 @@
 extends Node2D
 class_name IngameScene
 
-@onready var LEVEL_SCENE_01 = load("res://scenes/main/Level01.tscn")
-@onready var ENDING_SCENE = load("res://scenes/main/Ending.tscn")
-@onready var MENU_SCENE = load("res://scenes/main_menu_scene.tscn")
+# main_menu_scene とは相互参照になるため preload ではなく load で解決する
+var LEVEL_SCENE_01 = load("res://scenes/main/Level01.tscn")
+var ENDING_SCENE = load("res://scenes/main/Ending.tscn")
+var MENU_SCENE = load("res://scenes/main_menu_scene.tscn")
 const AUDIO_01 = preload("res://music/01_iwashiro_carpaccio1.mp3")
 const AUDIO_02 = preload("res://music/02_iwashiro_amalfi_jigoku.mp3")
 const AUDIO_03 = preload("res://music/03_iwashiro_sanzokusan.mp3")
@@ -50,7 +51,6 @@ func _ready():
 		SaveGame.load_game(get_tree())
 
 	pause_overlay.game_exited.connect(_on_game_exit)
-	#pause_overlay.game_exited.connect(_save_game)
 
 	current_level_buffer = Global.current_level
 	audioBGM.stream = AUDIO_ARRAY[Global.current_level - 1]

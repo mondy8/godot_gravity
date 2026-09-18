@@ -34,17 +34,17 @@ func _ready():
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > SCREEN_HEIGHT:
+	if position.y > Global.SCREEN_HEIGHT:
 		set_freeze_enabled(true)
 		game_set.emit("enemy")
 		return
 
 	# 画面の右側にいる場合、左に移動
-	if position.x > screen_width * 0.57:
+	if position.x > Global.SCREEN_WIDTH * 0.57:
 		direction = -1
 		sprite.set_flip_h(true)
 	# 画面の左側にいる場合、右に移動
-	elif position.x < screen_width * 0.43:
+	elif position.x < Global.SCREEN_WIDTH * 0.43:
 		direction = 1
 		sprite.set_flip_h(false)
 

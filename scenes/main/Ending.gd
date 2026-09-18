@@ -70,10 +70,6 @@ func _ready():
 	config.set_value("Player", "best_time", result_time)
 	config.set_value("Player", "best_revenge", result_revenge)
 	config.save("user://scores.cfg")
-	print(Global.best_time)
-	print(Global.best_revenge)
-	print(result_time)
-	print(result_revenge)
 
 	endingText = [
 		"SO シーソー！\nリザルト",
@@ -89,8 +85,8 @@ func _ready():
 	display_next_text()
 	move_characters()
 	fade_overlay.fade_in()
-	shareButton.connect("mouse_entered", Callable(self, "_on_button_entered"))
-	menuButton.connect("mouse_entered", Callable(self, "_on_button_entered"))
+	shareButton.mouse_entered.connect(_on_button_entered)
+	menuButton.mouse_entered.connect(_on_button_entered)
 
 
 func display_next_text():

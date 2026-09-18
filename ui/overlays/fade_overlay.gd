@@ -34,8 +34,8 @@ func fade_out():
 
 
 func _on_complete_fade_out():
-	emit_signal("on_complete_fade_out")
+	on_complete_fade_out.emit()
 
 
 func _on_complete_fade_in():
-	emit_signal("on_complete_fade_in")
+	on_complete_fade_in.emit()

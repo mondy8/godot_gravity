@@ -2,10 +2,7 @@ extends RigidBody2D
 
 class_name Enemy
 
-@onready var charcter_canvas = preload("res://scenes/main/CharacterCanvas.tscn")
-
-var SCREEN_WIDTH: float = 576.0  # 画面の幅
-var SCREEN_HEIGHT: float = 400.0  # 画面の高さ
+const CHARACTER_CANVAS = preload("res://scenes/main/CharacterCanvas.tscn")
 
 var move_speed: float = 30.0
 var move_speed_max: float = 30.0
@@ -23,13 +20,12 @@ var canvas
 # ジャンプしない敵のシーンには AudioJump が無いので null を許容する
 @onready var audio_jump = get_node_or_null("AudioJump")
 
-@export var screen_width: float = 576.0  # 画面の幅
-@onready var collision_normal = Vector2(0, -1)
+var collision_normal = Vector2(0, -1)
 
 
 # Canvas Layerの配置
 func set_canvas():
-	canvas = charcter_canvas.instantiate()
+	canvas = CHARACTER_CANVAS.instantiate()
 	var position_arrow = canvas.get_node("PositionArrow")
 	position_arrow.modulate = Color(0.15, 0.15, 0.15, 1)
 	add_child(canvas)

@@ -12,8 +12,8 @@ func _ready():
 
 	overlay.visible = true
 	return_button.grab_focus()
-	return_button.connect("focus_entered", Callable(self, "_on_button_entered"))
-	return_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
+	return_button.focus_entered.connect(_on_button_entered)
+	return_button.mouse_entered.connect(_on_button_entered)
 
 
 func _on_fade_overlay_on_complete_fade_out():

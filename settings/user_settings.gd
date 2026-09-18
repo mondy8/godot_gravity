@@ -54,7 +54,7 @@ func set_value(key, value):
 		_mute_bus(SOUNDVOLUME_ENABLED, AUDIO_BUS_SOUND)
 	if key == GAME_LANGUAGE:
 		TranslationServer.set_locale(value)
-	emit_signal("on_value_change", key, value)
+	on_value_change.emit(key, value)
 
 
 func get_value(key):

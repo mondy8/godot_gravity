@@ -121,6 +121,9 @@ position = Vector2(297, 100)
 lock_rotation = true
 freeze_mode = 1
 script = ExtResource("1_epoay")
+move_speed = 50.0
+move_speed_max = 250
+jump_speed = 500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0.999998, 19)

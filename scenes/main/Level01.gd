@@ -1,25 +1,25 @@
 extends Node2D
 
-@onready var enemy01 = preload("res://scenes/main/Enemy_01_ball.tscn")
-@onready var enemy02 = preload("res://scenes/main/Enemy_02_wall.tscn")
-@onready var enemy03 = preload("res://scenes/main/Enemy_03_stinger.tscn")
-@onready var enemy04 = preload("res://scenes/main/Enemy_04_biker.tscn")
-@onready var enemy05 = preload("res://scenes/main/Enemy_05_electric.tscn")
-@onready var enemy06 = preload("res://scenes/main/Enemy_06_electric.tscn")
-@onready var enemy07 = preload("res://scenes/main/Enemy_07_bird.tscn")
-@onready var enemy08 = preload("res://scenes/main/Enemy_08_rock.tscn")
-@onready var enemy09 = preload("res://scenes/main/Enemy_09_biker_bro.tscn")
-@onready var enemy10 = preload("res://scenes/main/Enemy_10_master.tscn")
-@onready var enemy01_image = preload("res://images/01_雑魚ボール_立ち絵.png")
-@onready var enemy02_image = preload("res://images/02_ぬりかべ_立ち絵.png")
-@onready var enemy03_image = preload("res://images/03_ローリングハリネズミ_立ち絵.png")
-@onready var enemy04_image = preload("res://images/04_バイク小僧_立ち絵.png")
-@onready var enemy05_image = preload("res://images/05_電気ビリビリ_立ち絵.png")
-@onready var enemy06_image = preload("res://images/06_ウ二マン_立ち絵.png")
-@onready var enemy07_image = preload("res://images/07_デブ鳥_立ち絵.png")
-@onready var enemy08_image = preload("res://images/08_デカ岩_立ち絵.png")
-@onready var enemy09_image = preload("res://images/09_バイク親玉_立ち絵.png")
-@onready var enemy10_image = preload("res://images/10_マスタージョージ_立ち絵.png")
+const ENEMY_01 = preload("res://scenes/main/Enemy_01_ball.tscn")
+const ENEMY_02 = preload("res://scenes/main/Enemy_02_wall.tscn")
+const ENEMY_03 = preload("res://scenes/main/Enemy_03_stinger.tscn")
+const ENEMY_04 = preload("res://scenes/main/Enemy_04_biker.tscn")
+const ENEMY_05 = preload("res://scenes/main/Enemy_05_electric.tscn")
+const ENEMY_06 = preload("res://scenes/main/Enemy_06_electric.tscn")
+const ENEMY_07 = preload("res://scenes/main/Enemy_07_bird.tscn")
+const ENEMY_08 = preload("res://scenes/main/Enemy_08_rock.tscn")
+const ENEMY_09 = preload("res://scenes/main/Enemy_09_biker_bro.tscn")
+const ENEMY_10 = preload("res://scenes/main/Enemy_10_master.tscn")
+const ENEMY_01_IMAGE = preload("res://images/01_雑魚ボール_立ち絵.png")
+const ENEMY_02_IMAGE = preload("res://images/02_ぬりかべ_立ち絵.png")
+const ENEMY_03_IMAGE = preload("res://images/03_ローリングハリネズミ_立ち絵.png")
+const ENEMY_04_IMAGE = preload("res://images/04_バイク小僧_立ち絵.png")
+const ENEMY_05_IMAGE = preload("res://images/05_電気ビリビリ_立ち絵.png")
+const ENEMY_06_IMAGE = preload("res://images/06_ウ二マン_立ち絵.png")
+const ENEMY_07_IMAGE = preload("res://images/07_デブ鳥_立ち絵.png")
+const ENEMY_08_IMAGE = preload("res://images/08_デカ岩_立ち絵.png")
+const ENEMY_09_IMAGE = preload("res://images/09_バイク親玉_立ち絵.png")
+const ENEMY_10_IMAGE = preload("res://images/10_マスタージョージ_立ち絵.png")
 
 @onready var enemySpawner = $EnemySpawner
 @onready var playerSpawner = $PlayerSpawner
@@ -85,7 +85,7 @@ func _ready() -> void:
 	Global.enemy_hp = 2
 	result.visible = false
 	resultButton.visible = false
-	resultButton.connect("pressed", _on_result_button_pressed)
+	resultButton.pressed.connect(_on_result_button_pressed)
 	audio_bgm = get_node("../../audio/audioBGM")
 	playerHP1.visible = true
 	playerHP2.visible = true
@@ -94,40 +94,40 @@ func _ready() -> void:
 
 	# 敵の生成
 	if Global.current_level == 1:
-		enemy_instance = enemy01.instantiate()
-		characterSprite.texture = enemy01_image
+		enemy_instance = ENEMY_01.instantiate()
+		characterSprite.texture = ENEMY_01_IMAGE
 	elif Global.current_level == 2:
-		enemy_instance = enemy02.instantiate()
-		characterSprite.texture = enemy02_image
+		enemy_instance = ENEMY_02.instantiate()
+		characterSprite.texture = ENEMY_02_IMAGE
 	elif Global.current_level == 3:
-		enemy_instance = enemy03.instantiate()
-		characterSprite.texture = enemy03_image
+		enemy_instance = ENEMY_03.instantiate()
+		characterSprite.texture = ENEMY_03_IMAGE
 	elif Global.current_level == 4:
-		enemy_instance = enemy04.instantiate()
-		characterSprite.texture = enemy04_image
+		enemy_instance = ENEMY_04.instantiate()
+		characterSprite.texture = ENEMY_04_IMAGE
 	elif Global.current_level == 5:
-		enemy_instance = enemy05.instantiate()
-		characterSprite.texture = enemy05_image
+		enemy_instance = ENEMY_05.instantiate()
+		characterSprite.texture = ENEMY_05_IMAGE
 	elif Global.current_level == 6:
-		enemy_instance = enemy06.instantiate()
-		characterSprite.texture = enemy06_image
+		enemy_instance = ENEMY_06.instantiate()
+		characterSprite.texture = ENEMY_06_IMAGE
 	elif Global.current_level == 7:
-		enemy_instance = enemy07.instantiate()
-		characterSprite.texture = enemy07_image
+		enemy_instance = ENEMY_07.instantiate()
+		characterSprite.texture = ENEMY_07_IMAGE
 		enemy_instance.camera_shake.connect(_on_camera_shake)  # カメラシェイク
 	elif Global.current_level == 8:
-		enemy_instance = enemy08.instantiate()
-		characterSprite.texture = enemy08_image
+		enemy_instance = ENEMY_08.instantiate()
+		characterSprite.texture = ENEMY_08_IMAGE
 		enemy_instance.camera_shake.connect(_on_camera_shake)  # カメラシェイク
 	elif Global.current_level == 9:
-		enemy_instance = enemy09.instantiate()
-		characterSprite.texture = enemy09_image
+		enemy_instance = ENEMY_09.instantiate()
+		characterSprite.texture = ENEMY_09_IMAGE
 	elif Global.current_level == 10:
-		enemy_instance = enemy10.instantiate()
-		characterSprite.texture = enemy10_image
+		enemy_instance = ENEMY_10.instantiate()
+		characterSprite.texture = ENEMY_10_IMAGE
 	else:
-		enemy_instance = enemy01.instantiate()
-		characterSprite.texture = enemy01_image
+		enemy_instance = ENEMY_01.instantiate()
+		characterSprite.texture = ENEMY_01_IMAGE
 
 	# playerからシーソーへ与えるシグナル
 	player.seesaw_collided.connect(_on_seesaw_collided)
