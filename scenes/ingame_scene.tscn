@@ -1,121 +1,14 @@
 [gd_scene format=3 uid="uid://cik30de5gaaah"]
 
+[ext_resource type="Script" uid="uid://dinu6jkr1vcjd" path="res://scenes/ingame_scene.gd" id="1_ingame"]
 [ext_resource type="AudioStream" uid="uid://byq8vtc8omb5e" path="res://music/01_iwashiro_carpaccio1.mp3" id="1_p2whs"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="1_y6ebv"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="3_8o178"]
 [ext_resource type="PackedScene" uid="uid://cjdhuqymuxw5u" path="res://scenes/main/Level01.tscn" id="3_aqr0l"]
 [ext_resource type="Texture2D" uid="uid://c487syt5fu3uw" path="res://images/bg_park.png" id="5_2577t"]
 
-[sub_resource type="GDScript" id="GDScript_gossy"]
-script/source = "extends Node2D
-class_name ingame
-
-@onready var LEVEL_SCENE_01 = load(\"res://scenes/main/Level01.tscn\")
-@onready var ENDING_SCENE = load(\"res://scenes/main/Ending.tscn\")
-@onready var MENU_SCENE = load(\"res://scenes/main_menu_scene.tscn\")
-const AUDIO_01 = preload(\"res://music/01_iwashiro_carpaccio1.mp3\")
-const AUDIO_02 = preload(\"res://music/02_iwashiro_amalfi_jigoku.mp3\")
-const AUDIO_03 = preload(\"res://music/03_iwashiro_sanzokusan.mp3\")
-const AUDIO_04 = preload(\"res://music/04_iwashiro_don't_be_a_fool1.mp3\")
-const AUDIO_05 = preload(\"res://music/05_iwashiro_Battle_Against_a_Melter.mp3\")
-const AUDIO_06 = preload(\"res://music/06_iwashiro_nankotsu_karaage.mp3\")
-const AUDIO_07 = preload(\"res://music/07_iwashiro_dacho_no_ashioto.mp3\")
-const AUDIO_08 = preload(\"res://music/08_iwashiro_office_kyo.mp3\")
-const AUDIO_09 = preload(\"res://music/09_iwashiro_dont_be_a_fool2.mp3\")
-const AUDIO_10 = preload(\"res://music/10_iwashiro_may_be_the_last1.mp3\")
-const audio_array = [AUDIO_01, AUDIO_02, AUDIO_03, AUDIO_04, AUDIO_05, AUDIO_06, AUDIO_07, AUDIO_08, AUDIO_09, AUDIO_10]
-
-@onready var game = $Game
-@onready var level01 = $Game/Level01
-@onready var timer = $Timer
-@onready var timeLabel = $TimeText/TimeLabel
-@onready var audioBGM = $audio/audioBGM
-
-@onready var fade_overlay = %FadeOverlay
-@onready var pause_overlay = %PauseOverlay
-
-var level_signal_connected = false
-var current_level_buffer = 1
-var initial_volume_db
-var next_scene
-
-func _ready():
-	connect_signal(level01)
-	initial_volume_db = audioBGM.volume_db
-		
-	fade_overlay.visible = true
-	if SaveGame.has_save():
-		SaveGame.load_game(get_tree())
-	
-	pause_overlay.game_exited.connect(_on_game_exit)
-	#pause_overlay.game_exited.connect(_save_game)
-	
-	current_level_buffer = Global.current_level
-	audioBGM.stream = audio_array[Global.current_level - 1]
-	audioBGM.play()
-	fade_overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
-
-
-func _input(event) -> void:
-	if event.is_action_pressed(\"pause\") and not pause_overlay.visible:
-		get_viewport().set_input_as_handled()
-		get_tree().paused = true
-		pause_overlay.grab_button_focus()
-		pause_overlay.visible = true
-		
-func _save_game() -> void:
-	SaveGame.save_game(get_tree())
-
-func _on_change_level(newLevel:int):
-	if newLevel == 11:
-		next_scene = ENDING_SCENE
-		fade_overlay.fade_out()
-		return
-	
-	audioBGM.volume_db = initial_volume_db
-	if current_level_buffer != newLevel:
-		audioBGM.stream = audio_array[newLevel - 1]
-		audioBGM.play()
-		current_level_buffer = newLevel
-	Global.current_level = newLevel
-	timeLabel.text = \"Time: \" + str(\"%.1f\" % Global.time)
-		
-	Global.init_level()
-		
-	# シーンを切り替え
-	for child in game.get_children():
-		child.queue_free()
-	var scene_instance = LEVEL_SCENE_01.instantiate()
-	game.add_child(scene_instance)
-	connect_signal(scene_instance)
-	
-func _on_start_timer(control: bool):
-	if control:
-		timer.start()
-	else:
-		timer.stop()
-
-func _on_timer_timeout() -> void:
-	var newTime = Global.time + 0.1
-	timeLabel.text = \"Time: \" + str(\"%.1f\" % newTime)
-	Global.time = newTime
-
-func connect_signal(scene_instance):
-	scene_instance.change_level.connect(_on_change_level)
-	scene_instance.start_timer.connect(_on_start_timer)
-
-func _on_game_exit():
-	get_tree().paused = false
-	next_scene = MENU_SCENE
-	pause_overlay.visible = false
-	fade_overlay.fade_out()
-
-func _on_fade_overlay_on_complete_fade_out() -> void:
-	get_tree().change_scene_to_packed(next_scene)
-"
-
 [node name="IngameScene" type="Node2D" unique_id=1548850044]
-script = SubResource("GDScript_gossy")
+script = ExtResource("1_ingame")
 
 [node name="audio" type="Node2D" parent="." unique_id=1268319866]
 

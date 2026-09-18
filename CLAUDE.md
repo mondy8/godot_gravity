@@ -13,7 +13,8 @@ Godot Engine 4.7 製のブラウザゲーム「SOシーソー！」。物理演�
 - シーン構造・ノード階層はエディタ上で読める形を保つ。スクリプトからの動的生成に寄せ替えない
 - 調整したい数値（速度・力・タイマー等）は `@export` にしてインスペクタから触れるようにする。
   マジックナンバーをスクリプト奥深くに埋めない
-- `.tscn` / `.tres` を**テキストとして手編集しない**（後述の headless スキル経由か、作者がエディタで行う）
+- `.tscn` / `.tres` は原則として作者がエディタで編集する。エージェント側で触る必要があるときは
+  「`.tscn` を触るときの落とし穴」を必ず読むこと
 - ノード名・`unique_id`・シグナル接続を不用意に組み替えない。エディタで接続済みのシグナルは
   コード側での再接続に置き換えない
 - 既存のフォルダ構成・命名（`scenes/main/Enemy_NN_*.gd` など）を踏襲する。
@@ -47,6 +48,7 @@ mkdir -p logs && timeout 5s godot --headless --path . 2>&1 | tee logs/smoke_main
 
 # ロジックテスト (res://tools/tests/run_tests.gd。無ければスキルの
 # .agents/skills/headless-godot/tools/templates/run_tests.gd から作る)
+# ※ Global / UserSettings を参照するテストは --script では動かない (後述の落とし穴)
 godot --headless --path . --script res://tools/tests/run_tests.gd 2>&1 | tee logs/run_tests.log
 
 # .tscn の編集はスクリプト経由 (patch.json → godot_apply_patch.gd)
@@ -123,7 +125,23 @@ godot --headless --path . --script res://tools/tests/run_tests.gd 2>&1 | tee log
 
 ## 既知の問題
 
-- `scenes/ingame_scene.tscn` は組み込みスクリプト（`[sub_resource type="GDScript"]`）を持ち、
-  そこに `class_name ingame` があるため起動時に
-  `Parse Error: "class_name" isn't allowed in built-in scripts.` が出る。
-  既存の問題であり、直すなら外部 `.gd` への切り出しが必要（エディタ作業向き）
+- `scenes/main/Level01.gd:36` の `@onready var timetText = $ResultUI/TimeText` が参照する
+  `TimeText` ノードが `Level01.tscn` に存在せず、起動時に `Node not found` エラーが出る。
+  この変数はどこからも使われていない。ノードを足すか宣言を消すかは作者の判断（エディタ作業向き）
+
+## `.tscn` を触るときの落とし穴
+
+いずれも実地で確認済み。headless-godot スキルの手順より本項が優先。
+
+- **`instantiate()` → `PackedScene.pack()` → `ResourceSaver.save()` の往復は使わない。**
+  インスタンス化された子シーン（`Level01` / `FadeOverlay` / `PauseOverlay` など）の継承プロパティが
+  すべてオーバーライドとして展開され、`[gd_scene]` と各 `ext_resource` の `uid` も失われる。
+  `tools/godot_apply_patch.gd` も内部でこの往復を行うため、**子シーンをインスタンスしているシーンには使えない**
+- 上記の理由でスクリプト経由の編集ができない場合は、作者にエディタでの作業を依頼するのが原則。
+  やむを得ずテキストを直接編集したときは、`uid` と `ext_resource` の整合を保ったうえで、
+  必ず対象シーンを直接起動して検証する:
+  `timeout 60 godot --headless --path . res://scenes/<scene>.tscn --quit-after 300`
+- **`--script` モードでは autoload が登録されない**（`get_root().get_children()` が空、
+  `Global` / `UserSettings` は `Identifier not found` になる）。
+  autoload を参照するスクリプトを読み込む必要があるツールは、`--script` ではなく
+  「そのツール用のシーンをメインシーンとして起動する」形にする

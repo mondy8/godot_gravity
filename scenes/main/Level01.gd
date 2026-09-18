@@ -33,7 +33,6 @@ extends Node2D
 @onready var enemyHP2 = $HPUI/HPUIContainer/EnemyHBoxContainer2/EnemyHP2
 @onready var resultButton = $ResultUI/ResultButton
 @onready var resultText = $ResultUI/ResultText
-@onready var timetText = $ResultUI/TimeText
 @onready var levelText = $LevelUI/LevelText
 @onready var characterSprite = $CharacterUI/CharacterSprite
 @onready var subText = $LevelUI/SubText
