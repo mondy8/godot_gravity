@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dj5fwgk88hg5t"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_07_bird.gd" id="1_tl0fn"]
+[ext_resource type="Script" uid="uid://iyv2yx1cqa1t" path="res://scenes/main/Enemy_07_bird.gd" id="1_tl0fn"]
 [ext_resource type="Texture2D" uid="uid://dwn35hyat10sj" path="res://images/07_デブドリ_sprite.png" id="2_6rur0"]
 [ext_resource type="AudioStream" uid="uid://cbkww5od4tecq" path="res://music/パンチの風切り音（スローモーション）1.mp3" id="3_5sdj1"]
 [ext_resource type="AudioStream" uid="uid://djen46d3ck14v" path="res://music/重いキック1.mp3" id="4_kevke"]
@@ -43,8 +43,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lywh5"]
 _data = {
-"RESET": SubResource("Animation_qn634"),
-"electric": SubResource("Animation_vjk4p")
+&"RESET": SubResource("Animation_qn634"),
+&"electric": SubResource("Animation_vjk4p")
 }
 
 [node name="Enemy_07_bird" type="RigidBody2D"]

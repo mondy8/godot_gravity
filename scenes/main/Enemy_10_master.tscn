@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://d0hvnu4ig4qqp"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_10_master.gd" id="1_tr1hg"]
+[ext_resource type="Script" uid="uid://euwys5xjg1gu" path="res://scenes/main/Enemy_10_master.gd" id="1_tr1hg"]
 [ext_resource type="Texture2D" uid="uid://bn0ffsa2poove" path="res://images/10_マスタージョージ_sprite.png" id="2_8r4ms"]
 [ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_taltb"]
 [ext_resource type="AudioStream" uid="uid://cw72dgjd7ia20" path="res://music/刀の素振り2.mp3" id="4_db7bk"]
@@ -78,10 +78,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_46vfc"]
 _data = {
-"RESET": SubResource("Animation_eulh7"),
-"attack": SubResource("Animation_k8yqc"),
-"jump": SubResource("Animation_8fxxr"),
-"walk": SubResource("Animation_bilyx")
+&"RESET": SubResource("Animation_eulh7"),
+&"attack": SubResource("Animation_k8yqc"),
+&"jump": SubResource("Animation_8fxxr"),
+&"walk": SubResource("Animation_bilyx")
 }
 
 [node name="Enemy_10_master" type="RigidBody2D"]

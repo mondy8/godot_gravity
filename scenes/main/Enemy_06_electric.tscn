@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://biox0bucgqq0r"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_06_electric.gd" id="1_yw6ep"]
+[ext_resource type="Script" uid="uid://dixn5qgqsae7m" path="res://scenes/main/Enemy_06_electric.gd" id="1_yw6ep"]
 [ext_resource type="Texture2D" uid="uid://cdprhhmha4yw4" path="res://images/06_ウニマン_sprite.png" id="2_7rmpm"]
 [ext_resource type="AudioStream" uid="uid://biy6xioiwn5ml" path="res://music/Motion-Swish02-1.mp3" id="3_7556w"]
 [ext_resource type="AudioStream" uid="uid://c5o5npvb3l62i" path="res://music/剣で斬る2.mp3" id="4_53kld"]
@@ -58,9 +58,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lywh5"]
 _data = {
-"RESET": SubResource("Animation_cvd36"),
-"electric": SubResource("Animation_vjk4p"),
-"sting": SubResource("Animation_qn634")
+&"RESET": SubResource("Animation_cvd36"),
+&"electric": SubResource("Animation_vjk4p"),
+&"sting": SubResource("Animation_qn634")
 }
 
 [node name="Enemy_06_electric" type="RigidBody2D"]

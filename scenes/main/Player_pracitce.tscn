@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://c6ing7t585gyv"]
 
-[ext_resource type="Script" path="res://scenes/main/Player_pracitce.gd" id="1_epoay"]
+[ext_resource type="Script" uid="uid://ccom63evylj81" path="res://scenes/main/Player_pracitce.gd" id="1_epoay"]
 [ext_resource type="Texture2D" uid="uid://bvsr0p58inkx4" path="res://images/player_sprite.png" id="2_sm5ux"]
 [ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_v4su6"]
 [ext_resource type="AudioStream" uid="uid://emgb23sd1xak" path="res://music/軽いパンチ1.mp3" id="4_n23db"]
@@ -108,12 +108,12 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4tufb"]
 _data = {
-"RESET": SubResource("Animation_7ew47"),
-"dash": SubResource("Animation_10sir"),
-"drop": SubResource("Animation_ogsr7"),
-"jump": SubResource("Animation_q2gso"),
-"stop": SubResource("Animation_s5dwu"),
-"walk": SubResource("Animation_xm2g1")
+&"RESET": SubResource("Animation_7ew47"),
+&"dash": SubResource("Animation_10sir"),
+&"drop": SubResource("Animation_ogsr7"),
+&"jump": SubResource("Animation_q2gso"),
+&"stop": SubResource("Animation_s5dwu"),
+&"walk": SubResource("Animation_xm2g1")
 }
 
 [node name="Player" type="RigidBody2D"]
@@ -195,7 +195,7 @@ bus = &"Sound"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_4tufb")
+&"": SubResource("AnimationLibrary_4tufb")
 }
 autoplay = "stop"
 

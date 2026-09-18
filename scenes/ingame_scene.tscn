@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cik30de5gaaah"]
+[gd_scene format=3 uid="uid://cik30de5gaaah"]
 
 [ext_resource type="AudioStream" uid="uid://byq8vtc8omb5e" path="res://music/01_iwashiro_carpaccio1.mp3" id="1_p2whs"]
 [ext_resource type="PackedScene" uid="uid://bkk87o2ooo6at" path="res://ui/overlays/fade_overlay.tscn" id="1_y6ebv"]
 [ext_resource type="PackedScene" uid="uid://jyv4g54adkmo" path="res://ui/overlays/pause_overlay.tscn" id="3_8o178"]
 [ext_resource type="PackedScene" uid="uid://cjdhuqymuxw5u" path="res://scenes/main/Level01.tscn" id="3_aqr0l"]
-[ext_resource type="Texture2D" uid="uid://b5g3f3hta8bnv" path="res://images/bg_white.png" id="5_tjllx"]
+[ext_resource type="Texture2D" uid="uid://c487syt5fu3uw" path="res://images/bg_park.png" id="5_2577t"]
 
 [sub_resource type="GDScript" id="GDScript_gossy"]
 script/source = "extends Node2D
@@ -114,28 +114,28 @@ func _on_fade_overlay_on_complete_fade_out() -> void:
 	get_tree().change_scene_to_packed(next_scene)
 "
 
-[node name="IngameScene" type="Node2D"]
+[node name="IngameScene" type="Node2D" unique_id=1548850044]
 script = SubResource("GDScript_gossy")
 
-[node name="audio" type="Node2D" parent="."]
+[node name="audio" type="Node2D" parent="." unique_id=1268319866]
 
-[node name="audioBGM" type="AudioStreamPlayer" parent="audio"]
+[node name="audioBGM" type="AudioStreamPlayer" parent="audio" unique_id=264421176]
 stream = ExtResource("1_p2whs")
 volume_db = -5.0
 autoplay = true
 bus = &"Music"
 
-[node name="Game" type="Node2D" parent="."]
+[node name="Game" type="Node2D" parent="." unique_id=1799944922]
 z_index = 1
 
-[node name="Level01" parent="Game" instance=ExtResource("3_aqr0l")]
+[node name="Level01" parent="Game" unique_id=1495094907 instance=ExtResource("3_aqr0l")]
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1397084558]
 wait_time = 0.1
 
-[node name="TimeText" type="CanvasLayer" parent="."]
+[node name="TimeText" type="CanvasLayer" parent="." unique_id=1955554869]
 
-[node name="TimeLabel" type="Label" parent="TimeText"]
+[node name="TimeLabel" type="Label" parent="TimeText" unique_id=1022212692]
 offset_left = 13.0
 offset_top = 11.0
 offset_right = 85.0
@@ -143,23 +143,21 @@ offset_bottom = 34.0
 text = "Time: 0
 "
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1469997607]
 layer = 10
 
-[node name="FadeOverlay" parent="UI" instance=ExtResource("1_y6ebv")]
+[node name="FadeOverlay" parent="UI" unique_id=993143550 instance=ExtResource("1_y6ebv")]
 unique_name_in_owner = true
 visible = false
 
-[node name="PauseOverlay" parent="UI" instance=ExtResource("3_8o178")]
+[node name="PauseOverlay" parent="UI" unique_id=2043619467 instance=ExtResource("3_8o178")]
 unique_name_in_owner = true
 process_mode = 2
 visible = false
 
-[node name="BG" type="Sprite2D" parent="."]
-modulate = Color(0.286275, 0.305882, 0.392157, 1)
-z_index = -1
-position = Vector2(277, 153.5)
-scale = Vector2(772, 503)
-texture = ExtResource("5_tjllx")
+[node name="BgPark" type="Sprite2D" parent="." unique_id=1239229477]
+position = Vector2(288, 162)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_2577t")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

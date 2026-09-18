@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqivdh8s2iqeb"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_02_wall.gd" id="1_gnfrd"]
+[ext_resource type="Script" uid="uid://7y2x2qgdjixi" path="res://scenes/main/Enemy_02_wall.gd" id="1_gnfrd"]
 [ext_resource type="Texture2D" uid="uid://cynch03bnexmp" path="res://images/02_ぬりかべ.png" id="2_obpku"]
 [ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_imfnu"]
 

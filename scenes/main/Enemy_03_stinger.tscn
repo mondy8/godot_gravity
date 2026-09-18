@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://byts2l5q1hq4p"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_03_stinger.gd" id="1_xeys4"]
+[ext_resource type="Script" uid="uid://dfhmsn7iarrfl" path="res://scenes/main/Enemy_03_stinger.gd" id="1_xeys4"]
 [ext_resource type="Texture2D" uid="uid://cl84660f4fxlt" path="res://images/03_ローリングハリネズミ.png" id="2_igdff"]
 [ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_0xkwr"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://jyv4g54adkmo"]
 
-[ext_resource type="Script" path="res://ui/overlays/pause_overlay.gd" id="1_q2yda"]
+[ext_resource type="Script" uid="uid://3vcnvq8yx82k" path="res://ui/overlays/pause_overlay.gd" id="1_q2yda"]
 [ext_resource type="PackedScene" uid="uid://nbaodrlopo7y" path="res://ui/components/game_settings.tscn" id="2_n78uc"]
 [ext_resource type="FontFile" uid="uid://b7bje77ycxb31" path="res://fonts/CP Font.otf" id="3_w27bp"]
 [ext_resource type="AudioStream" uid="uid://cwi2buwbpupeg" path="res://music/カコ.mp3" id="4_bhgrp"]
