@@ -36,7 +36,6 @@ const AUDIO_ARRAY = [
 @onready var fade_overlay = %FadeOverlay
 @onready var pause_overlay = %PauseOverlay
 
-var level_signal_connected = false
 var current_level_buffer = 1
 var initial_volume_db
 var next_scene

@@ -6,7 +6,6 @@ extends Node2D
 @onready var shareButton = %ShareButton
 @onready var menuButton = %MenuButton
 @onready var fade_overlay = %FadeOverlay
-@onready var pause_overlay = %PauseOverlay
 @onready var audio_select := $audio_select
 @onready var audio_press := $audio_press
 

@@ -1,7 +1,5 @@
 extends Enemy
 
-@onready var audio_attack = $AudioElectricAttack
-
 # 脱落シグナル
 signal game_set(loser: String)
 # 着地後にシーソーに与えるシグナル

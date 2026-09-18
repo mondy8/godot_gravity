@@ -73,13 +73,6 @@ var characterNameArray = [
 	"マスター・ジョージ",
 ]
 
-var characterImageArray = [
-	enemy01_image,
-	enemy02_image,
-	enemy03_image,
-	enemy04_image,
-]
-
 # レベル変更シグナル
 signal change_level(newLevel: String)
 # タイマー操作シグナル

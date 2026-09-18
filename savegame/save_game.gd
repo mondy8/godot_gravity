@@ -5,7 +5,6 @@ const ENABLED = true
 const ENCRYPTION_KEY = "godotrules"
 const SAVE_GAME_TEMPLATE = "savegame.save"
 const SAVE_GROUP_NAME = "Persist"
-const NODE_DATA = "node_data"
 
 
 static func delete_save() -> void:

@@ -8,7 +8,6 @@ class_name Player
 @export var move_speed_max = 100
 @export var jump_speed: float = 400.0
 @export var drop_speed: float = 1500.0
-@export var drop_seesaw_speed: float = 150.0
 @export var base_jump_impulse_strength: float = 1000.0
 
 @onready var move_right_force = Vector2(move_speed, 0)
@@ -32,11 +31,9 @@ class_name Player
 
 @onready var can_jump_buffer := false
 @onready var is_dropping := false
-@onready var get_damaged := false
 @onready var move_right_interval := 0
 @onready var move_left_interval := 0
 @onready var dash_interval := 0
-@onready var gameset_interval := 0
 @onready var MOVE_FAST_LIMIT := 20
 @onready var dash_interval_limit := 30
 @onready var sprite_scale := Vector2(1, 1)

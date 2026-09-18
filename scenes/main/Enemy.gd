@@ -13,7 +13,6 @@ var base_jump_impulse_strength: float = 1000.0
 var jump_force = Vector2(0, -600)
 var direction = 1  # 初期の移動方向（右に移動）
 var jump_timer = 0  # ジャンプタイマー
-var jump_enable = false
 var can_jump_buffer := false
 var canvas
 
