@@ -1,12 +1,14 @@
 extends HSlider
 
-@export var property:String = ""
+@export var property: String = ""
 @onready var audio_slide := $"../../../audio_slide"
 
 var initialised = false
 
+
 func _ready():
 	value = UserSettings.get_value(property)
+
 
 func _on_float_range_game_settings_option_value_changed(val):
 	if !initialised:

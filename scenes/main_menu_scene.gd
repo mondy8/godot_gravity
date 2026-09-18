@@ -6,8 +6,8 @@ static var PRACTICE_SCENE = load("res://scenes/practice_scene.tscn")
 
 @onready var ball = preload("res://scenes/intro_ball_rigid_body_2d.tscn")
 
-@export var game_scene:PackedScene
-@export var settings_scene:PackedScene
+@export var game_scene: PackedScene
+@export var settings_scene: PackedScene
 
 @onready var overlay := %FadeOverlay
 @onready var new_game_button := %NewGameButton
@@ -20,40 +20,46 @@ static var PRACTICE_SCENE = load("res://scenes/practice_scene.tscn")
 
 var next_scene
 
+
 func _ready() -> void:
 	init()
+
 
 func _on_settings_button_pressed() -> void:
 	next_scene = SETTINGS_SCENE
 	overlay.fade_out()
 	audio_press.play()
-	
+
+
 func _on_play_button_pressed() -> void:
 	next_scene = GAME_SCENE
 	Global.init_game()
 	overlay.fade_out()
 	audio_press.play()
-	
+
+
 func _on_practice_button_pressed() -> void:
 	next_scene = PRACTICE_SCENE
 	overlay.fade_out()
 	audio_press.play()
 
+
 func _on_fade_overlay_on_complete_fade_out() -> void:
 	#if new_game and SaveGame.has_save():
-		#SaveGame.delete_save()
+	#SaveGame.delete_save()
 	get_tree().change_scene_to_packed(next_scene)
-	
+
+
 func init():
 	if SaveGame.has_save():
 		SaveGame.load_game(get_tree())
 	overlay.visible = true
 	next_scene = GAME_SCENE
-	
+
 	#new_game_button.disabled = game_scene == null
 	#settings_button.disabled = settings_scene == null
 	#continue_button.visible = SaveGame.has_save() and SaveGame.ENABLED
-	
+
 	# connect signals
 	new_game_button.pressed.connect(_on_play_button_pressed)
 	new_game_button.connect("focus_entered", Callable(self, "_on_button_entered"))
@@ -65,9 +71,9 @@ func init():
 	practice_button.connect("focus_entered", Callable(self, "_on_button_entered"))
 	practice_button.connect("mouse_entered", Callable(self, "_on_button_entered"))
 	overlay.on_complete_fade_out.connect(_on_fade_overlay_on_complete_fade_out)
-	
+
 	practice_button.grab_focus()
-	
+
 	var config = ConfigFile.new()
 	var err = config.load("user://scores.cfg")
 	best_score_text.visible = false
@@ -80,7 +86,7 @@ func init():
 			# Fetch the data for each section.
 			var best_time = config.get_value(player, "best_time")
 			var best_revenge = config.get_value(player, "best_revenge")
-			var result_text = "ベストタイム："  + str(best_time) + "秒 ベストやり直し回数：" + str(best_revenge) + "回"
+			var result_text = "ベストタイム：" + str(best_time) + "秒 ベストやり直し回数：" + str(best_revenge) + "回"
 			best_score_text.text = result_text
 			best_score_text.visible = true
 			Global.best_time = best_time
@@ -99,6 +105,7 @@ func _on_timer_timeout() -> void:
 	var time_value = randf_range(3, 5)
 	ball_timer.wait_time = time_value
 	add_child(ball_instance)
-	
+
+
 func _on_button_entered():
 	audio_select.play()

@@ -6,10 +6,12 @@ var SCREEN_WIDTH: float = 576.0  # 画面の幅
 var SCREEN_HEIGHT: float = 400.0  # 画面の高さ
 var parent
 
+
 func _ready() -> void:
 	position_arrow.visible = false
 	parent = get_parent()
-	
+
+
 func _process(delta: float) -> void:
 	# プレイヤーが画面外に見切れた時の矢印
 	if parent.global_position.y < -20:

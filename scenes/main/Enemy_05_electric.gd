@@ -3,12 +3,13 @@ extends Enemy
 @onready var audio_attack = $AudioElectricAttack
 
 # 脱落シグナル
-signal game_set(loser:String)
+signal game_set(loser: String)
 # 着地後にシーソーに与えるシグナル
-signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
+signal seesaw_collided(collided_position: Vector2, impulse: Vector2)
 
 var min_jump_time := 0.5
 var max_jump_time := 2.0
+
 
 func _ready():
 	super.set_canvas()
@@ -21,15 +22,15 @@ func _ready():
 	jump_timer = randomize_jump(min_jump_time, max_jump_time)
 	Global.enemy_bump_speed = 70
 	Global.player_get_damaged = true
-	
+
 
 func _physics_process(delta):
 	# 脱落
 	if position.y > SCREEN_HEIGHT:
 		set_freeze_enabled(true)
-		game_set.emit('enemy')
+		game_set.emit("enemy")
 		return
-		
+
 	# 画面の右側にいる場合、左に移動
 	if position.x > screen_width * 0.57:
 		direction = -1
@@ -42,7 +43,7 @@ func _physics_process(delta):
 	if jump_timer <= 0:
 		jump(self, jump_force)
 		jump_timer = randomize_jump(min_jump_time, max_jump_time)
-	
+
 	# メイン処理
 	var can_jump = check_jump()
 	if can_jump == true and can_jump_buffer == false:
@@ -52,7 +53,7 @@ func _physics_process(delta):
 		var adjusted_impulse_strength = base_jump_impulse_strength * (speed / 80)
 		var impulse = collision_normal * adjusted_impulse_strength
 		seesaw_collided.emit(collision_point, impulse)
-	
+
 	# 水平方向の移動
 	var force = Vector2(direction * move_speed, 0)
 	# 端にいる場合は戻ろうとする
@@ -60,9 +61,10 @@ func _physics_process(delta):
 		force = Vector2(direction * move_speed * 5, 0)
 	if !can_jump:
 		force *= 0.4
-	if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
+	if (
+		can_jump
+		and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max)
+	):
 		self.apply_impulse(force, Vector2(0, 0))
-		
+
 	can_jump_buffer = can_jump
-
-

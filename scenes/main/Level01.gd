@@ -21,7 +21,6 @@ extends Node2D
 @onready var enemy09_image = preload("res://images/09_バイク親玉_立ち絵.png")
 @onready var enemy10_image = preload("res://images/10_マスタージョージ_立ち絵.png")
 
-
 @onready var enemySpawner = $EnemySpawner
 @onready var playerSpawner = $PlayerSpawner
 @onready var player = $Player
@@ -58,7 +57,7 @@ var subTextsArray = [
 	["海鮮大好き", "おいしさ満点", "ほのかに香る潮の匂い"],
 	["たわやかな3トンの巨体", "この世の全てを喰い尽くす", "バウンシングナイスボディ"],
 	["ホップステップジャンピング", "トリップトゥザヘヴン", "ジャンピンジャックフラッシュ"],
-	["弟がお世話になったね", "爆走ブラザーズ", "兄としての誇りを胸に" ],
+	["弟がお世話になったね", "爆走ブラザーズ", "兄としての誇りを胸に"],
 	["最後の刺客", "世間は彼をこう呼ぶ", "銃刀法違反"]
 ]
 
@@ -83,9 +82,10 @@ var characterImageArray = [
 ]
 
 # レベル変更シグナル
-signal change_level(newLevel:String)
+signal change_level(newLevel: String)
 # タイマー操作シグナル
 signal start_timer(control: bool)
+
 
 func _ready() -> void:
 	# 初期化
@@ -99,42 +99,42 @@ func _ready() -> void:
 	playerHP2.visible = true
 	enemyHP1.visible = true
 	enemyHP2.visible = true
-	
+
 	# 敵の生成
 	if Global.current_level == 1:
-		enemy_instance= enemy01.instantiate()
+		enemy_instance = enemy01.instantiate()
 		characterSprite.texture = enemy01_image
 	elif Global.current_level == 2:
-		enemy_instance= enemy02.instantiate()
+		enemy_instance = enemy02.instantiate()
 		characterSprite.texture = enemy02_image
 	elif Global.current_level == 3:
-		enemy_instance= enemy03.instantiate()
+		enemy_instance = enemy03.instantiate()
 		characterSprite.texture = enemy03_image
 	elif Global.current_level == 4:
-		enemy_instance= enemy04.instantiate()
+		enemy_instance = enemy04.instantiate()
 		characterSprite.texture = enemy04_image
 	elif Global.current_level == 5:
-		enemy_instance= enemy05.instantiate()
+		enemy_instance = enemy05.instantiate()
 		characterSprite.texture = enemy05_image
 	elif Global.current_level == 6:
-		enemy_instance= enemy06.instantiate()
+		enemy_instance = enemy06.instantiate()
 		characterSprite.texture = enemy06_image
 	elif Global.current_level == 7:
-		enemy_instance= enemy07.instantiate()
+		enemy_instance = enemy07.instantiate()
 		characterSprite.texture = enemy07_image
-		enemy_instance.camera_shake.connect(_on_camera_shake) # カメラシェイク
+		enemy_instance.camera_shake.connect(_on_camera_shake)  # カメラシェイク
 	elif Global.current_level == 8:
-		enemy_instance= enemy08.instantiate()
+		enemy_instance = enemy08.instantiate()
 		characterSprite.texture = enemy08_image
-		enemy_instance.camera_shake.connect(_on_camera_shake) # カメラシェイク
+		enemy_instance.camera_shake.connect(_on_camera_shake)  # カメラシェイク
 	elif Global.current_level == 9:
-		enemy_instance= enemy09.instantiate()
+		enemy_instance = enemy09.instantiate()
 		characterSprite.texture = enemy09_image
 	elif Global.current_level == 10:
-		enemy_instance= enemy10.instantiate()
+		enemy_instance = enemy10.instantiate()
 		characterSprite.texture = enemy10_image
 	else:
-		enemy_instance= enemy01.instantiate()
+		enemy_instance = enemy01.instantiate()
 		characterSprite.texture = enemy01_image
 
 	# playerからシーソーへ与えるシグナル
@@ -145,7 +145,7 @@ func _ready() -> void:
 	enemy_instance.game_set.connect(_on_game_set)
 	# カメラシェイクシグナル
 	player.camera_shake.connect(_on_camera_shake)
-	
+
 	# レベルスタート演出
 	showLevelUI()
 	levelText.text = "Level " + str(Global.current_level)
@@ -154,29 +154,32 @@ func _ready() -> void:
 	var timer = self.get_tree().create_timer(3.5)
 	await timer.timeout
 	start_timer.emit(true)
-	
+
 	# 敵配置
 	enemy_instance.position = enemySpawner.position
 	enemy_instance.position.x = randf_range(Global.SCREEN_WIDTH / 4, Global.SCREEN_WIDTH * 3 / 4)
 	add_child(enemy_instance)
-	
+
+
 # シーソーへの衝突処理
-func _on_seesaw_collided(collided_position:Vector2, impulse:Vector2):
+func _on_seesaw_collided(collided_position: Vector2, impulse: Vector2):
 	var seesawPosition = seesawGround.to_local(collided_position)
-	
+
 	seesawGround.apply_impulse(seesawPosition, impulse)
 
+
 # ゲーム終了
-func _on_game_set(loser:String):
+func _on_game_set(loser: String):
 	if !is_game_set:
 		# 残機あり
-		if loser == 'player':
+		if loser == "player":
 			var player_hp_buffer = Global.player_hp
 			Global.player_hp -= 1
 			if (player_hp_buffer - 1) != 0:
 				playerHP2.visible = false
 				# playerの位置をスタートへ移動
-				# rigidbodyの移動 参考：https://stackoverflow.com/questions/77721286/set-a-rigid-body-position-in-godot-4?newreg=fb10af98801a484a947edbb845fe75c2
+				# rigidbodyの移動 参考：
+				# https://stackoverflow.com/questions/77721286/set-a-rigid-body-position-in-godot-4
 				PhysicsServer2D.body_set_state(
 					player.get_rid(),
 					PhysicsServer2D.BODY_STATE_TRANSFORM,
@@ -188,7 +191,7 @@ func _on_game_set(loser:String):
 			else:
 				playerHP1.visible = false
 				playerHP2.visible = false
-		elif loser == 'enemy':
+		elif loser == "enemy":
 			var enemy_hp_buffer = Global.enemy_hp
 			Global.enemy_hp -= 1
 			if (enemy_hp_buffer - 1) != 0:
@@ -204,14 +207,14 @@ func _on_game_set(loser:String):
 			else:
 				enemyHP1.visible = false
 				enemyHP2.visible = false
-			
+
 		# 残機なし
 		result.visible = true
 		start_timer.emit(false)
-		if loser == 'player':
+		if loser == "player":
 			audio_lose.play()
 			is_game_set = true
-			resultText.text = 'You Lose...'
+			resultText.text = "You Lose..."
 			resultButton.visible = true
 			resultButton.grab_focus()
 			return
@@ -221,20 +224,20 @@ func _on_game_set(loser:String):
 				is_game_set = true
 				Global.death_number_array[Global.current_level - 1] = Global.death_number
 				Global.death_number = 0
-				resultText.text = 'You Are the\nChampion!'
+				resultText.text = "You Are the\nChampion!"
 				var tween = get_tree().create_tween()
 				tween.tween_property(audio_bgm, "volume_db", -40, 2.5)
 				tween.set_ease(Tween.EASE_IN)
 				var timer = self.get_tree().create_timer(3)
 				await timer.timeout
 				change_level.emit(Global.current_level + 1)
-				
+
 			else:
 				audio_clear.play()
 				is_game_set = true
 				Global.death_number_array[Global.current_level - 1] = Global.death_number
 				Global.death_number = 0
-				resultText.text = 'You Win!'
+				resultText.text = "You Win!"
 				var tween = get_tree().create_tween()
 				tween.tween_property(audio_bgm, "volume_db", -40, 2.5)
 				tween.set_ease(Tween.EASE_IN)
@@ -242,6 +245,7 @@ func _on_game_set(loser:String):
 				await timer.timeout
 				change_level.emit(Global.current_level + 1)
 			return
+
 
 # ボタンが押されたときにレベルを変更
 func _on_result_button_pressed():
@@ -254,6 +258,7 @@ func _on_result_button_pressed():
 		Global.death_number += 1
 		change_level.emit(Global.current_level)
 
+
 # カメラシェイク
 func _on_camera_shake(duration: float, magnitude: float) -> void:
 	var tween = get_tree().create_tween()
@@ -265,6 +270,7 @@ func _on_camera_shake(duration: float, magnitude: float) -> void:
 
 	# 元の位置に戻す
 	tween.tween_property(camera, "offset", Vector2(288, 162), 0.1)
+
 
 func showLevelUI():
 	var tween1 = get_tree().create_tween()
@@ -293,12 +299,11 @@ func showLevelUI():
 	tween3.tween_property(mainText, "position:x", -500, 1)
 	tween4.tween_property(characterSprite, "position", Vector2(452, 241), 0.4)
 	tween4.tween_property(characterSprite, "position", Vector2(452, 241), 3)
-	tween4.tween_property(characterSprite, "position", Vector2(829,531), 0.4)
+	tween4.tween_property(characterSprite, "position", Vector2(829, 531), 0.4)
 	tween5.tween_property(hpUI, "position:y", -44, 3)
 	tween5.tween_property(hpUI, "position:y", 0, 0.4)
-	
+
 	audio_label_ui.play()
 	var timer = self.get_tree().create_timer(2.8)
 	await timer.timeout
 	audio_label_ui.play()
-	
