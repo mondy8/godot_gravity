@@ -1,6 +1,6 @@
 [gd_scene load_steps=38 format=3 uid="uid://djy45mtxqclga"]
 
-[ext_resource type="Script" path="res://scenes/main/Ending.gd" id="1_tt0on"]
+[ext_resource type="Script" uid="uid://dx1181soov014" path="res://scenes/main/Ending.gd" id="1_tt0on"]
 [ext_resource type="Texture2D" uid="uid://bvsr0p58inkx4" path="res://images/player_sprite.png" id="2_s3ffi"]
 [ext_resource type="AudioStream" uid="uid://c8ikcywqtwvxy" path="res://music/11_ending_iwashiro_ichigohime_no_kyuseishu.mp3" id="3_6ie28"]
 [ext_resource type="Texture2D" uid="uid://c2jupaank72lf" path="res://images/01_雑魚ボール.png" id="4_x3xqa"]
@@ -25,7 +25,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("characters/player:frame")
+tracks/0/path = NodePath("player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -37,7 +37,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("characters/player:scale")
+tracks/1/path = NodePath("player:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -54,7 +54,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("characters/player:frame")
+tracks/0/path = NodePath("player:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -66,7 +66,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("characters/player:scale")
+tracks/1/path = NodePath("player:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -78,8 +78,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ju4pw"]
 _data = {
-"RESET": SubResource("Animation_cckdc"),
-"player": SubResource("Animation_vm52a")
+&"RESET": SubResource("Animation_cckdc"),
+&"player": SubResource("Animation_vm52a")
 }
 
 [sub_resource type="Animation" id="Animation_g70pv"]
@@ -88,7 +88,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../characters/enemy03:rotation")
+tracks/0/path = NodePath("enemy03:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -105,7 +105,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../characters/enemy01:rotation")
+tracks/0/path = NodePath("enemy01:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -122,7 +122,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../characters/enemy03:rotation")
+tracks/0/path = NodePath("enemy03:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -134,9 +134,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0t80r"]
 _data = {
-"RESET": SubResource("Animation_g70pv"),
-"enemy01": SubResource("Animation_b7463"),
-"enemy03": SubResource("Animation_um5fd")
+&"RESET": SubResource("Animation_g70pv"),
+&"enemy01": SubResource("Animation_b7463"),
+&"enemy03": SubResource("Animation_um5fd")
 }
 
 [sub_resource type="Animation" id="Animation_wdnkt"]
@@ -144,7 +144,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy05:frame")
+tracks/0/path = NodePath("enemy05:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -156,7 +156,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy04:scale")
+tracks/1/path = NodePath("enemy04:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -173,7 +173,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy04:scale")
+tracks/0/path = NodePath("enemy04:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -190,7 +190,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy05:frame")
+tracks/0/path = NodePath("enemy05:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -202,9 +202,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a1j22"]
 _data = {
-"RESET": SubResource("Animation_wdnkt"),
-"enemy04": SubResource("Animation_2b3dj"),
-"enemy05": SubResource("Animation_81y4v")
+&"RESET": SubResource("Animation_wdnkt"),
+&"enemy04": SubResource("Animation_2b3dj"),
+&"enemy05": SubResource("Animation_81y4v")
 }
 
 [sub_resource type="Animation" id="Animation_gn5ko"]
@@ -212,7 +212,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy06:frame")
+tracks/0/path = NodePath("enemy06:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -224,7 +224,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy06:scale")
+tracks/1/path = NodePath("enemy06:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -236,7 +236,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../characters/enemy07:frame")
+tracks/2/path = NodePath("enemy07:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -248,7 +248,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../characters/enemy07:scale")
+tracks/3/path = NodePath("enemy07:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -260,7 +260,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../characters/enemy08:frame")
+tracks/4/path = NodePath("enemy08:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -272,7 +272,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../characters/enemy08:position")
+tracks/5/path = NodePath("enemy08:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -284,7 +284,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../characters/enemy08:scale")
+tracks/6/path = NodePath("enemy08:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -296,7 +296,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../characters/enemy08:rotation")
+tracks/7/path = NodePath("enemy08:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -308,7 +308,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../characters/enemy09:scale")
+tracks/8/path = NodePath("enemy09:scale")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -336,7 +336,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy06:frame")
+tracks/0/path = NodePath("enemy06:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -348,7 +348,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy06:scale")
+tracks/1/path = NodePath("enemy06:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -365,7 +365,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy07:frame")
+tracks/0/path = NodePath("enemy07:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -377,7 +377,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy07:scale")
+tracks/1/path = NodePath("enemy07:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -394,7 +394,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy08:frame")
+tracks/0/path = NodePath("enemy08:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -406,7 +406,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../characters/enemy08:position")
+tracks/1/path = NodePath("enemy08:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -418,7 +418,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../characters/enemy08:scale")
+tracks/2/path = NodePath("enemy08:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -430,7 +430,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../characters/enemy08:rotation")
+tracks/3/path = NodePath("enemy08:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -447,7 +447,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../characters/enemy09:scale")
+tracks/0/path = NodePath("enemy09:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -476,12 +476,12 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k76fg"]
 _data = {
-"RESET": SubResource("Animation_gn5ko"),
-"enemey06": SubResource("Animation_drq5u"),
-"enemy07": SubResource("Animation_3q417"),
-"enemy08": SubResource("Animation_28edq"),
-"enemy09": SubResource("Animation_kysra"),
-"enemy10": SubResource("Animation_h4fl1")
+&"RESET": SubResource("Animation_gn5ko"),
+&"enemey06": SubResource("Animation_drq5u"),
+&"enemy07": SubResource("Animation_3q417"),
+&"enemy08": SubResource("Animation_28edq"),
+&"enemy09": SubResource("Animation_kysra"),
+&"enemy10": SubResource("Animation_h4fl1")
 }
 
 [node name="Ending" type="Node2D"]
@@ -505,66 +505,72 @@ bus = &"Music"
 [node name="animations" type="Node2D" parent="."]
 
 [node name="anim_player" type="AnimationPlayer" parent="animations"]
-root_node = NodePath("../..")
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_ju4pw")
+&"": SubResource("AnimationLibrary_ju4pw")
 }
 autoplay = "player"
 
 [node name="anim_enemy01" type="AnimationPlayer" parent="animations"]
-root_node = NodePath("../anim_player")
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_0t80r")
+&"": SubResource("AnimationLibrary_0t80r")
 }
 autoplay = "enemy01"
 
 [node name="anim_enemy03" type="AnimationPlayer" parent="animations"]
-root_node = NodePath("../anim_player")
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_0t80r")
+&"": SubResource("AnimationLibrary_0t80r")
 }
 autoplay = "enemy03"
 
 [node name="anim_enemy04" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_a1j22")
+&"": SubResource("AnimationLibrary_a1j22")
 }
 autoplay = "enemy04"
 
 [node name="anim_enemy05" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_a1j22")
+&"": SubResource("AnimationLibrary_a1j22")
 }
 autoplay = "enemy05"
 
 [node name="anim_enemy06" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_k76fg")
+&"": SubResource("AnimationLibrary_k76fg")
 }
 autoplay = "enemey06"
 
 [node name="anim_enemy07" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_k76fg")
+&"": SubResource("AnimationLibrary_k76fg")
 }
 autoplay = "enemy07"
 
 [node name="anim_enemy08" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_k76fg")
+&"": SubResource("AnimationLibrary_k76fg")
 }
 autoplay = "enemy08"
 
 [node name="anim_enemy09" type="AnimationPlayer" parent="animations"]
+root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_k76fg")
+&"": SubResource("AnimationLibrary_k76fg")
 }
 autoplay = "enemy09"
 
 [node name="anim_enemy10" type="AnimationPlayer" parent="animations"]
 root_node = NodePath("../../characters")
 libraries = {
-"": SubResource("AnimationLibrary_k76fg")
+&"": SubResource("AnimationLibrary_k76fg")
 }
 autoplay = "enemy10"
 

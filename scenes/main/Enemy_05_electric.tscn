@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cf66fec1hhlvw"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_05_electric.gd" id="1_txp4l"]
+[ext_resource type="Script" uid="uid://dpgftqkaijwxm" path="res://scenes/main/Enemy_05_electric.gd" id="1_txp4l"]
 [ext_resource type="Texture2D" uid="uid://fdac712i8n14" path="res://images/05_電気ビリビリ_sprite.png" id="2_6sxh0"]
 [ext_resource type="AudioStream" uid="uid://c0md12l6ri8mp" path="res://music/Electric_Shock01-1(Long).mp3" id="4_jjleh"]
 [ext_resource type="AudioStream" uid="uid://qgkpxd5cni0p" path="res://music/Electric_Shock06-1(Short).mp3" id="4_qxcfh"]
@@ -42,8 +42,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lywh5"]
 _data = {
-"RESET": SubResource("Animation_qn634"),
-"electric": SubResource("Animation_vjk4p")
+&"RESET": SubResource("Animation_qn634"),
+&"electric": SubResource("Animation_vjk4p")
 }
 
 [node name="Enemy_05_electric" type="RigidBody2D"]

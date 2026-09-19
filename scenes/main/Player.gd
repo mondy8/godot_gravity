@@ -2,20 +2,19 @@ extends RigidBody2D
 
 class_name Player
 
-@onready var charcter_canvas = preload("res://scenes/main/CharacterCanvas.tscn")
+const CHARACTER_CANVAS = preload("res://scenes/main/CharacterCanvas.tscn")
 
 @export var move_speed: float = 1000.0
 @export var move_speed_max = 100
 @export var jump_speed: float = 400.0
 @export var drop_speed: float = 1500.0
-@export var drop_seesaw_speed: float = 150.0
 @export var base_jump_impulse_strength: float = 1000.0
 
 @onready var move_right_force = Vector2(move_speed, 0)
 @onready var move_left_force = Vector2(-move_speed, 0)
 @onready var jump_force = Vector2(0, -jump_speed)
 @onready var drop_force = Vector2(0, drop_speed)
-@onready var collision_normal = Vector2(0, -1)
+var collision_normal = Vector2(0, -1)
 
 @onready var ray = $Raycast
 @onready var ray_right_foot = $Raycast/RightFootRayCast2D
@@ -30,51 +29,45 @@ class_name Player
 @onready var sprite = $Sprite2D
 @onready var animation = $AnimationPlayer
 
-@onready var can_jump_buffer := false
-@onready var is_dropping := false
-@onready var get_damaged := false
-@onready var move_right_interval := 0
-@onready var move_left_interval := 0
-@onready var dash_interval := 0
-@onready var gameset_interval := 0
-@onready var MOVE_FAST_LIMIT := 20
-@onready var dash_interval_limit := 30
-@onready var sprite_scale := Vector2(1, 1)
-@onready var sprite_amplitude := 0.01  # Y軸の振幅
-@onready var sprite_frequency := 3.0   # 周波数（1秒あたりのサイクル数）
-@onready var time_elapsed := 0.0
-@onready var dash_speed := 20.0
+var can_jump_buffer := false
+var is_dropping := false
+var move_right_interval := 0
+var move_left_interval := 0
+var dash_interval := 0
+const MOVE_FAST_LIMIT := 20
+const DASH_INTERVAL_LIMIT := 30
+var sprite_scale := Vector2(1, 1)
+var sprite_amplitude := 0.01  # Y軸の振幅
+var sprite_frequency := 3.0  # 周波数（1秒あたりのサイクル数）
+var time_elapsed := 0.0
+var dash_speed := 20.0
 var canvas
 
-
 # 着地後にシーソーに与えるシグナル
-signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
+signal seesaw_collided(collided_position: Vector2, impulse: Vector2)
 # 脱落シグナル
-signal game_set(winner:String)
+signal game_set(winner: String)
 # カメラシェイクシグナル
 signal camera_shake(duration: float, magnitude: float)
 
+
 func _ready():
 	sprite_scale = sprite.scale
-	canvas = charcter_canvas.instantiate()
+	canvas = CHARACTER_CANVAS.instantiate()
 	var position_arrow = canvas.get_node("PositionArrow")
 	position_arrow.modulate = Color(0.85, 0.85, 0.85, 1)
 	add_child(canvas)
 
+
 func _physics_process(delta):
-	# 脱落
-	if position.y > 400 and !Global.player_fall:
-		Global.player_fall = true
-		position.y = 399
-		set_freeze_enabled(true)
-		game_set.emit('player')
+	if handle_fall():
 		return
-	
+
 	# ダッシュ判定用
 	move_right_interval += 1
 	move_left_interval += 1
 	dash_interval += 1
-	
+
 	var can_jump = check_jump()
 	# ジャンプ着地判定
 	if can_jump and can_jump_buffer == false:
@@ -84,39 +77,65 @@ func _physics_process(delta):
 		var adjusted_impulse_strength = base_jump_impulse_strength * (speed / 1000)
 		var impulse = collision_normal * adjusted_impulse_strength
 		if is_dropping:
-			if collision_point.x < Global.SCREEN_WIDTH / 6 or collision_point.x > Global.SCREEN_WIDTH * 5 / 6:
+			if (
+				collision_point.x < Global.SCREEN_WIDTH / 6
+				or collision_point.x > Global.SCREEN_WIDTH * 5 / 6
+			):
 				impulse = Vector2(0, -20000)
-			elif collision_point.x < Global.SCREEN_WIDTH * 2 / 6 or collision_point.x > Global.SCREEN_WIDTH * 4 / 6:
+			elif (
+				collision_point.x < Global.SCREEN_WIDTH * 2 / 6
+				or collision_point.x > Global.SCREEN_WIDTH * 4 / 6
+			):
 				impulse = Vector2(0, -30000)
-			else: 
+			else:
 				impulse = Vector2(0, -50000)
-				
+
 			is_dropping = false
 			camera_shake.emit(0.5, 6.0)
 		else:
 			animation.play("stop")
-			
+
 		seesaw_collided.emit(collision_point, impulse)
 	elif can_jump:
 		# リズムを取る
 		time_elapsed += delta
-		var scale_offset = sprite_scale.y + sin(time_elapsed * sprite_frequency * 2.0 * PI) * sprite_amplitude
+		var scale_offset = (
+			sprite_scale.y + sin(time_elapsed * sprite_frequency * 2.0 * PI) * sprite_amplitude
+		)
 		sprite.scale.y = scale_offset
-	
+
 	# プレイヤーの移動
 	var force = await input_process(can_jump)
 	self.apply_impulse(force, Vector2(0, 0))
-	
+
 	can_jump_buffer = can_jump
-	
+
 	check_enemy_bump()
-	
+
+
+# 脱落処理。処理したら true を返す（練習モードは Player_practice で差し替える）
+func handle_fall() -> bool:
+	if position.y > 400 and !Global.player_fall:
+		Global.player_fall = true
+		position.y = 399
+		set_freeze_enabled(true)
+		game_set.emit("player")
+		return true
+	return false
+
+
 # ジャンプ中か判定
 func check_jump():
-	if ray_right_foot.is_colliding() or ray_left_foot.is_colliding() or ray_right_side.is_colliding() or ray_left_side.is_colliding():
+	if (
+		ray_right_foot.is_colliding()
+		or ray_left_foot.is_colliding()
+		or ray_right_side.is_colliding()
+		or ray_left_side.is_colliding()
+	):
 		return true
-	else: 
+	else:
 		return false
+
 
 # 敵と衝突中の処理
 func check_enemy_bump():
@@ -143,11 +162,12 @@ func check_enemy_bump():
 					tween.play()
 					camera_shake.emit(0.2, 6.0)
 
+
 # キー入力判定
-func input_process(can_jump:bool) -> Vector2:
+func input_process(can_jump: bool) -> Vector2:
 	var velocity = linear_velocity
 	var speed = velocity.length()
-	
+
 	# ダッシュ中
 	if speed > 1000:
 		create_ghost()
@@ -155,10 +175,10 @@ func input_process(can_jump:bool) -> Vector2:
 			return move_left_force * dash_speed
 		if move_left_interval == MOVE_FAST_LIMIT / 2:
 			return move_right_force * dash_speed
-	
+
 	# ダッシュ判定
 	if Input.is_action_just_pressed("move_right"):
-		if dash_interval > dash_interval_limit and move_right_interval < MOVE_FAST_LIMIT:
+		if dash_interval > DASH_INTERVAL_LIMIT and move_right_interval < MOVE_FAST_LIMIT:
 			move_right_interval = 0
 			audio_dashed.play()
 			animation.play("dash")
@@ -167,7 +187,7 @@ func input_process(can_jump:bool) -> Vector2:
 		move_right_interval = 0
 		sprite.set_flip_h(false)
 	if Input.is_action_just_pressed("move_left"):
-		if dash_interval > dash_interval_limit and move_left_interval < MOVE_FAST_LIMIT:
+		if dash_interval > DASH_INTERVAL_LIMIT and move_left_interval < MOVE_FAST_LIMIT:
 			move_left_interval = 0
 			audio_dashed.play()
 			animation.play("dash")
@@ -175,7 +195,7 @@ func input_process(can_jump:bool) -> Vector2:
 			return move_left_force * dash_speed
 		move_left_interval = 0
 		sprite.set_flip_h(true)
-		
+
 	# ジャンプしていない時
 	if can_jump:
 		if Input.is_action_pressed("move_right") and self.linear_velocity.x < move_speed_max:
@@ -188,19 +208,19 @@ func input_process(can_jump:bool) -> Vector2:
 			audio_jump.play()
 			animation.play("jump")
 			return jump_force
-		
+
 	# ジャンプ中
 	else:
 		if Input.is_action_pressed("move_right") and self.linear_velocity.x < move_speed_max:
-			return Vector2(move_right_force.x/6, 0)
+			return Vector2(move_right_force.x / 6, 0)
 		elif Input.is_action_pressed("move_left") and self.linear_velocity.x > -move_speed_max:
-			return Vector2(move_left_force.x/6, 0)
+			return Vector2(move_left_force.x / 6, 0)
 		elif Input.is_action_just_pressed("move_down") and !is_dropping:
 			is_dropping = true
 			animation.play("drop")
 			set_freeze_enabled(true)
 			var tween = get_tree().create_tween()
-			tween.tween_property(self, "rotation", -3 *  2 * PI, 0.5)
+			tween.tween_property(self, "rotation", -3 * 2 * PI, 0.5)
 			tween.set_ease(Tween.EASE_IN_OUT)
 			tween.set_trans(Tween.TRANS_QUINT)
 			tween.play()
@@ -209,8 +229,9 @@ func input_process(can_jump:bool) -> Vector2:
 			audio_drop.play()
 			set_freeze_enabled(false)
 			return drop_force
-			
+
 	return Vector2(0, 0)
+
 
 # ゴーストスプライト
 func create_ghost():
@@ -234,8 +255,9 @@ func create_ghost():
 	tween.tween_property(ghost_sprite, "modulate:a", 0, 0.2)
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_QUINT)
-	tween.connect("finished", Callable(self, "_on_tween_completed").bind(ghost_sprite, tween))
+	tween.finished.connect(_on_tween_completed.bind(ghost_sprite, tween))
 	tween.play()
+
 
 # フェードアウトが完了したらゴーストスプライトを削除
 func _on_tween_completed(ghost_sprite, tween):

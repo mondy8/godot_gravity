@@ -3,15 +3,16 @@ extends Enemy
 @onready var audio_attack = $AudioAttack
 
 # 脱落シグナル
-signal game_set(loser:String)
+signal game_set(loser: String)
 # 着地後にシーソーに与えるシグナル
-signal seesaw_collided(collided_position:Vector2, impulse:Vector2)
+signal seesaw_collided(collided_position: Vector2, impulse: Vector2)
 # カメラシェイクシグナル
 signal camera_shake(duration: float, magnitude: float)
 
 var min_jump_time := 0.5
 var max_jump_time := 2.0
 var init_sprite_scale := Vector2(1, 1)
+
 
 func _ready():
 	super.set_canvas()
@@ -24,22 +25,23 @@ func _ready():
 	jump_timer = randomize_jump(min_jump_time, max_jump_time)
 	Global.enemy_bump_speed = 0
 	Global.player_get_damaged = false
-	
+
 	init_sprite_scale = sprite.scale
+
 
 func _physics_process(delta):
 	# 脱落
-	if position.y > SCREEN_HEIGHT:
+	if position.y > Global.SCREEN_HEIGHT:
 		set_freeze_enabled(true)
-		game_set.emit('enemy')
+		game_set.emit("enemy")
 		return
-		
+
 	# 画面の右側にいる場合、左に移動
-	if position.x > screen_width * 0.7:
+	if position.x > Global.SCREEN_WIDTH * 0.7:
 		direction = -1
 		sprite.set_flip_h(false)
 	# 画面の左側にいる場合、右に移動
-	elif position.x < screen_width * 0.3:
+	elif position.x < Global.SCREEN_WIDTH * 0.3:
 		direction = 1
 		sprite.set_flip_h(true)
 
@@ -48,7 +50,7 @@ func _physics_process(delta):
 	if jump_timer <= 0:
 		jump(self, jump_force)
 		jump_timer = randomize_jump(min_jump_time, max_jump_time)
-	
+
 	# メイン処理
 	var can_jump = check_jump()
 	if can_jump == true and can_jump_buffer == false:
@@ -61,16 +63,19 @@ func _physics_process(delta):
 		audio_attack.play()
 		camera_shake.emit(0.5, 6.0)
 		var tween = get_tree().create_tween()
-		tween.tween_property(sprite, "scale", Vector2(init_sprite_scale.x, init_sprite_scale.y * 0.7), 0.1)
+		tween.tween_property(
+			sprite, "scale", Vector2(init_sprite_scale.x, init_sprite_scale.y * 0.7), 0.1
+		)
 		tween.tween_property(sprite, "scale", init_sprite_scale, 0.3)
 		tween.set_ease(Tween.EASE_IN_OUT)
 		tween.set_trans(Tween.TRANS_QUINT)
-	
+
 	# 水平方向の移動
 	var force = Vector2(direction * move_speed, 0)
-	if can_jump and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max):
+	if (
+		can_jump
+		and (self.linear_velocity.x < move_speed_max or self.linear_velocity.x > -move_speed_max)
+	):
 		self.apply_impulse(force, Vector2(0, 0))
-		
+
 	can_jump_buffer = can_jump
-
-

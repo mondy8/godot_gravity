@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cea6a1k8kigir"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_01_ball.gd" id="1_ewqty"]
+[ext_resource type="Script" uid="uid://cyddebgsmwucy" path="res://scenes/main/Enemy_01_ball.gd" id="1_ewqty"]
 [ext_resource type="Texture2D" uid="uid://c2jupaank72lf" path="res://images/01_雑魚ボール.png" id="2_uc3rw"]
 [ext_resource type="AudioStream" uid="uid://dsvr0i7ggurcr" path="res://music/キックの素振り2.mp3" id="3_51e7g"]
 

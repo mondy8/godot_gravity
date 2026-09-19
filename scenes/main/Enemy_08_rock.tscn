@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b7j2aiwgkxprr"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_08_rock.gd" id="1_lsnxe"]
+[ext_resource type="Script" uid="uid://b8wwkolc1dl1j" path="res://scenes/main/Enemy_08_rock.gd" id="1_lsnxe"]
 [ext_resource type="Texture2D" uid="uid://brbif62r488wp" path="res://images/08_デカイワ_sprite.png" id="2_b3o7s"]
 [ext_resource type="AudioStream" uid="uid://b5rcf41ja45ac" path="res://music/ロボットを殴る1.mp3" id="4_1k1sc"]
 
@@ -73,10 +73,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lywh5"]
 _data = {
-"RESET": SubResource("Animation_qn634"),
-"default": SubResource("Animation_28glj"),
-"electric": SubResource("Animation_vjk4p"),
-"jump": SubResource("Animation_qayrw")
+&"RESET": SubResource("Animation_qn634"),
+&"default": SubResource("Animation_28glj"),
+&"electric": SubResource("Animation_vjk4p"),
+&"jump": SubResource("Animation_qayrw")
 }
 
 [node name="Enemy_08_rock" type="RigidBody2D"]

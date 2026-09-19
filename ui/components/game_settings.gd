@@ -10,7 +10,8 @@ extends VBoxContainer
 @onready var audio_slide := $audio_slide
 
 ## maps the index of a locale to the locale itself
-var locales:PackedStringArray = []
+var locales: PackedStringArray = []
+
 
 func _ready() -> void:
 	self.locales = TranslationServer.get_loaded_locales()
@@ -24,7 +25,7 @@ func _ready() -> void:
 			select_index = idx
 		idx += 1
 	language_dropdown.select(select_index)
-			
+
 
 func _on_master_volume_toggle_toggled(button_pressed: bool) -> void:
 	audio_slide.play()

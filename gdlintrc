@@ -1,0 +1,33 @@
+# gdlint 設定 (gdtoolkit 4.x) — https://github.com/Scony/godot-gdscript-toolkit
+#
+# 方針: 既存コードのスタイルを尊重し、整形(gdformat)後にエラー0で通る状態を基準とする。
+# 厳しくしたくなったら、下の disable を1つずつ外して段階的に直していくとよい。
+#
+# 実行: ./tools/gdlint.sh  (設定ファイル名は "gdlintrc"。先頭にドットを付けると読まれない)
+
+# --- 命名規則 ---
+# 本プロジェクトは camelCase のメンバ変数 (shareButton, endingText 等) が多いため、
+# snake_case / camelCase / SCREAMING_SNAKE_CASE のいずれも許容する。
+class-variable-name: '_?[a-zA-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*'
+class-load-variable-name: '_?[a-zA-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*'
+function-variable-name: '_?[a-zA-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*'
+function-argument-name: '_?[a-zA-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*'
+loop-variable-name: '_?[a-zA-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*'
+function-name: '(_on_([A-Z][a-z0-9]*)+(_[a-z0-9]+)*|_?[a-zA-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*)'
+# class_name Player_practice のようにアンダースコア入りも許容
+class-name: '[A-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*'
+sub-class-name: '_?[A-Z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*'
+
+# gdformat の折り返し幅と揃える
+max-line-length: 100
+
+disable:
+  # signal/enum/const/export/var/onready/func の並び順チェック。既存全ファイルが該当するため無効。
+  - class-definitions-order
+  # _process(delta) など Godot のコールバックで未使用引数が出るため無効。
+  - unused-argument
+  # 既存の early-return スタイルと衝突するため無効。
+  - no-else-return
+  - no-elif-return
+  # Player.input_process() が該当。状態分岐が多い設計のため無効。
+  - max-returns

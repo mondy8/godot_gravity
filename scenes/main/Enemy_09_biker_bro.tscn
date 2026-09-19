@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5envutcrn27v"]
 
-[ext_resource type="Script" path="res://scenes/main/Enemy_09_biker_bro.gd" id="1_6rc5c"]
+[ext_resource type="Script" uid="uid://drly0ou0amsp" path="res://scenes/main/Enemy_09_biker_bro.gd" id="1_6rc5c"]
 [ext_resource type="Texture2D" uid="uid://bdhu46fxr7drw" path="res://images/09_バイク親玉.png" id="2_xyhe6"]
 [ext_resource type="AudioStream" uid="uid://b5rcf41ja45ac" path="res://music/ロボットを殴る1.mp3" id="3_ljp8c"]
 [ext_resource type="AudioStream" uid="uid://ba8bhb4p4twb" path="res://music/車のクラクション.mp3" id="5_dqow8"]
